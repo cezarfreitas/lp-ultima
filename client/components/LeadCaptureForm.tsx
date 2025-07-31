@@ -61,7 +61,7 @@ export default function LeadCaptureForm() {
         setFormData({
           name: '',
           whatsapp: '',
-          has_cnpj: 'sim',
+          has_cnpj: '' as any,
           store_type: undefined,
           cep: '',
         });
