@@ -254,7 +254,7 @@ export default function LeadCaptureForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={submitting || formData.has_cnpj !== "sim"}
+        disabled={submitting || !formData.has_cnpj || !formData.name || !formData.whatsapp}
         className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
       >
         {submitting ? (
@@ -262,8 +262,12 @@ export default function LeadCaptureForm() {
             <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
             Enviando...
           </div>
-        ) : (
+        ) : formData.has_cnpj === "nao" ? (
+          "Quero meu cupom de 10%"
+        ) : formData.has_cnpj === "sim" ? (
           "Quero ser Lojista Ecko"
+        ) : (
+          "Enviar"
         )}
       </button>
 
