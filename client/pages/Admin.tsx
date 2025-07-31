@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { HeroSectionData, HeroUpdateRequest } from "@shared/hero";
+import AdminAuth from "../components/AdminAuth";
 
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
   const [formData, setFormData] = useState<HeroUpdateRequest>({});
   const [loading, setLoading] = useState(true);
@@ -9,8 +11,27 @@ export default function Admin() {
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
   useEffect(() => {
-    fetchHeroData();
+    // Check if already authenticated
+    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    setIsAuthenticated(authenticated);
+
+    if (authenticated) {
+      fetchHeroData();
+    } else {
+      setLoading(false);
+    }
   }, []);
+
+  const handleAuthenticated = () => {
+    setIsAuthenticated(true);
+    setLoading(true);
+    fetchHeroData();
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("admin_authenticated");
+    setIsAuthenticated(false);
+  };
 
   const fetchHeroData = async () => {
     try {
