@@ -120,10 +120,13 @@ export default function LeadCaptureForm() {
           </svg>
         </div>
         <h3 className="text-lg font-semibold text-green-800 mb-2">
-          Obrigado pelo seu interesse!
+          {isConsumerSubmission ? "Cupom enviado!" : "Obrigado pelo seu interesse!"}
         </h3>
         <p className="text-green-700 mb-4">
-          Seus dados foram enviados com sucesso.
+          {isConsumerSubmission
+            ? "Vamos enviar uma mensagem no seu WhatsApp com o cupom de desconto de 10%."
+            : "Recebemos seus dados e entraremos em contato em breve."
+          }
         </p>
         <button
           onClick={() => setSubmitted(false)}
