@@ -321,7 +321,7 @@ export default function Index() {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
-                      className="w-6 h-6 text-red-600"
+                      className="w-5 h-5 md:w-6 md:h-6 text-red-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -335,12 +335,12 @@ export default function Index() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1 md:mb-2">
                       {renderTextWithHighlights(
                         formContent?.benefit1_title || "",
                       )}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                       {renderTextWithHighlights(
                         formContent?.benefit1_description || "",
                       )}
@@ -352,7 +352,7 @@ export default function Index() {
                 <div className="flex items-start space-x-3 md:space-x-4">
                   <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
-                      className="w-6 h-6 text-red-600"
+                      className="w-5 h-5 md:w-6 md:h-6 text-red-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -366,12 +366,12 @@ export default function Index() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1 md:mb-2">
                       {renderTextWithHighlights(
                         formContent?.benefit2_title || "",
                       )}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                       {renderTextWithHighlights(
                         formContent?.benefit2_description || "",
                       )}
@@ -383,7 +383,7 @@ export default function Index() {
                 <div className="flex items-start space-x-3 md:space-x-4">
                   <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
-                      className="w-6 h-6 text-red-600"
+                      className="w-5 h-5 md:w-6 md:h-6 text-red-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -397,12 +397,12 @@ export default function Index() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1 md:mb-2">
                       {renderTextWithHighlights(
                         formContent?.benefit3_title || "",
                       )}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                       {renderTextWithHighlights(
                         formContent?.benefit3_description || "",
                       )}
@@ -414,7 +414,7 @@ export default function Index() {
                 <div className="flex items-start space-x-3 md:space-x-4">
                   <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
-                      className="w-6 h-6 text-red-600"
+                      className="w-5 h-5 md:w-6 md:h-6 text-red-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -428,12 +428,12 @@ export default function Index() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1 md:mb-2">
                       {renderTextWithHighlights(
                         formContent?.benefit4_title || "",
                       )}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                       {renderTextWithHighlights(
                         formContent?.benefit4_description || "",
                       )}
