@@ -43,8 +43,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin-legacy" element={<AdminHeroTabbed />} />
+          <Route path="/admin" element={<AdminHeroTabbed />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/design" element={<AdminDesign />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
           <Route path="/admin/form-content" element={<AdminFormContent />} />
