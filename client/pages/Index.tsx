@@ -4,6 +4,7 @@ import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
 import LeadCaptureForm from "../components/LeadCaptureForm";
 import TestimonialsSection from "../components/TestimonialsSection";
+import ShowroomSection from "../components/ShowroomSection";
 import FAQSection from "../components/FAQSection";
 
 export default function Index() {
