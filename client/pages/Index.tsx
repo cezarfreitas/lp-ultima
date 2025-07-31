@@ -338,15 +338,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(
-                        formContent?.benefit4_title || "Crescimento Rápido",
-                      )}
+                      {renderTextWithHighlights(formContent?.benefit4_title || "")}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(
-                        formContent?.benefit4_description ||
-                          "Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.",
-                      )}
+                      {renderTextWithHighlights(formContent?.benefit4_description || "")}
                     </p>
                   </div>
                 </div>
