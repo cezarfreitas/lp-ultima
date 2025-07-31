@@ -206,7 +206,7 @@ export default function LeadCaptureForm() {
           required
           value={formData.name}
           onChange={(e) => handleInputChange("name", e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors text-gray-800 bg-white"
           placeholder="Seu nome completo"
         />
       </div>
@@ -221,7 +221,7 @@ export default function LeadCaptureForm() {
           required
           value={formData.whatsapp}
           onChange={(e) => handleInputChange("whatsapp", e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors text-gray-800 bg-white"
           placeholder="(11) 99999-9999"
         />
       </div>
@@ -305,7 +305,7 @@ export default function LeadCaptureForm() {
               onChange={(e) =>
                 handleInputChange("store_type", e.target.value as any)
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors text-gray-800 bg-white"
             >
               <option value="">Selecione o tipo da sua loja</option>
               <option value="fisica">Física</option>
@@ -325,7 +325,7 @@ export default function LeadCaptureForm() {
               required
               value={formData.cep}
               onChange={(e) => handleInputChange("cep", e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors text-gray-800 bg-white"
               placeholder="00000-000"
               maxLength={9}
             />
@@ -370,7 +370,7 @@ export default function LeadCaptureForm() {
       {/* Privacy Notice - Only show if has CNPJ */}
       {formData.has_cnpj === "sim" && (
         <p className="text-xs text-gray-500 text-center leading-relaxed">
-          Ao enviar este formulário, você concorda com nossa política de
+          Ao enviar este formulário, você concorda com nossa pol��tica de
           privacidade. Seus dados serão utilizados apenas para entrar em contato
           sobre oportunidades de parceria.
         </p>
