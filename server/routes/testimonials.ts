@@ -33,7 +33,13 @@ const TestimonialUpdateSchema = z.object({
   role: z.string().min(1).optional(),
   company: z.string().min(1).optional(),
   content: z.string().min(10).optional(),
-  avatar_url: z.string().url().optional().or(z.literal("")),
+  avatar_url: z.string().refine(
+    (url) => {
+      if (!url) return true; // Empty string is valid
+      return url.startsWith('/') || z.string().url().safeParse(url).success;
+    },
+    { message: "URL do avatar inválida" }
+  ).optional().or(z.literal("")),
   rating: z.number().int().min(1).max(5).optional(),
   is_active: z.boolean().optional(),
   position: z.number().int().min(1).optional(),
