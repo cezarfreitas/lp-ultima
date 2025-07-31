@@ -54,6 +54,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar perguntas frequentes",
     },
     {
+      name: "Showroom",
+      href: "/admin/showroom",
+      icon: "🎬",
+      description: "Gerenciar showroom e experiências",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
