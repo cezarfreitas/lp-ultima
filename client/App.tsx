@@ -47,6 +47,7 @@ const App = () => (
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
           <Route path="/migrate-testimonials" element={<MigrateTestimonials />} />
+          <Route path="/migrate-faq" element={<MigrateFAQ />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
