@@ -21,30 +21,36 @@ const LeadUpdateSchema = z.object({
 });
 
 // Webhook function
-async function sendWebhook(lead: any) {
+async function sendWebhook(lead: any, type: 'lojista' | 'consumidor' = 'lojista') {
   try {
-    const webhookUrl = process.env.WEBHOOK_URL;
-    if (!webhookUrl) return;
+    // Get webhook settings from database
+    const [settingsRows] = await pool.execute('SELECT * FROM webhook_settings LIMIT 1');
+    const settings = (settingsRows as any[])[0];
 
-    const response = await fetch(webhookUrl, {
+    if (!settings || !settings.webhook_enabled || !settings.webhook_url) {
+      return;
+    }
+
+    const response = await fetch(settings.webhook_url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Webhook-Secret': process.env.WEBHOOK_SECRET || '',
+        'X-Webhook-Secret': settings.webhook_secret || '',
       },
       body: JSON.stringify({
-        event: 'new_lead',
+        event: type === 'lojista' ? 'new_lead' : 'consumer_detected',
+        type: type,
         data: lead,
         timestamp: new Date().toISOString(),
       }),
     });
 
-    if (response.ok) {
+    if (response.ok && type === 'lojista') {
       await pool.execute(
         'UPDATE leads SET webhook_sent = TRUE WHERE id = ?',
         [lead.id]
       );
-    } else {
+    } else if (!response.ok && type === 'lojista') {
       await pool.execute(
         'UPDATE leads SET webhook_attempts = webhook_attempts + 1 WHERE id = ?',
         [lead.id]
@@ -52,10 +58,12 @@ async function sendWebhook(lead: any) {
     }
   } catch (error) {
     console.error('Webhook error:', error);
-    await pool.execute(
-      'UPDATE leads SET webhook_attempts = webhook_attempts + 1 WHERE id = ?',
-      [lead.id]
-    );
+    if (type === 'lojista') {
+      await pool.execute(
+        'UPDATE leads SET webhook_attempts = webhook_attempts + 1 WHERE id = ?',
+        [lead.id]
+      );
+    }
   }
 }
 
