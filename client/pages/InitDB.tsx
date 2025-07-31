@@ -16,12 +16,23 @@ export default function InitDB() {
         },
       });
 
-      const data = await response.json();
+      // Check if response has content to read
+      const contentType = response.headers.get('content-type');
+      let data = null;
+
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch {
+          // If JSON parsing fails, use default response
+          data = null;
+        }
+      }
 
       if (response.ok) {
         setMessage({type: 'success', text: 'Banco de dados inicializado com sucesso!'});
       } else {
-        setMessage({type: 'error', text: data.error || 'Erro ao inicializar banco'});
+        setMessage({type: 'error', text: data?.error || 'Erro ao inicializar banco'});
       }
     } catch (error) {
       console.error("Error initializing database:", error);
