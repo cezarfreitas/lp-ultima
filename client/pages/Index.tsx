@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { HeroSectionData } from "@shared/hero";
+import { DesignSettings } from "@shared/design";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
+  const [designData, setDesignData] = useState<DesignSettings | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchHeroData();
+    fetchDesignData();
   }, []);
 
   // Function to render text with highlights
@@ -44,6 +47,18 @@ export default function Index() {
       }
     } catch (error) {
       console.error("Error fetching hero data:", error);
+    }
+  };
+
+  const fetchDesignData = async () => {
+    try {
+      const response = await fetch("/api/design");
+      if (response.ok) {
+        const data = await response.json();
+        setDesignData(data);
+      }
+    } catch (error) {
+      console.error("Error fetching design data:", error);
     } finally {
       setLoading(false);
     }
