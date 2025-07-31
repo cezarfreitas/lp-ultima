@@ -4,6 +4,7 @@ import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import ImageUploadCompressed from "../components/ImageUploadCompressed";
 import MultiImageUploadHybrid from "../components/MultiImageUploadHybrid";
+import UploadSettings, { UploadSettings as UploadSettingsType } from "../components/UploadSettings";
 
 type Tab = "textos" | "fotos";
 
