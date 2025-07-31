@@ -231,7 +231,8 @@ export default function Index() {
               Nossos {renderTextWithHighlights("[destaque]Produtos[/destaque]")}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Descubra a coleção exclusiva Ecko com estilo urbano autêntico e qualidade premium
+              Descubra a coleção exclusiva Ecko com estilo urbano autêntico e
+              qualidade premium
             </p>
             <div className="flex justify-center mt-8">
               <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
@@ -388,7 +389,8 @@ export default function Index() {
           {/* Call to Action */}
           <div className="text-center mt-12 lg:mt-16">
             <p className="text-lg text-gray-600 mb-6">
-              Como lojista Ecko, você terá acesso a todos esses produtos com preços especiais
+              Como lojista Ecko, você terá acesso a todos esses produtos com
+              preços especiais
             </p>
             <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
               Ver Catálogo Completo
