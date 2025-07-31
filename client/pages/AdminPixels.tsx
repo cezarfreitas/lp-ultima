@@ -326,19 +326,37 @@ export default function AdminPixels() {
                   </div>
                 )}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Código do Pixel
-                  </label>
-                  <textarea
-                    value={formData.code}
-                    onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value }))}
-                    rows={12}
-                    className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
-                    placeholder="Cole aqui o código de rastreamento..."
-                    required
-                  />
-                </div>
+                {!PIXEL_TYPES[formData.type]?.requiresId && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Código do Pixel
+                    </label>
+                    <textarea
+                      value={formData.code}
+                      onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value }))}
+                      rows={12}
+                      className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
+                      placeholder="Cole aqui o código de rastreamento..."
+                      required
+                    />
+                  </div>
+                )}
+
+                {PIXEL_TYPES[formData.type]?.requiresId && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-start space-x-3">
+                      <span className="text-2xl">💡</span>
+                      <div>
+                        <h3 className="font-semibold text-blue-900">
+                          Versão Simplificada
+                        </h3>
+                        <p className="text-blue-800 text-sm mt-1">
+                          Para esta versão, você só precisa inserir o ID. O código será gerado automaticamente.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
