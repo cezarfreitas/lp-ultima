@@ -44,7 +44,7 @@ export function createServer() {
   app.use(express.urlencoded({ extended: true }));
 
   // Serve uploaded files statically
-  app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+  app.use("/uploads", express.static(paths.uploadsDir()));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
