@@ -16,7 +16,12 @@ export default function PixelInjector() {
   const [pixels, setPixels] = useState<PixelData[]>([]);
 
   useEffect(() => {
-    fetchEnabledPixels();
+    // Add a small delay to avoid immediate fetch errors on initial load
+    const timer = setTimeout(() => {
+      fetchEnabledPixels();
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const fetchEnabledPixels = async () => {
