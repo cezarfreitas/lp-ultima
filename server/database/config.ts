@@ -187,6 +187,25 @@ export async function initializeDatabase() {
       );
     }
 
+    const [webhookRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM webhook_settings",
+    );
+    const webhookCount = (webhookRows as any)[0].count;
+
+    if (webhookCount === 0) {
+      await pool.execute(
+        `
+        INSERT INTO webhook_settings (webhook_url, webhook_secret, webhook_enabled)
+        VALUES (?, ?, ?)
+      `,
+        [
+          "",
+          "",
+          false,
+        ],
+      );
+    }
+
     console.log("Database initialized successfully");
   } catch (error) {
     console.error("Error initializing database:", error);
