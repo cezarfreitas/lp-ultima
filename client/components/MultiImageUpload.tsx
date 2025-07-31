@@ -2,66 +2,36 @@ import { useState, useRef } from "react";
 
 interface UploadedImage {
   id: string;
-  url: string;
+  formats: {
+    thumbnail: string;
+    small: string;
+    medium: string;
+    large: string;
+  };
   file: File;
   originalSize: number;
-  compressedSize: number;
+  totalOptimizedSize: number;
+  savingsPercent: number;
   progress: number;
 }
 
 interface MultiImageUploadProps {
-  onImagesUploaded: (urls: string[]) => void;
+  onImagesUploaded: (imageData: UploadedImage[]) => void;
   maxFiles?: number;
-  maxWidth?: number;
-  quality?: number;
+  preferredFormat?: 'thumbnail' | 'small' | 'medium' | 'large';
 }
 
 export default function MultiImageUpload({
   onImagesUploaded,
   maxFiles = 10,
-  maxWidth = 1200,
-  quality = 0.8,
+  preferredFormat = 'medium',
 }: MultiImageUploadProps) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const compressImage = (file: File): Promise<File> => {
-    return new Promise((resolve) => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d")!;
-      const img = new Image();
 
-      img.onload = () => {
-        let { width, height } = img;
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width;
-          width = maxWidth;
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              const compressedFile = new File([blob], file.name, {
-                type: "image/jpeg",
-                lastModified: Date.now(),
-              });
-              resolve(compressedFile);
-            }
-          },
-          "image/jpeg",
-          quality,
-        );
-      };
-
-      img.src = URL.createObjectURL(file);
-    });
-  };
 
   const handleFileSelection = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -85,10 +55,16 @@ export default function MultiImageUpload({
 
       const newImage: UploadedImage = {
         id: imageId.toString(),
-        url: "",
+        formats: {
+          thumbnail: "",
+          small: "",
+          medium: "",
+          large: "",
+        },
         file: file,
         originalSize: file.size,
-        compressedSize: 0,
+        totalOptimizedSize: 0,
+        savingsPercent: 0,
         progress: 0,
       };
 
@@ -98,35 +74,24 @@ export default function MultiImageUpload({
     setImages((prev) => [...prev, ...newImages]);
 
     // Process each image
-    const uploadedUrls: string[] = [];
+    const uploadedImages: UploadedImage[] = [];
 
     for (let i = 0; i < newImages.length; i++) {
       const imageData = newImages[i];
 
       try {
-        // Update progress to compression
+        // Update progress to processing
         setImages((prev) =>
           prev.map((img) =>
             img.id === imageData.id ? { ...img, progress: 25 } : img,
           ),
         );
 
-        // Compress image
-        const compressedFile = await compressImage(imageData.file);
-
-        setImages((prev) =>
-          prev.map((img) =>
-            img.id === imageData.id
-              ? { ...img, compressedSize: compressedFile.size, progress: 50 }
-              : img,
-          ),
-        );
-
-        // Upload to server
+        // Upload to server with multi-format processing
         const formData = new FormData();
-        formData.append("file", compressedFile);
+        formData.append("file", imageData.file);
 
-        const response = await fetch("/api/upload", {
+        const response = await fetch("/api/upload/multi-format", {
           method: "POST",
           body: formData,
         });
@@ -134,14 +99,20 @@ export default function MultiImageUpload({
         const data = await response.json();
 
         if (response.ok) {
+          const updatedImage: UploadedImage = {
+            ...imageData,
+            formats: data.formats,
+            totalOptimizedSize: data.sizes.total_optimized.bytes,
+            savingsPercent: data.compression.total_savings_percent,
+            progress: 100,
+          };
+
           setImages((prev) =>
             prev.map((img) =>
-              img.id === imageData.id
-                ? { ...img, url: data.url, progress: 100 }
-                : img,
+              img.id === imageData.id ? updatedImage : img,
             ),
           );
-          uploadedUrls.push(data.url);
+          uploadedImages.push(updatedImage);
         } else {
           throw new Error(data.error || "Erro no upload");
         }
@@ -152,7 +123,7 @@ export default function MultiImageUpload({
       }
     }
 
-    onImagesUploaded(uploadedUrls);
+    onImagesUploaded(uploadedImages);
     setUploading(false);
 
     // Reset file input
@@ -221,8 +192,7 @@ export default function MultiImageUpload({
           </button>
 
           <div className="text-sm text-gray-500">
-            PNG, JPG até 5MB cada • Máximo {maxFiles} imagens • Compressão
-            automática
+            PNG, JPG até 10MB cada • Máximo {maxFiles} imagens • 4 formatos automáticos
           </div>
         </div>
       </div>
@@ -257,9 +227,9 @@ export default function MultiImageUpload({
               >
                 {/* Image Preview */}
                 <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
-                  {image.url ? (
+                  {image.formats[preferredFormat] ? (
                     <img
-                      src={image.url}
+                      src={image.formats[preferredFormat]}
                       alt="Preview"
                       className="w-full h-full object-cover"
                     />
@@ -281,18 +251,16 @@ export default function MultiImageUpload({
                     {image.file.name}
                   </div>
 
-                  {image.compressedSize > 0 && (
+                  {image.totalOptimizedSize > 0 && (
                     <div className="text-green-600">
                       {formatFileSize(image.originalSize)} →{" "}
-                      {formatFileSize(image.compressedSize)}
+                      {formatFileSize(image.totalOptimizedSize)}
                       <span className="ml-1">
-                        (
-                        {getCompressionPercentage(
-                          image.originalSize,
-                          image.compressedSize,
-                        )}
-                        % menor)
+                        ({image.savingsPercent}% economia)
                       </span>
+                      <div className="text-xs text-gray-500 mt-1">
+                        4 formatos gerados
+                      </div>
                     </div>
                   )}
 
