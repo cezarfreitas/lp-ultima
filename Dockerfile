@@ -12,8 +12,8 @@ RUN npm install --legacy-peer-deps
 # Copy source code
 COPY . .
 
-# Build only the client (static site)
-RUN npm run build:client
+# Build only the client (static site) using client-only config
+RUN npx vite build --config vite.config.client.ts
 
 # Production stage - use nginx for static file serving
 FROM nginx:alpine AS production
