@@ -7,8 +7,6 @@ const dbConfig = {
   password: "5acf3bfd1f1c3846491a",
   database: "lp-ecko-db",
   connectionLimit: 10,
-  acquireTimeout: 60000,
-  timeout: 60000,
 };
 
 export const pool = mysql.createPool(dbConfig);
