@@ -39,9 +39,10 @@ export async function migratePixels(req: Request, res: Response) {
         
         // Insert default pixel templates (disabled by default)
         await connection.execute(
-          `INSERT INTO pixels (name, type, code, enabled, position, description) VALUES 
-           (?, ?, ?, ?, ?, ?),
-           (?, ?, ?, ?, ?, ?)`,
+          `INSERT INTO pixels (name, type, code, enabled, position, description, pixel_id, access_token) VALUES
+           (?, ?, ?, ?, ?, ?, ?, ?),
+           (?, ?, ?, ?, ?, ?, ?, ?),
+           (?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             'Google Analytics - Lojistas Ecko',
             'google_analytics',
