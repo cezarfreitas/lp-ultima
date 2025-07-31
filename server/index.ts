@@ -98,6 +98,7 @@ import {
   togglePixel
 } from "./routes/pixels";
 import { migratePixels } from "./routes/migrate-pixels";
+import { sendMetaConversion } from "./routes/meta-conversion";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
