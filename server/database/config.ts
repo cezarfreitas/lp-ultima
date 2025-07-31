@@ -32,6 +32,25 @@ export async function initializeDatabase() {
       )
     `);
 
+    // Create design_settings table
+    await pool.execute(`
+      CREATE TABLE IF NOT EXISTS design_settings (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        primary_color VARCHAR(7) DEFAULT '#dc2626',
+        secondary_color VARCHAR(7) DEFAULT '#6b7280',
+        accent_color VARCHAR(7) DEFAULT '#000000',
+        background_color VARCHAR(7) DEFAULT '#ffffff',
+        text_color VARCHAR(7) DEFAULT '#000000',
+        font_family VARCHAR(100) DEFAULT 'Inter',
+        font_size_base VARCHAR(10) DEFAULT '16px',
+        font_weight_normal VARCHAR(10) DEFAULT '400',
+        font_weight_bold VARCHAR(10) DEFAULT '700',
+        border_radius VARCHAR(10) DEFAULT '8px',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+
     // Insert default data if table is empty
     const [rows] = await pool.execute('SELECT COUNT(*) as count FROM hero_section');
     const count = (rows as any)[0].count;
