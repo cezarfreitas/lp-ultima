@@ -9,9 +9,6 @@ import { initializeDatabase } from "./database/config";
 export function createServer() {
   const app = express();
 
-  // Initialize database
-  initializeDatabase().catch(console.error);
-
   // Middleware
   app.use(cors());
   app.use(express.json());
