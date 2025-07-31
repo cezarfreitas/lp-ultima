@@ -457,6 +457,9 @@ export default function AdminProductGallery() {
 
         {activeTab === "fotos" && (
           <div className="space-y-6">
+            {/* Upload Settings */}
+            <UploadSettings onSettingsChange={setUploadSettings} />
+
             {/* Upload Múltiplo */}
             <div className="bg-white shadow rounded-lg p-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
