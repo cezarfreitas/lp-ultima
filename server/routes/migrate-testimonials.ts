@@ -9,7 +9,7 @@ export const migrateTestimonials: RequestHandler = async (req, res) => {
       CREATE TABLE IF NOT EXISTS testimonials_section (
         id INT PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(500) DEFAULT 'O que nossos [destaque]Parceiros[/destaque] dizem',
-        subtitle TEXT DEFAULT 'Veja os depoimentos de quem já faz parte da nossa rede de lojistas e transformou seu negócio com a Ecko.',
+        subtitle TEXT,
         background_type ENUM('white', 'gray', 'gradient') DEFAULT 'gray',
         show_ratings BOOLEAN DEFAULT TRUE,
         max_testimonials INT DEFAULT 6,
