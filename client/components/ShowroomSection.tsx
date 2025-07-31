@@ -264,7 +264,7 @@ export default function ShowroomSection() {
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-end">
-                  <div className="p-6 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="p-3 md:p-6 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="flex items-center space-x-2 mb-2">
                       {item.is_featured && (
                         <span className="bg-yellow-500 text-black text-xs px-2 py-1 rounded font-medium">
@@ -272,9 +272,9 @@ export default function ShowroomSection() {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                    <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2">{item.title}</h3>
                     {item.description && (
-                      <p className="text-sm text-gray-200 leading-relaxed">
+                      <p className="text-xs md:text-sm text-gray-200 leading-relaxed">
                         {item.description}
                       </p>
                     )}
