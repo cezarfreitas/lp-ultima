@@ -366,3 +366,51 @@ export const getLeadsStats: RequestHandler = async (req, res) => {
     res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
+
+// Get leads chart data (day by day for current month)
+export const getLeadsChart: RequestHandler = async (req, res) => {
+  try {
+    const [rows] = await pool.execute(`
+      SELECT
+        DATE(created_at) as date,
+        COUNT(*) as total_leads,
+        SUM(CASE WHEN has_cnpj = 'sim' THEN 1 ELSE 0 END) as lojistas,
+        SUM(CASE WHEN has_cnpj = 'nao' THEN 1 ELSE 0 END) as consumidores
+      FROM leads
+      WHERE
+        YEAR(created_at) = YEAR(CURDATE())
+        AND MONTH(created_at) = MONTH(CURDATE())
+      GROUP BY DATE(created_at)
+      ORDER BY date ASC
+    `);
+
+    // Get all days of current month
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Create data for all days of the month
+    const chartData = [];
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const dateString = date.toISOString().split('T')[0];
+
+      // Find data for this day or default to 0
+      const dayData = (rows as any[]).find(row => row.date === dateString);
+
+      chartData.push({
+        day: day,
+        date: dateString,
+        total_leads: dayData ? dayData.total_leads : 0,
+        lojistas: dayData ? dayData.lojistas : 0,
+        consumidores: dayData ? dayData.consumidores : 0
+      });
+    }
+
+    res.json(chartData);
+  } catch (error) {
+    console.error("Error fetching leads chart data:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
+  }
+};
