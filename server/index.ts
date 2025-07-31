@@ -34,6 +34,9 @@ import path from "path";
 export function createServer() {
   const app = express();
 
+  // Initialize database on server start
+  initializeDatabase().catch(console.error);
+
   // Middleware
   app.use(cors());
   app.use(express.json());
