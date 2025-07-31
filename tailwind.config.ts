@@ -27,6 +27,13 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        // Brand colors - Red, White, Black, Gray
+        brand: {
+          red: "#dc2626", // Vermelho
+          white: "#ffffff", // Branco
+          black: "#000000", // Preto
+          gray: "#6b7280", // Cinza
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
