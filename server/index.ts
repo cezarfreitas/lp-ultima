@@ -141,8 +141,18 @@ export function createServer() {
   app.delete("/api/testimonials/:id", deleteTestimonial);
   app.post("/api/testimonials/reorder", reorderTestimonials);
 
+  // FAQ routes
+  app.get("/api/faq", getFAQSection);
+  app.get("/api/admin/faq", getAllFAQs);
+  app.put("/api/faq/section", updateFAQSection);
+  app.post("/api/faq", createFAQ);
+  app.put("/api/faq/:id", updateFAQ);
+  app.delete("/api/faq/:id", deleteFAQ);
+  app.post("/api/faq/reorder", reorderFAQs);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
+  app.post("/api/migrate-faq", migrateFAQ);
 
   return app;
 }
