@@ -34,6 +34,7 @@ import MigratePixels from "./pages/MigratePixels";
 import AdminPixels from "./pages/AdminPixels";
 import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
+import TestUpload from "./pages/TestUpload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
