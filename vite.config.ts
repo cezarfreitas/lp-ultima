@@ -15,14 +15,44 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
+    // Optimize chunks for better loading
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog']
+        }
+      }
+    },
+    // Enable compression
+    cssCodeSplit: true,
+    // Optimize assets
+    assetsInlineLimit: 4096,
   },
-  plugins: [react(), expressPlugin()],
+  plugins: [
+    react({
+      // Enable Fast Refresh
+      fastRefresh: true,
+      // Remove DevTools in production
+      devTarget: mode === 'development' ? 'es2020' : 'es2018'
+    }),
+    expressPlugin()
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
       "@shared": path.resolve(__dirname, "./shared"),
     },
   },
+  // Enable CSS optimization
+  css: {
+    devSourcemap: mode === 'development'
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom']
+  }
 }));
 
 function expressPlugin(): Plugin {
