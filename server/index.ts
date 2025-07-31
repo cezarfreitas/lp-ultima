@@ -222,6 +222,14 @@ export function createServer() {
   app.get("/api/seo", getSEO);
   app.put("/api/seo", updateSEO);
 
+  // Pixels routes
+  app.get("/api/pixels", getAllPixels);
+  app.get("/api/pixels/enabled", getEnabledPixels);
+  app.post("/api/pixels", createPixel);
+  app.put("/api/pixels/:id", updatePixel);
+  app.delete("/api/pixels/:id", deletePixel);
+  app.put("/api/pixels/:id/toggle", togglePixel);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
