@@ -113,8 +113,18 @@ export default function Admin() {
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm mb-8 p-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin - Seção Hero</h1>
-          <p className="text-gray-600">Configure o conteúdo da seção principal da landing page</p>
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin - Seção Hero</h1>
+              <p className="text-gray-600">Configure o conteúdo da seção principal da landing page</p>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="text-red-600 hover:text-red-700 font-medium text-sm"
+            >
+              Sair
+            </button>
+          </div>
         </div>
 
         {/* Message */}
