@@ -241,39 +241,14 @@ export default function Admin() {
             />
           </div>
 
-          {/* Background Image */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              URL da Imagem de Fundo
-            </label>
-            <input
-              type="url"
-              value={formData.background_image || ''}
-              onChange={(e) => handleInputChange('background_image', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="https://images.unsplash.com/..."
-            />
-            <p className="text-sm text-gray-500 mt-1">URL completa da imagem</p>
-          </div>
-
-          {/* Preview Image */}
-          {formData.background_image && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Preview da Imagem
-              </label>
-              <div className="relative h-48 bg-gray-100 rounded-lg overflow-hidden">
-                <img
-                  src={formData.background_image}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-            </div>
-          )}
+          {/* Background Image Upload */}
+          <ImageUpload
+            label="Imagem de Fundo"
+            currentUrl={formData.background_image || ''}
+            onUrlChange={(url) => handleInputChange('background_image', url)}
+            placeholder="https://images.unsplash.com/..."
+            previewHeight="h-48"
+          />
 
           {/* Save Button */}
           <div className="flex justify-between items-center pt-6 border-t border-gray-200">
