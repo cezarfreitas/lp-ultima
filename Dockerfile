@@ -1,18 +1,22 @@
-# Multi-stage build for production deployment
-FROM node:18-alpine AS build
+# Multi-stage build optimized for production
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files for dependency installation
 COPY package*.json ./
 
-# Install all dependencies (including dev for build)
+# Install dependencies (including dev dependencies for build)
 RUN npm install --legacy-peer-deps
 
-# Copy all source code
+# Copy source code
 COPY . .
 
-# Build the frontend
+# Set build environment
+ENV NODE_ENV=production
+ENV BUILD_DIR=dist
+
+# Build the application
 RUN npm run build
 
 # Production stage
@@ -20,56 +24,39 @@ FROM node:18-alpine AS production
 
 WORKDIR /app
 
-# Install production dependencies
+# Copy package files and install production dependencies
 COPY package*.json ./
 RUN npm ci --only=production --legacy-peer-deps
 
-# Copy built frontend from build stage
-COPY --from=build /app/dist ./public
+# Copy built application from builder stage
+COPY --from=builder /app/dist ./public
 
-# Copy server source code
+# Copy server code and shared modules
 COPY server ./server
 COPY shared ./shared
 
-# Create uploads directory
+# Create necessary directories
 RUN mkdir -p uploads
 
-# Set environment
+# Set production environment variables
 ENV NODE_ENV=production
 ENV PORT=80
+ENV BUILD_DIR=dist
+ENV PUBLIC_DIR=public
+ENV UPLOADS_DIR=uploads
+ENV STATIC_FILES_PATH=/app/public
 
-# Expose port
+# Copy environment configuration
+COPY .env.example .env
+
+# Expose application port
 EXPOSE 80
 
-# Create simple production server
-RUN echo 'import express from "express";\
-import path from "path";\
-import { fileURLToPath } from "url";\
-import { createServer } from "./server/index.js";\
-\
-const __filename = fileURLToPath(import.meta.url);\
-const __dirname = path.dirname(__filename);\
-\
-const app = createServer();\
-\
-// Serve static files from public directory\
-app.use(express.static(path.join(__dirname, "public")));\
-\
-// Handle SPA routing - serve index.html for non-API routes\
-app.get("*", (req, res) => {\
-  if (req.path.startsWith("/api/")) {\
-    return res.status(404).json({ error: "API endpoint not found" });\
-  }\
-  res.sendFile(path.join(__dirname, "public", "index.html"));\
-});\
-\
-const PORT = process.env.PORT || 80;\
-app.listen(PORT, () => {\
-  console.log(`🚀 Server running on port ${PORT}`);\
-  console.log(`📱 Frontend: http://localhost:${PORT}`);\
-  console.log(`🔧 API: http://localhost:${PORT}/api`);\
-});\
-' > start.mjs
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:80/api/ping', (res) => { \
+    process.exit(res.statusCode === 200 ? 0 : 1) \
+  }).on('error', () => process.exit(1))"
 
-# Start the server
-CMD ["node", "start.mjs"]
+# Start the application
+CMD ["node", "server/node-build.ts"]
