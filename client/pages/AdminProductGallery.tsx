@@ -107,17 +107,40 @@ export default function AdminProductGallery() {
       });
 
       if (response.ok) {
-        const updatedData = await response.json();
-        setGallery((prev) => (prev ? { ...prev, ...updatedData } : null));
-        setMessage({
-          type: "success",
-          text: "Configurações salvas com sucesso!",
-        });
+        try {
+          const updatedData = await response.json();
+          setGallery((prev) => (prev ? { ...prev, ...updatedData } : null));
+          setMessage({
+            type: "success",
+            text: "Configurações salvas com sucesso!",
+          });
+        } catch (parseError) {
+          console.error("Error parsing save response:", parseError);
+          setMessage({
+            type: "success",
+            text: "Configurações salvas com sucesso!",
+          });
+        }
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao salvar configurações";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao salvar configurações",
+          text: errorMessage,
         });
       }
     } catch (error) {
