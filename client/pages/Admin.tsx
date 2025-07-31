@@ -70,13 +70,13 @@ export default function Admin() {
         body: JSON.stringify(formData),
       });
 
+      const responseData = await response.json();
+
       if (response.ok) {
-        const updatedData = await response.json();
-        setHeroData(updatedData);
+        setHeroData(responseData);
         setMessage({type: 'success', text: 'Dados salvos com sucesso!'});
       } else {
-        const error = await response.json();
-        setMessage({type: 'error', text: error.error || 'Erro ao salvar dados'});
+        setMessage({type: 'error', text: responseData.error || 'Erro ao salvar dados'});
       }
     } catch (error) {
       console.error("Error updating hero data:", error);
