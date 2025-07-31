@@ -2,9 +2,10 @@ export interface Lead {
   id: number;
   name: string;
   email: string;
-  phone?: string;
-  company?: string;
-  message?: string;
+  whatsapp?: string;
+  has_cnpj: 'sim' | 'nao';
+  store_type?: 'fisica' | 'online' | 'fisica_online' | 'midias_sociais';
+  cep?: string;
   source: string;
   status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
   webhook_sent: boolean;
@@ -17,10 +18,10 @@ export interface Lead {
 
 export interface LeadCreateRequest {
   name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  message?: string;
+  whatsapp: string;
+  has_cnpj: 'sim' | 'nao';
+  store_type?: 'fisica' | 'online' | 'fisica_online' | 'midias_sociais';
+  cep?: string;
 }
 
 export interface LeadUpdateRequest {
