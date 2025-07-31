@@ -68,17 +68,17 @@ export async function initializeDatabase() {
       CREATE TABLE IF NOT EXISTS form_content (
         id INT PRIMARY KEY AUTO_INCREMENT,
         main_title VARCHAR(255) DEFAULT 'Por que ser um',
-        main_subtitle VARCHAR(255) DEFAULT 'Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.',
+        main_subtitle VARCHAR(500) DEFAULT 'Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.',
         form_title VARCHAR(255) DEFAULT 'Seja um Lojista Oficial',
-        form_subtitle VARCHAR(255) DEFAULT 'Preencha o formulário e nossa equipe entrará em contato em até 24 horas.',
+        form_subtitle VARCHAR(500) DEFAULT 'Preencha o formulário e nossa equipe entrará em contato em até 24 horas.',
         benefit1_title VARCHAR(255) DEFAULT 'Preços Exclusivos',
-        benefit1_description TEXT DEFAULT 'Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.',
+        benefit1_description TEXT,
         benefit2_title VARCHAR(255) DEFAULT 'Produtos Exclusivos',
-        benefit2_description TEXT DEFAULT 'Tenha acesso primeiro às novas coleções e produtos limitados da marca Ecko.',
+        benefit2_description TEXT,
         benefit3_title VARCHAR(255) DEFAULT 'Suporte Completo',
-        benefit3_description TEXT DEFAULT 'Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.',
+        benefit3_description TEXT,
         benefit4_title VARCHAR(255) DEFAULT 'Crescimento Rápido',
-        benefit4_description TEXT DEFAULT 'Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.',
+        benefit4_description TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
