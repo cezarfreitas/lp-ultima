@@ -35,7 +35,7 @@ export default function Migrate() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Migraç��o do Banco
+          Migração do Banco
         </h1>
         
         <p className="text-gray-600 text-center mb-8">
@@ -78,6 +78,20 @@ export default function Migrate() {
               className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? "Migrando..." : "Migrar Design"}
+            </button>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-medium text-gray-900 mb-2">Remover Limites de Caracteres</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Remove limites de caracteres de todos os campos de texto.
+            </p>
+            <button
+              onClick={() => handleMigrate("/api/remove-limits", "Limites")}
+              disabled={loading}
+              className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? "Migrando..." : "Remover Limites"}
             </button>
           </div>
 
