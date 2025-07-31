@@ -43,5 +43,10 @@ export function createServer() {
   app.put("/api/hero", updateHeroSection);
   app.post("/api/hero", createHeroSection);
 
+  // Design settings routes
+  app.get("/api/design", getDesignSettings);
+  app.put("/api/design", updateDesignSettings);
+  app.post("/api/design", createDesignSettings);
+
   return app;
 }
