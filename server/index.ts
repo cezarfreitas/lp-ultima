@@ -10,6 +10,7 @@ import {
 import { initializeDB } from "./routes/db-init";
 import { uploadFile } from "./routes/upload";
 import { migrateLogo, migrateDesign, migrateLeads } from "./routes/migrate";
+import { migrateNewTables } from "./routes/migrate-new-tables";
 import { removeLimits } from "./routes/remove-limits";
 import {
   getDesignSettings,
