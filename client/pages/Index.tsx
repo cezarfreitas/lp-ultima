@@ -1,4 +1,49 @@
+import { useEffect, useState } from "react";
+import { HeroSectionData } from "@shared/hero";
+
 export default function Index() {
+  const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchHeroData();
+  }, []);
+
+  const fetchHeroData = async () => {
+    try {
+      const response = await fetch("/api/hero");
+      if (response.ok) {
+        const data = await response.json();
+        setHeroData(data);
+      }
+    } catch (error) {
+      console.error("Error fetching hero data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="text-center">
+          <div className="animate-spin h-12 w-12 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Default fallback data if database is not available
+  const data = heroData || {
+    logo_text: "L",
+    impact_title: "Seja bem-vindo ao",
+    impact_subtitle: "Futuro Digital",
+    description: "Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.",
+    button_text: "Comece Agora",
+    background_image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80"
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
@@ -7,7 +52,7 @@ export default function Index() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')`,
+            backgroundImage: `url('${data.background_image}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -23,28 +68,27 @@ export default function Index() {
           <div className="mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">L</span>
+                <span className="text-white font-bold text-xl">{data.logo_text}</span>
               </div>
             </div>
           </div>
 
           {/* Texto de Impacto */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Seja bem-vindo ao
+            {data.impact_title}
             <span className="block bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Futuro Digital
+              {data.impact_subtitle}
             </span>
           </h1>
 
           {/* Texto Descritivo */}
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Transforme suas ideias em realidade com nossa plataforma inovadora.
-            Conecte-se, crie e conquiste novos horizontes.
+            {data.description}
           </p>
 
           {/* Botão */}
           <button className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-            <span className="relative z-10">Comece Agora</span>
+            <span className="relative z-10">{data.button_text}</span>
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
           </button>
 
