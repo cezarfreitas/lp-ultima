@@ -138,15 +138,26 @@ export const getLeads: RequestHandler = async (req, res) => {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
     const status = req.query.status as string;
+    const type = req.query.type as string;
     const offset = (page - 1) * limit;
 
-    let whereClause = "";
+    let whereConditions: string[] = [];
     let params: any[] = [];
 
     if (status && status !== "all") {
-      whereClause = "WHERE status = ?";
+      whereConditions.push("status = ?");
       params.push(status);
     }
+
+    if (type && type !== "all") {
+      if (type === "lojista") {
+        whereConditions.push("has_cnpj = 'sim'");
+      } else if (type === "consumidor") {
+        whereConditions.push("has_cnpj = 'nao'");
+      }
+    }
+
+    const whereClause = whereConditions.length > 0 ? "WHERE " + whereConditions.join(" AND ") : "";
 
     // Ensure limit and offset are integers for the query
     const [rows] = await pool.execute(
