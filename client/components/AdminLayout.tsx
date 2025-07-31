@@ -30,6 +30,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar leads capturados",
     },
     {
+      name: "Textos Formulário",
+      href: "/admin/form-content",
+      icon: "📝",
+      description: "Editar textos da seção do formulário",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
