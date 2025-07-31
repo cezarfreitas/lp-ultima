@@ -4,13 +4,13 @@ import { z } from "zod";
 
 // Schema for validation
 const HeroUpdateSchema = z.object({
-  logo_text: z.string().max(10).optional(),
-  logo_image: z.string().max(500).optional(),
-  impact_title: z.string().max(255).optional(),
-  impact_subtitle: z.string().max(255).optional(),
+  logo_text: z.string().optional(),
+  logo_image: z.string().optional(),
+  impact_title: z.string().optional(),
+  impact_subtitle: z.string().optional(),
   description: z.string().optional(),
-  button_text: z.string().max(100).optional(),
-  background_image: z.string().max(500).optional(),
+  button_text: z.string().optional(),
+  background_image: z.string().optional(),
 });
 
 // Get hero section data
