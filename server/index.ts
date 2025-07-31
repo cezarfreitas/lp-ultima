@@ -104,5 +104,13 @@ export function createServer() {
   app.get("/api/form-content", getFormContent);
   app.put("/api/form-content", updateFormContent);
 
+  // Product gallery routes
+  app.get("/api/product-gallery", getProductGallery);
+  app.put("/api/product-gallery", updateProductGallery);
+  app.post("/api/product-gallery/products", createProductItem);
+  app.put("/api/product-gallery/products/:id", updateProductItem);
+  app.delete("/api/product-gallery/products/:id", deleteProductItem);
+  app.post("/api/product-gallery/reorder", reorderProducts);
+
   return app;
 }
