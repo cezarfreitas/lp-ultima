@@ -86,13 +86,12 @@ export default function Index() {
 
   const fetchFormContent = async () => {
     try {
-      const response = await fetch("/api/form-content");
-      if (response.ok) {
-        const data = await response.json();
+      const data = await silentFetchJson<FormContent>("/api/form-content");
+      if (data) {
         setFormContent(data);
       }
     } catch (error) {
-      console.error("Error fetching form content:", error);
+      // silentFetch handles errors silently
     }
   };
 
