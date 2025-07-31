@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { silentFetchJson } from "../lib/silentFetch";
 
 interface PixelData {
   id: number;
