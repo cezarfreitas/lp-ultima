@@ -134,7 +134,7 @@ export default function ImageUploadCompressed({
           </button>
 
           <div className="text-xs text-gray-500">
-            PNG, JPG até 10MB • 4 formatos automáticos (thumbnail, small, medium, large)
+            PNG, JPG até 5MB • Compressão automática
           </div>
 
           {/* Compression info */}
