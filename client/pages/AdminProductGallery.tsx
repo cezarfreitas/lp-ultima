@@ -152,21 +152,21 @@ export default function AdminProductGallery() {
     }
   };
 
-  const handleAddMultipleProducts = async (uploadedImages: any[]) => {
-    if (uploadedImages.length === 0) return;
+  const handleAddMultipleProducts = async (urls: string[]) => {
+    if (urls.length === 0) return;
 
     setMessage(null);
 
     try {
-      // Add all products in parallel using medium format URLs
-      const promises = uploadedImages.map((imageData) =>
+      // Add all products in parallel
+      const promises = urls.map((url) =>
         fetch("/api/product-gallery/products", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            image_url: imageData.formats?.medium || imageData.url || imageData,
+            image_url: url,
             alt_text: "Produto Ecko",
           }),
         }),
@@ -177,7 +177,7 @@ export default function AdminProductGallery() {
 
       await fetchGallery();
 
-      if (successCount === uploadedImages.length) {
+      if (successCount === urls.length) {
         setMessage({
           type: "success",
           text: `${successCount} produtos adicionados com sucesso!`,
@@ -185,7 +185,7 @@ export default function AdminProductGallery() {
       } else {
         setMessage({
           type: "error",
-          text: `${successCount}/${uploadedImages.length} produtos adicionados. Alguns falharam.`,
+          text: `${successCount}/${urls.length} produtos adicionados. Alguns falharam.`,
         });
       }
     } catch (error) {
