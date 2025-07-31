@@ -349,8 +349,8 @@ export default function Index() {
                 </div>
 
                 {/* Benefit 2 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-red-600"
                       fill="none"
@@ -380,8 +380,8 @@ export default function Index() {
                 </div>
 
                 {/* Benefit 3 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-red-600"
                       fill="none"
@@ -411,8 +411,8 @@ export default function Index() {
                 </div>
 
                 {/* Benefit 4 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-red-100 rounded-lg flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-red-600"
                       fill="none"
