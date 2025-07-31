@@ -457,6 +457,9 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
     </div>
   );
 }
