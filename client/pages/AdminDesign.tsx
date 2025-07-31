@@ -323,9 +323,8 @@ export default function AdminDesign() {
               <h3
                 style={{
                   color: formData.primary_color || "#dc2626",
-                  fontWeight: formData.font_weight_bold || "700",
                 }}
-                className="text-2xl mb-4"
+                className="text-2xl font-bold mb-4"
               >
                 Título Principal
               </h3>
