@@ -341,9 +341,8 @@ export default function AdminDesign() {
                 style={{
                   backgroundColor: formData.primary_color || "#dc2626",
                   color: formData.background_color || "#ffffff",
-                  borderRadius: formData.border_radius || "8px",
                 }}
-                className="px-4 py-2"
+                className="px-4 py-2 rounded-lg"
               >
                 Botão de Exemplo
               </button>
