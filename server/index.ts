@@ -90,5 +90,9 @@ export function createServer() {
   app.get("/api/webhooks", getWebhookSettings);
   app.put("/api/webhooks", updateWebhookSettings);
 
+  // Form content routes
+  app.get("/api/form-content", getFormContent);
+  app.put("/api/form-content", updateFormContent);
+
   return app;
 }
