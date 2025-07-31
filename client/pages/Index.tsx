@@ -68,6 +68,18 @@ export default function Index() {
     }
   };
 
+  const fetchProductGallery = async () => {
+    try {
+      const response = await fetch("/api/product-gallery");
+      if (response.ok) {
+        const data = await response.json();
+        setProductGallery(data);
+      }
+    } catch (error) {
+      console.error("Error fetching product gallery:", error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
