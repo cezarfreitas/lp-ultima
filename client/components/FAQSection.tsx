@@ -190,15 +190,15 @@ export default function FAQSection() {
             >
               <button
                 onClick={() => toggleItem(faq.id)}
-                className="w-full text-left p-6 hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:bg-gray-50"
+                className="w-full text-left p-4 md:p-6 hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:bg-gray-50"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900 pr-4">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
                     <svg
-                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
+                      className={`w-5 h-5 md:w-6 md:h-6 text-gray-400 transform transition-transform duration-200 ${
                         openItems.includes(faq.id) ? "rotate-180" : ""
                       }`}
                       fill="none"
@@ -224,9 +224,9 @@ export default function FAQSection() {
                     : "max-h-0 opacity-0"
                 } overflow-hidden`}
               >
-                <div className="px-6 pb-6">
+                <div className="px-4 md:px-6 pb-4 md:pb-6">
                   <div className="pt-4 border-t border-gray-100">
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
