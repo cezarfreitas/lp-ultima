@@ -97,13 +97,12 @@ export default function Index() {
 
   const fetchProductGallery = async () => {
     try {
-      const response = await fetch("/api/product-gallery");
-      if (response.ok) {
-        const data = await response.json();
+      const data = await silentFetchJson<ProductGallery>("/api/product-gallery");
+      if (data) {
         setProductGallery(data);
       }
     } catch (error) {
-      console.error("Error fetching product gallery:", error);
+      // silentFetch handles errors silently
     }
   };
 
