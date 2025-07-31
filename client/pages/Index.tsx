@@ -257,10 +257,14 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(formContent?.benefit1_title || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit1_title || "",
+                      )}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(formContent?.benefit1_description || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit1_description || "",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -284,10 +288,14 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(formContent?.benefit2_title || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit2_title || "",
+                      )}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(formContent?.benefit2_description || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit2_description || "",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -311,10 +319,14 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(formContent?.benefit3_title || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit3_title || "",
+                      )}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(formContent?.benefit3_description || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit3_description || "",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -338,10 +350,14 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(formContent?.benefit4_title || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit4_title || "",
+                      )}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(formContent?.benefit4_description || "")}
+                      {renderTextWithHighlights(
+                        formContent?.benefit4_description || "",
+                      )}
                     </p>
                   </div>
                 </div>
