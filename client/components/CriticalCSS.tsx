@@ -83,12 +83,24 @@ export default function CriticalCSS() {
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
         
+        /* Layout optimizations */
+        .max-w-6xl { max-width: 72rem; }
+        .max-w-7xl { max-width: 80rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .text-center { text-align: center; }
+        .bg-white { background-color: rgb(255 255 255); }
+        .text-gray-900 { color: rgb(17 24 39); }
+        .text-gray-600 { color: rgb(75 85 99); }
+
         /* Hide non-critical content initially */
         .defer-load {
           opacity: 0;
           transform: translateY(20px);
         }
-        
+
         .defer-load.loaded {
           opacity: 1;
           transform: translateY(0);
