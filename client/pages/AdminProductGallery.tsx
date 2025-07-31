@@ -177,10 +177,25 @@ export default function AdminProductGallery() {
           text: "Produto adicionado com sucesso!",
         });
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao adicionar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao adicionar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
