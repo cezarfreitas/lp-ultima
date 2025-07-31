@@ -80,6 +80,10 @@ export default function LeadCaptureForm() {
         if (response.ok) {
           setIsConsumerSubmission(false);
           setSubmitted(true);
+
+          // Track conversion events
+          trackConversion();
+
           setFormData({
             name: "",
             whatsapp: "",
