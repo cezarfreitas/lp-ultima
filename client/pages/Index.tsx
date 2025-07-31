@@ -10,7 +10,7 @@ export default function Index() {
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800 bg-clip-text text-transparent leading-tight">
                 Seja bem-vindo
               </h1>
-              
+
               <div className="flex justify-center">
                 <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
               </div>
