@@ -14,6 +14,7 @@ import AdminLeads from "./pages/AdminLeads";
 import AdminFormContent from "./pages/AdminFormContent";
 import AdminProductGallery from "./pages/AdminProductGallery";
 import AdminTestimonials from "./pages/AdminTestimonials";
+import AdminFAQ from "./pages/AdminFAQ";
 import AdminSettings from "./pages/AdminSettings";
 import InitDB from "./pages/InitDB";
 import Migrate from "./pages/Migrate";
@@ -43,10 +44,7 @@ const App = () => (
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
-          <Route
-            path="/migrate-testimonials"
-            element={<MigrateTestimonials />}
-          />
+          <Route path="/migrate-testimonials" element={<MigrateTestimonials />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
