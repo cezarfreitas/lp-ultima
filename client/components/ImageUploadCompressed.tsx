@@ -57,11 +57,15 @@ export default function ImageUploadCompressed({
       if (response.ok) {
         const formats: ImageFormats = data.formats;
 
-        // Update URL for backwards compatibility
-        if (onUrlChange) onUrlChange(formats[preferredFormat]);
+        // Update URL for backwards compatibility (only if onUpload is not provided)
+        if (onUrlChange && !onUpload) {
+          onUrlChange(formats[preferredFormat]);
+        }
 
-        // Pass all formats to callback
-        if (onUpload) onUpload(formats);
+        // Pass all formats to callback (takes precedence over onUrlChange)
+        if (onUpload) {
+          onUpload(formats);
+        }
 
         // Update compression info
         setCompressionInfo(
