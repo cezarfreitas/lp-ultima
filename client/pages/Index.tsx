@@ -37,6 +37,7 @@ export default function Index() {
   // Default fallback data if database is not available
   const data = heroData || {
     logo_text: "L",
+    logo_image: "",
     impact_title: "Seja bem-vindo ao",
     impact_subtitle: "Futuro Digital",
     description: "Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.",
