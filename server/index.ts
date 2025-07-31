@@ -32,8 +32,9 @@ export function createServer() {
   // Database initialization route
   app.post("/api/init-db", initializeDB);
 
-  // Database migration route
+  // Database migration routes
   app.post("/api/migrate-logo", migrateLogo);
+  app.post("/api/migrate-design", migrateDesign);
 
   // Upload route
   app.post("/api/upload", uploadFile);
