@@ -115,7 +115,7 @@ export default function Index() {
 
           {/* Texto de Impacto */}
           <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight uppercase">
               <span className="block mb-2 text-white drop-shadow-lg">
                 {renderTextWithHighlights(data.impact_title)}
               </span>
