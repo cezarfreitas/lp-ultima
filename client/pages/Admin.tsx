@@ -41,6 +41,7 @@ export default function Admin() {
         setHeroData(data);
         setFormData({
           logo_text: data.logo_text,
+          logo_image: data.logo_image,
           impact_title: data.impact_title,
           impact_subtitle: data.impact_subtitle,
           description: data.description,
