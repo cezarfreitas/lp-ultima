@@ -169,8 +169,42 @@ export default function Admin() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="L"
             />
-            <p className="text-sm text-gray-500 mt-1">Máximo 10 caracteres</p>
+            <p className="text-sm text-gray-500 mt-1">Máximo 10 caracteres (usado apenas se não houver imagem)</p>
           </div>
+
+          {/* Logo Image */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Imagem do Logo
+            </label>
+            <input
+              type="url"
+              value={formData.logo_image || ''}
+              onChange={(e) => handleInputChange('logo_image', e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              placeholder="https://exemplo.com/logo.png"
+            />
+            <p className="text-sm text-gray-500 mt-1">URL da imagem do logotipo (opcional)</p>
+          </div>
+
+          {/* Logo Preview */}
+          {formData.logo_image && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Preview do Logo
+              </label>
+              <div className="relative h-20 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                <img
+                  src={formData.logo_image}
+                  alt="Logo Preview"
+                  className="max-h-16 max-w-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Impact Title */}
           <div>
