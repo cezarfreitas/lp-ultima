@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ShowroomSection as ShowroomSectionType, ShowroomItem, CATEGORY_LABELS } from "@shared/showroom";
+import { ShowroomSection as ShowroomSectionType, ShowroomItem } from "@shared/showroom";
 
 interface ShowroomSectionData extends ShowroomSectionType {
   items: ShowroomItem[];
@@ -15,7 +15,7 @@ const renderTextWithHighlights = (text: string) => {
 export default function ShowroomSection() {
   const [sectionData, setSectionData] = useState<ShowroomSectionData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
 
   useEffect(() => {
     fetchShowroom();
@@ -37,10 +37,9 @@ export default function ShowroomSection() {
         setSectionData({
           id: 1,
           title: "Nosso [destaque]Showroom[/destaque]",
-          subtitle: "Explore ambientes, looks e experiências que capturam a essência da marca Ecko em diferentes contextos e estilos.",
+          subtitle: "Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.",
           background_type: "dark",
           layout_type: "masonry",
-          show_categories: true,
           max_items: 12,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -51,7 +50,6 @@ export default function ShowroomSection() {
               description: "Veja como os produtos Ecko se destacam em ambientes urbanos contemporâneos com estilo e atitude.",
               media_url: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "ambiente",
               is_featured: true,
               is_active: true,
               position: 1,
@@ -64,7 +62,6 @@ export default function ShowroomSection() {
               description: "Looks urbanos que capturam a essência da cultura de rua com produtos Ecko em cenários reais.",
               media_url: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "lookbook",
               is_featured: true,
               is_active: true,
               position: 2,
@@ -77,7 +74,6 @@ export default function ShowroomSection() {
               description: "Como o estilo Ecko se integra no dia a dia de pessoas que vivem a cultura urbana intensamente.",
               media_url: "https://images.unsplash.com/photo-1515446482533-e1b46e73b0f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "lifestyle",
               is_featured: false,
               is_active: true,
               position: 3,
@@ -90,7 +86,6 @@ export default function ShowroomSection() {
               description: "Detalhes dos produtos premium da linha Ecko com foco na qualidade e design exclusivo.",
               media_url: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "produtos",
               is_featured: false,
               is_active: true,
               position: 4,
@@ -103,7 +98,6 @@ export default function ShowroomSection() {
               description: "Inspiração para como organizar e apresentar produtos Ecko em espaços de varejo modernos.",
               media_url: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "ambiente",
               is_featured: false,
               is_active: true,
               position: 5,
@@ -116,7 +110,6 @@ export default function ShowroomSection() {
               description: "Combinações masculinas que mostram a versatilidade e estilo dos produtos Ecko para homens.",
               media_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
               media_type: "image",
-              category: "lookbook",
               is_featured: false,
               is_active: true,
               position: 6,
@@ -180,9 +173,7 @@ export default function ShowroomSection() {
     return null;
   }
 
-  const filteredItems = selectedCategory === 'all' 
-    ? sectionData.items.filter(item => item.is_active)
-    : sectionData.items.filter(item => item.is_active && item.category === selectedCategory);
+  const filteredItems = sectionData.items.filter(item => item.is_active);
 
   const visibleItems = filteredItems
     .sort((a, b) => {
@@ -215,40 +206,7 @@ export default function ShowroomSection() {
           </p>
         </div>
 
-        {/* Category Filter */}
-        {sectionData.show_categories && (
-          <div className="flex justify-center mb-8">
-            <div className="flex flex-wrap gap-2 bg-black bg-opacity-20 rounded-lg p-2">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  selectedCategory === 'all'
-                    ? 'bg-red-600 text-white'
-                    : sectionData.background_type === 'dark'
-                      ? 'text-gray-300 hover:text-white hover:bg-gray-700'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
-                }`}
-              >
-                Todos
-              </button>
-              {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() => setSelectedCategory(key)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    selectedCategory === key
-                      ? 'bg-red-600 text-white'
-                      : sectionData.background_type === 'dark'
-                        ? 'text-gray-300 hover:text-white hover:bg-gray-700'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+
 
         {/* Items Grid */}
         <div className={getGridClasses(sectionData.layout_type)}>
@@ -283,9 +241,6 @@ export default function ShowroomSection() {
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-end">
                   <div className="p-6 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="flex items-center space-x-2 mb-2">
-                      <span className="bg-red-600 text-white text-xs px-2 py-1 rounded">
-                        {CATEGORY_LABELS[item.category]}
-                      </span>
                       {item.is_featured && (
                         <span className="bg-yellow-500 text-black text-xs px-2 py-1 rounded font-medium">
                           Destaque
