@@ -23,7 +23,7 @@ export default function AdminAuth({ onAuthenticated }: AdminAuthProps) {
     } else {
       setError("Senha incorreta");
     }
-    
+
     setLoading(false);
   };
 

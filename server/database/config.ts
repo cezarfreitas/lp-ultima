@@ -1,11 +1,11 @@
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
 
 const dbConfig = {
-  host: '148.230.78.129',
+  host: "148.230.78.129",
   port: 3307,
-  user: 'ecko',
-  password: '5acf3bfd1f1c3846491a',
-  database: 'lp-ecko-db',
+  user: "ecko",
+  password: "5acf3bfd1f1c3846491a",
+  database: "lp-ecko-db",
   connectionLimit: 10,
   acquireTimeout: 60000,
   timeout: 60000,
@@ -52,48 +52,58 @@ export async function initializeDatabase() {
     `);
 
     // Insert default data if tables are empty
-    const [heroRows] = await pool.execute('SELECT COUNT(*) as count FROM hero_section');
+    const [heroRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM hero_section",
+    );
     const heroCount = (heroRows as any)[0].count;
 
     if (heroCount === 0) {
-      await pool.execute(`
+      await pool.execute(
+        `
         INSERT INTO hero_section (logo_text, logo_image, impact_title, impact_subtitle, description, button_text, background_image)
         VALUES (?, ?, ?, ?, ?, ?, ?)
-      `, [
-        'L',
-        '',
-        'Seja bem-vindo ao',
-        'Futuro Digital',
-        'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
-        'Comece Agora',
-        'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80'
-      ]);
+      `,
+        [
+          "L",
+          "",
+          "Seja bem-vindo ao",
+          "Futuro Digital",
+          "Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.",
+          "Comece Agora",
+          "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+        ],
+      );
     }
 
-    const [designRows] = await pool.execute('SELECT COUNT(*) as count FROM design_settings');
+    const [designRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM design_settings",
+    );
     const designCount = (designRows as any)[0].count;
 
     if (designCount === 0) {
-      await pool.execute(`
+      await pool.execute(
+        `
         INSERT INTO design_settings (primary_color, secondary_color, accent_color, background_color, text_color, font_family, font_size_base, font_weight_normal, font_weight_bold, border_radius)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `, [
-        '#dc2626', // Red
-        '#6b7280', // Gray
-        '#000000', // Black
-        '#ffffff', // White
-        '#000000', // Black text
-        'Inter',
-        '16px',
-        '400',
-        '700',
-        '8px'
-      ]);
+      `,
+        [
+          "#dc2626", // Red
+          "#6b7280", // Gray
+          "#000000", // Black
+          "#ffffff", // White
+          "#000000", // Black text
+          "Inter",
+          "16px",
+          "400",
+          "700",
+          "8px",
+        ],
+      );
     }
 
-    console.log('Database initialized successfully');
+    console.log("Database initialized successfully");
   } catch (error) {
-    console.error('Error initializing database:', error);
+    console.error("Error initializing database:", error);
     throw error;
   }
 }

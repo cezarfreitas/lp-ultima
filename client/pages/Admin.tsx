@@ -11,11 +11,15 @@ export default function Admin() {
   const [formData, setFormData] = useState<HeroUpdateRequest>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
 
     if (authenticated) {
@@ -54,7 +58,7 @@ export default function Admin() {
       }
     } catch (error) {
       console.error("Error fetching hero data:", error);
-      setMessage({type: 'error', text: 'Erro ao carregar dados'});
+      setMessage({ type: "error", text: "Erro ao carregar dados" });
     } finally {
       setLoading(false);
     }
@@ -75,18 +79,18 @@ export default function Admin() {
       });
 
       // Check if response has content to read
-      const contentType = response.headers.get('content-type');
+      const contentType = response.headers.get("content-type");
 
       if (response.ok) {
-        if (contentType && contentType.includes('application/json')) {
+        if (contentType && contentType.includes("application/json")) {
           const responseData = await response.json();
           setHeroData(responseData);
         }
-        setMessage({type: 'success', text: 'Dados salvos com sucesso!'});
+        setMessage({ type: "success", text: "Dados salvos com sucesso!" });
       } else {
-        let errorMessage = 'Erro ao salvar dados';
+        let errorMessage = "Erro ao salvar dados";
 
-        if (contentType && contentType.includes('application/json')) {
+        if (contentType && contentType.includes("application/json")) {
           try {
             const errorData = await response.json();
             errorMessage = errorData.error || errorMessage;
@@ -95,20 +99,20 @@ export default function Admin() {
           }
         }
 
-        setMessage({type: 'error', text: errorMessage});
+        setMessage({ type: "error", text: errorMessage });
       }
     } catch (error) {
       console.error("Error updating hero data:", error);
-      setMessage({type: 'error', text: 'Erro ao salvar dados'});
+      setMessage({ type: "error", text: "Erro ao salvar dados" });
     } finally {
       setSaving(false);
     }
   };
 
   const handleInputChange = (field: keyof HeroUpdateRequest, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -133,22 +137,29 @@ export default function Admin() {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm mb-8 p-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Seção Hero</h1>
-          <p className="text-gray-600">Configure o conteúdo da seção principal da landing page</p>
+          <p className="text-gray-600">
+            Configure o conteúdo da seção principal da landing page
+          </p>
         </div>
 
         {/* Message */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-green-50 border border-green-200 text-green-800' 
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}>
+          <div
+            className={`mb-6 p-4 rounded-lg ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-800"
+                : "bg-red-50 border border-red-200 text-red-800"
+            }`}
+          >
             {message.text}
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow-sm p-6 space-y-6"
+        >
           {/* Logo Text */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -156,19 +167,21 @@ export default function Admin() {
             </label>
             <input
               type="text"
-              value={formData.logo_text || ''}
-              onChange={(e) => handleInputChange('logo_text', e.target.value)}
+              value={formData.logo_text || ""}
+              onChange={(e) => handleInputChange("logo_text", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="L"
             />
-            <p className="text-sm text-gray-500 mt-1">Texto do logo (usado apenas se não houver imagem)</p>
+            <p className="text-sm text-gray-500 mt-1">
+              Texto do logo (usado apenas se não houver imagem)
+            </p>
           </div>
 
           {/* Logo Image Upload */}
           <ImageUpload
             label="Imagem do Logo"
-            currentUrl={formData.logo_image || ''}
-            onUrlChange={(url) => handleInputChange('logo_image', url)}
+            currentUrl={formData.logo_image || ""}
+            onUrlChange={(url) => handleInputChange("logo_image", url)}
             placeholder="https://exemplo.com/logo.png"
             previewHeight="h-20"
           />
@@ -180,17 +193,21 @@ export default function Admin() {
             </label>
             <input
               type="text"
-              value={formData.impact_title || ''}
-              onChange={(e) => handleInputChange('impact_title', e.target.value)}
+              value={formData.impact_title || ""}
+              onChange={(e) =>
+                handleInputChange("impact_title", e.target.value)
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="Seja bem-vindo ao [destaque]Ecko[/destaque]"
             />
             <p className="text-sm text-gray-500 mt-1">
-              Use <code className="bg-gray-100 px-1 rounded">[destaque]palavra[/destaque]</code> para destacar palavras específicas
+              Use{" "}
+              <code className="bg-gray-100 px-1 rounded">
+                [destaque]palavra[/destaque]
+              </code>{" "}
+              para destacar palavras específicas
             </p>
           </div>
-
-
 
           {/* Description */}
           <div>
@@ -199,13 +216,17 @@ export default function Admin() {
             </label>
             <textarea
               rows={4}
-              value={formData.description || ''}
-              onChange={(e) => handleInputChange('description', e.target.value)}
+              value={formData.description || ""}
+              onChange={(e) => handleInputChange("description", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="Transforme suas ideias com a [destaque]Ecko[/destaque]..."
             />
             <p className="text-sm text-gray-500 mt-1">
-              Use <code className="bg-gray-100 px-1 rounded">[destaque]palavra[/destaque]</code> para destacar palavras com gradiente vermelho
+              Use{" "}
+              <code className="bg-gray-100 px-1 rounded">
+                [destaque]palavra[/destaque]
+              </code>{" "}
+              para destacar palavras com gradiente vermelho
             </p>
           </div>
 
@@ -216,8 +237,8 @@ export default function Admin() {
             </label>
             <input
               type="text"
-              value={formData.button_text || ''}
-              onChange={(e) => handleInputChange('button_text', e.target.value)}
+              value={formData.button_text || ""}
+              onChange={(e) => handleInputChange("button_text", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="Comece Agora"
             />
@@ -226,8 +247,8 @@ export default function Admin() {
           {/* Background Image Upload */}
           <ImageUpload
             label="Imagem de Fundo"
-            currentUrl={formData.background_image || ''}
-            onUrlChange={(url) => handleInputChange('background_image', url)}
+            currentUrl={formData.background_image || ""}
+            onUrlChange={(url) => handleInputChange("background_image", url)}
             placeholder="https://images.unsplash.com/..."
             previewHeight="h-48"
           />
@@ -245,7 +266,7 @@ export default function Admin() {
               disabled={saving}
               className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {saving ? 'Salvando...' : 'Salvar Alterações'}
+              {saving ? "Salvando..." : "Salvar Alterações"}
             </button>
           </div>
         </form>
