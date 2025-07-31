@@ -209,6 +209,10 @@ export function createServer() {
   app.delete("/api/about/stats/:id", deleteAboutStat);
   app.post("/api/about/reorder", reorderAboutStats);
 
+  // SEO routes
+  app.get("/api/seo", getSEO);
+  app.put("/api/seo", updateSEO);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
