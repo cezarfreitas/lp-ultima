@@ -282,10 +282,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {formContent?.benefit3_title || 'Suporte Completo'}
+                      {renderTextWithHighlights(formContent?.benefit3_title || 'Suporte Completo')}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {formContent?.benefit3_description || 'Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.'}
+                      {renderTextWithHighlights(formContent?.benefit3_description || 'Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.')}
                     </p>
                   </div>
                 </div>
