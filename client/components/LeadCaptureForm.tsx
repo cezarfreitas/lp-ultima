@@ -5,7 +5,7 @@ export default function LeadCaptureForm() {
   const [formData, setFormData] = useState<LeadCreateRequest>({
     name: '',
     whatsapp: '',
-    has_cnpj: 'sim',
+    has_cnpj: '' as any,
     store_type: undefined,
     cep: '',
   });
