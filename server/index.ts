@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import compression from "compression";
+import helmet from "helmet";
 import { handleDemo } from "./routes/demo";
 import {
   getHeroSection,
