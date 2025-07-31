@@ -114,6 +114,9 @@ export default function Index() {
 
   return (
     <div className="min-h-screen">
+      {/* SEO Head Management */}
+      <SEOHead />
+
       {/* Hero Section with Background Image */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
