@@ -4,12 +4,12 @@ export default function Migrate() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
-  const handleMigrate = async () => {
+  const handleMigrate = async (endpoint: string, description: string) => {
     setLoading(true);
     setMessage(null);
 
     try {
-      const response = await fetch("/api/migrate-logo", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export default function Migrate() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({type: 'success', text: data.message});
+        setMessage({type: 'success', text: `${description}: ${data.message}`});
       } else {
         setMessage({type: 'error', text: data.error || 'Erro na migração'});
       }
