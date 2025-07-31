@@ -26,6 +26,11 @@ export default function TestimonialsSection() {
       if (response.ok) {
         const data = await response.json();
         setSectionData(data);
+      } else if (response.status === 404) {
+        // Tables don't exist yet, just hide the section
+        console.log("Testimonials tables not created yet");
+      } else {
+        console.error("Error fetching testimonials:", response.statusText);
       }
     } catch (error) {
       console.error("Error fetching testimonials:", error);
