@@ -394,17 +394,17 @@ export const getLeadsChart: RequestHandler = async (req, res) => {
     const chartData = [];
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
-      const dateString = date.toISOString().split('T')[0];
+      const dateString = date.toISOString().split("T")[0];
 
       // Find data for this day or default to 0
-      const dayData = (rows as any[]).find(row => row.date === dateString);
+      const dayData = (rows as any[]).find((row) => row.date === dateString);
 
       chartData.push({
         day: day,
         date: dateString,
         total_leads: dayData ? dayData.total_leads : 0,
         lojistas: dayData ? dayData.lojistas : 0,
-        consumidores: dayData ? dayData.consumidores : 0
+        consumidores: dayData ? dayData.consumidores : 0,
       });
     }
 

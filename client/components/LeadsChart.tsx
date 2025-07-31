@@ -46,8 +46,18 @@ export default function LeadsChart() {
 
   const getCurrentMonthName = () => {
     const monthNames = [
-      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
     ];
     return monthNames[new Date().getMonth()];
   };
@@ -62,7 +72,7 @@ export default function LeadsChart() {
 
   const getAverageLeadsPerDay = () => {
     const total = getTotalLeadsThisMonth();
-    const daysWithLeads = chartData.filter(day => day.total_leads > 0).length;
+    const daysWithLeads = chartData.filter((day) => day.total_leads > 0).length;
     return daysWithLeads > 0 ? (total / daysWithLeads).toFixed(1) : "0";
   };
 
@@ -108,9 +118,7 @@ export default function LeadsChart() {
           <div className="text-2xl font-bold text-gray-900">
             {getTotalLeadsThisMonth()}
           </div>
-          <div className="text-sm text-gray-600">
-            Total no mês
-          </div>
+          <div className="text-sm text-gray-600">Total no mês</div>
           <div className="text-xs text-gray-500 mt-1">
             Média: {getAverageLeadsPerDay()}/dia
           </div>
@@ -119,7 +127,10 @@ export default function LeadsChart() {
 
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <LineChart
+            data={chartData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis
               dataKey="day"
@@ -146,16 +157,24 @@ export default function LeadsChart() {
               }}
               labelFormatter={(value) => `Dia ${value}`}
               formatter={(value, name) => {
-                const displayName = name === "total_leads" ? "Total" :
-                                 name === "lojistas" ? "Lojistas" : "Consumidores";
+                const displayName =
+                  name === "total_leads"
+                    ? "Total"
+                    : name === "lojistas"
+                      ? "Lojistas"
+                      : "Consumidores";
                 return [value, displayName];
               }}
             />
-            <Legend 
+            <Legend
               wrapperStyle={{ paddingTop: "20px" }}
               formatter={(value) => {
-                const displayName = value === "total_leads" ? "Total de Leads" :
-                                 value === "lojistas" ? "Lojistas" : "Consumidores";
+                const displayName =
+                  value === "total_leads"
+                    ? "Total de Leads"
+                    : value === "lojistas"
+                      ? "Lojistas"
+                      : "Consumidores";
                 return displayName;
               }}
             />
