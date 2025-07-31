@@ -67,6 +67,16 @@ import {
   reorderShowroomItems,
 } from "./routes/showroom";
 import { migrateShowroom } from "./routes/migrate-showroom";
+import {
+  getFooterSection,
+  getAllFooterLinks,
+  updateFooterSection,
+  createFooterLink,
+  updateFooterLink,
+  deleteFooterLink,
+  reorderFooterLinks,
+} from "./routes/footer";
+import { migrateFooter } from "./routes/migrate-footer";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
@@ -169,10 +179,20 @@ export function createServer() {
   app.delete("/api/showroom/:id", deleteShowroomItem);
   app.post("/api/showroom/reorder", reorderShowroomItems);
 
+  // Footer routes
+  app.get("/api/footer", getFooterSection);
+  app.get("/api/admin/footer", getAllFooterLinks);
+  app.put("/api/footer/section", updateFooterSection);
+  app.post("/api/footer/links", createFooterLink);
+  app.put("/api/footer/links/:id", updateFooterLink);
+  app.delete("/api/footer/links/:id", deleteFooterLink);
+  app.post("/api/footer/reorder", reorderFooterLinks);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
   app.post("/api/migrate-showroom", migrateShowroom);
+  app.post("/api/migrate-footer", migrateFooter);
 
   return app;
 }
