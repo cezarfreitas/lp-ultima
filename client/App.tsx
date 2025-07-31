@@ -41,6 +41,7 @@ const App = () => (
             element={<AdminProductGallery />}
           />
           <Route path="/admin/testimonials" element={<AdminTestimonials />} />
+          <Route path="/admin/faq" element={<AdminFAQ />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
