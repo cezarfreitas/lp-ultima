@@ -201,8 +201,11 @@ export default function Admin() {
               value={formData.description || ''}
               onChange={(e) => handleInputChange('description', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Transforme suas ideias em realidade..."
+              placeholder="Transforme suas ideias com a [destaque]Ecko[/destaque]..."
             />
+            <p className="text-sm text-gray-500 mt-1">
+              Use <code className="bg-gray-100 px-1 rounded">[destaque]palavra[/destaque]</code> para destacar palavras com gradiente vermelho
+            </p>
           </div>
 
           {/* Button Text */}
