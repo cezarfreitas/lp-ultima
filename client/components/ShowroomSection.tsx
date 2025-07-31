@@ -272,7 +272,9 @@ export default function ShowroomSection() {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2">{item.title}</h3>
+                    <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2">
+                      {item.title}
+                    </h3>
                     {item.description && (
                       <p className="text-xs md:text-sm text-gray-200 leading-relaxed">
                         {item.description}
