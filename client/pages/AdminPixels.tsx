@@ -15,11 +15,13 @@ export default function AdminPixels() {
 
   const [formData, setFormData] = useState<PixelCreateRequest>({
     name: "",
-    type: "google_analytics",
+    type: "ga4_simple",
     code: "",
     enabled: false,
     position: "head",
-    description: ""
+    description: "",
+    pixel_id: "",
+    access_token: ""
   });
 
   useEffect(() => {
