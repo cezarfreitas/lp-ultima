@@ -6,6 +6,7 @@ import LeadCaptureForm from "../components/LeadCaptureForm";
 import TestimonialsSection from "../components/TestimonialsSection";
 import ShowroomSection from "../components/ShowroomSection";
 import FAQSection from "../components/FAQSection";
+import Footer from "../components/Footer";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
@@ -468,6 +469,9 @@ export default function Index() {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
