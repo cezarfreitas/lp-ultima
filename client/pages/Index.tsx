@@ -118,6 +118,9 @@ export default function Index() {
       {/* SEO Head Management */}
       <SEOHead />
 
+      {/* Pixel Injection */}
+      <PixelInjector />
+
       {/* Hero Section with Background Image */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
