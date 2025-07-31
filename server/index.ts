@@ -247,6 +247,7 @@ export function createServer() {
   app.post("/api/migrate-about", migrateAbout);
   app.post("/api/migrate-seo", migrateSEO);
   app.post("/api/migrate-pixels", migratePixels);
+  app.post("/api/migrate-multi-format", migrateMultiFormat);
 
   return app;
 }
