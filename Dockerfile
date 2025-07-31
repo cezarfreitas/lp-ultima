@@ -12,28 +12,34 @@ RUN npm install --legacy-peer-deps
 # Copy source code
 COPY . .
 
-# Build only the client (static site) using client-only config
-RUN npx vite build --config vite.config.client.ts
+# Build the client (static site)
+RUN npx vite build
 
-# Production stage - use nginx for static file serving
-FROM nginx:alpine AS production
+# Production stage - serve both static files and backend APIs
+FROM node:18-alpine AS production
 
-# Copy built static files to nginx
-COPY --from=builder /app/dist/spa /usr/share/nginx/html
+WORKDIR /app
 
-# Copy nginx configuration for SPA routing
-RUN echo 'server { \
-    listen 80; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+# Copy package.json and install only production dependencies
+COPY package*.json ./
+RUN npm ci --only=production --legacy-peer-deps
+
+# Copy built static files
+COPY --from=builder /app/dist /app/dist
+
+# Copy server code and shared code
+COPY server /app/server
+COPY shared /app/shared
+
+# Copy uploads directory structure
+RUN mkdir -p /app/uploads
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=80
 
 # Expose port 80
 EXPOSE 80
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Node.js server that serves both static files and APIs
+CMD ["node", "server/node-build.ts"]
