@@ -1,6 +1,7 @@
 export interface HeroSectionData {
   id: number;
   logo_text: string;
+  logo_image: string;
   impact_title: string;
   impact_subtitle: string;
   description: string;
@@ -12,6 +13,7 @@ export interface HeroSectionData {
 
 export interface HeroUpdateRequest {
   logo_text?: string;
+  logo_image?: string;
   impact_title?: string;
   impact_subtitle?: string;
   description?: string;
