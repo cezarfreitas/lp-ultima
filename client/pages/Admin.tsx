@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { HeroSectionData, HeroUpdateRequest } from "@shared/hero";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
-import ImageUpload from "../components/ImageUpload";
+import AdminTabs from "../components/AdminTabs";
+import ImageUploadCompressed from "../components/ImageUploadCompressed";
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
