@@ -29,6 +29,14 @@ import {
 } from "./routes/leads";
 import { getWebhookSettings, updateWebhookSettings } from "./routes/webhooks";
 import { getFormContent, updateFormContent } from "./routes/form-content";
+import {
+  getProductGallery,
+  updateProductGallery,
+  createProductItem,
+  updateProductItem,
+  deleteProductItem,
+  reorderProducts,
+} from "./routes/product-gallery";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
