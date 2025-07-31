@@ -155,13 +155,12 @@ export default function Admin() {
             </label>
             <input
               type="text"
-              maxLength={10}
               value={formData.logo_text || ''}
               onChange={(e) => handleInputChange('logo_text', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="L"
             />
-            <p className="text-sm text-gray-500 mt-1">Máximo 10 caracteres (usado apenas se não houver imagem)</p>
+            <p className="text-sm text-gray-500 mt-1">Texto do logo (usado apenas se não houver imagem)</p>
           </div>
 
           {/* Logo Image Upload */}
