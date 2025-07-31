@@ -129,7 +129,10 @@ export default function LeadCaptureForm() {
           }
         </p>
         <button
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setIsConsumerSubmission(false);
+          }}
           className="text-green-600 hover:text-green-700 font-medium text-sm underline"
         >
           Enviar outro formulário
