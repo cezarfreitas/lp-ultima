@@ -99,25 +99,7 @@ export default function LeadCaptureForm() {
     }
   };
 
-  const handleCouponClick = async () => {
-    // Send consumer data to webhook before redirecting
-    try {
-      await fetch("/api/consumer-webhook", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          whatsapp: formData.whatsapp,
-        }),
-      });
-    } catch (error) {
-      console.error("Error sending consumer webhook:", error);
-    }
 
-    window.open("https://ecko.com.br", "_blank");
-  };
 
   if (submitted) {
     return (
