@@ -21,6 +21,7 @@ import InitDB from "./pages/InitDB";
 import Migrate from "./pages/Migrate";
 import MigrateTestimonials from "./pages/MigrateTestimonials";
 import MigrateFAQ from "./pages/MigrateFAQ";
+import MigrateShowroom from "./pages/MigrateShowroom";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
 
