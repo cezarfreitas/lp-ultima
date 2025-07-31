@@ -100,6 +100,7 @@ import {
   togglePixel,
 } from "./routes/pixels";
 import { migratePixels } from "./routes/migrate-pixels";
+import { migrateMultiFormat } from "./routes/migrate-multi-format";
 import { sendMetaConversion } from "./routes/meta-conversion";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
