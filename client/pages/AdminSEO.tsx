@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { SEOData, SEOUpdateRequest } from "@shared/seo";
+import AdminAuth from "../components/AdminAuth";
+import AdminLayout from "../components/AdminLayout";
 
 export default function AdminSEO() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [seoData, setSeoData] = useState<SEOData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -184,7 +187,7 @@ export default function AdminSEO() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  URL Canônica
+                  URL Can��nica
                 </label>
                 <input
                   type="url"
