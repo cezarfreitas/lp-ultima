@@ -51,6 +51,29 @@ export async function initializeDatabase() {
       )
     `);
 
+    // Create leads table
+    await pool.execute(`
+      CREATE TABLE IF NOT EXISTS leads (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        phone VARCHAR(50),
+        company VARCHAR(255),
+        message TEXT,
+        source VARCHAR(100) DEFAULT 'website',
+        status ENUM('new', 'contacted', 'qualified', 'converted', 'lost') DEFAULT 'new',
+        webhook_sent BOOLEAN DEFAULT FALSE,
+        webhook_attempts INT DEFAULT 0,
+        ip_address VARCHAR(45),
+        user_agent TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_email (email),
+        INDEX idx_status (status),
+        INDEX idx_created_at (created_at)
+      )
+    `);
+
     // Insert default data if tables are empty
     const [heroRows] = await pool.execute(
       "SELECT COUNT(*) as count FROM hero_section",
