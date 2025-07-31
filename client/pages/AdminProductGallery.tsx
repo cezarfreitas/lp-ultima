@@ -3,7 +3,7 @@ import { ProductGallery, ProductItem } from "@shared/product-gallery";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import ImageUploadCompressed from "../components/ImageUploadCompressed";
-import MultiImageUpload from "../components/MultiImageUpload";
+import MultiImageUploadFallback from "../components/MultiImageUploadFallback";
 
 type Tab = "textos" | "fotos";
 
