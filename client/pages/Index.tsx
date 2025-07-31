@@ -130,9 +130,9 @@ export default function Index() {
           </div>
 
           {/* Texto Descritivo */}
-          <div className="mb-10 max-w-3xl mx-auto">
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-100 leading-relaxed tracking-wide font-light">
-              <span className="drop-shadow-md">
+          <div className="mb-12 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed tracking-wide font-normal text-center">
+              <span className="drop-shadow-lg opacity-95">
                 {renderTextWithHighlights(data.description)}
               </span>
             </p>
