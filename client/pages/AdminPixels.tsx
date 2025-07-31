@@ -293,6 +293,39 @@ export default function AdminPixels() {
                   </div>
                 </div>
 
+                {/* Campos especiais para versões simplificadas */}
+                {PIXEL_TYPES[formData.type]?.requiresId && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {PIXEL_TYPES[formData.type]?.idLabel || 'ID do Pixel'}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.pixel_id}
+                      onChange={(e) => setFormData(prev => ({ ...prev, pixel_id: e.target.value }))}
+                      className="w-full p-3 border border-gray-300 rounded-lg"
+                      placeholder={formData.type === 'ga4_simple' ? 'G-XXXXXXXXXX' : 'Digite apenas os números'}
+                      required
+                    />
+                  </div>
+                )}
+
+                {PIXEL_TYPES[formData.type]?.requiresToken && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {PIXEL_TYPES[formData.type]?.tokenLabel || 'Access Token'}
+                    </label>
+                    <input
+                      type="password"
+                      value={formData.access_token}
+                      onChange={(e) => setFormData(prev => ({ ...prev, access_token: e.target.value }))}
+                      className="w-full p-3 border border-gray-300 rounded-lg"
+                      placeholder="Access Token da Meta Conversions API"
+                      required
+                    />
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Código do Pixel
