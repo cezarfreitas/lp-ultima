@@ -1,0 +1,272 @@
+import { RequestHandler } from "express";
+import { pool } from "../database/config";
+import { z } from "zod";
+
+// Schema for validation
+const LeadCreateSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().optional(),
+  company: z.string().optional(),
+  message: z.string().optional(),
+});
+
+const LeadUpdateSchema = z.object({
+  name: z.string().min(2).optional(),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
+  company: z.string().optional(),
+  message: z.string().optional(),
+  status: z.enum(['new', 'contacted', 'qualified', 'converted', 'lost']).optional(),
+});
+
+// Webhook function
+async function sendWebhook(lead: any) {
+  try {
+    const webhookUrl = process.env.WEBHOOK_URL;
+    if (!webhookUrl) return;
+
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': process.env.WEBHOOK_SECRET || '',
+      },
+      body: JSON.stringify({
+        event: 'new_lead',
+        data: lead,
+        timestamp: new Date().toISOString(),
+      }),
+    });
+
+    if (response.ok) {
+      await pool.execute(
+        'UPDATE leads SET webhook_sent = TRUE WHERE id = ?',
+        [lead.id]
+      );
+    } else {
+      await pool.execute(
+        'UPDATE leads SET webhook_attempts = webhook_attempts + 1 WHERE id = ?',
+        [lead.id]
+      );
+    }
+  } catch (error) {
+    console.error('Webhook error:', error);
+    await pool.execute(
+      'UPDATE leads SET webhook_attempts = webhook_attempts + 1 WHERE id = ?',
+      [lead.id]
+    );
+  }
+}
+
+// Create new lead
+export const createLead: RequestHandler = async (req, res) => {
+  try {
+    const validation = LeadCreateSchema.safeParse(req.body);
+    
+    if (!validation.success) {
+      return res.status(400).json({ 
+        error: 'Dados inválidos', 
+        details: validation.error.errors 
+      });
+    }
+    
+    const { name, email, phone, company, message } = validation.data;
+    
+    // Get client info
+    const ip_address = req.ip || req.connection.remoteAddress;
+    const user_agent = req.get('User-Agent');
+    
+    const [result] = await pool.execute(`
+      INSERT INTO leads (name, email, phone, company, message, ip_address, user_agent)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [name, email, phone || null, company || null, message || null, ip_address, user_agent]);
+    
+    const insertId = (result as any).insertId;
+    
+    // Get the created lead
+    const [rows] = await pool.execute('SELECT * FROM leads WHERE id = ?', [insertId]);
+    const newLead = (rows as any[])[0];
+    
+    // Send webhook asynchronously
+    sendWebhook(newLead).catch(console.error);
+    
+    res.status(201).json({ 
+      message: 'Lead criado com sucesso!',
+      id: insertId 
+    });
+  } catch (error) {
+    console.error('Error creating lead:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
+// Get all leads (admin)
+export const getLeads: RequestHandler = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+    const status = req.query.status as string;
+    const offset = (page - 1) * limit;
+    
+    let whereClause = '';
+    let params: any[] = [];
+    
+    if (status && status !== 'all') {
+      whereClause = 'WHERE status = ?';
+      params.push(status);
+    }
+    
+    const [rows] = await pool.execute(
+      `SELECT * FROM leads ${whereClause} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+      [...params, limit, offset]
+    );
+    
+    const [countRows] = await pool.execute(
+      `SELECT COUNT(*) as total FROM leads ${whereClause}`,
+      params
+    );
+    
+    const total = (countRows as any[])[0].total;
+    
+    res.json({
+      leads: rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching leads:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
+// Get single lead
+export const getLead: RequestHandler = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    const [rows] = await pool.execute('SELECT * FROM leads WHERE id = ?', [id]);
+    const lead = (rows as any[])[0];
+    
+    if (!lead) {
+      return res.status(404).json({ error: 'Lead não encontrado' });
+    }
+    
+    res.json(lead);
+  } catch (error) {
+    console.error('Error fetching lead:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
+// Update lead
+export const updateLead: RequestHandler = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    const validation = LeadUpdateSchema.safeParse(req.body);
+    
+    if (!validation.success) {
+      return res.status(400).json({ 
+        error: 'Dados inválidos', 
+        details: validation.error.errors 
+      });
+    }
+    
+    const data = validation.data;
+    const updateFields = Object.keys(data);
+    
+    if (updateFields.length === 0) {
+      return res.status(400).json({ error: 'Nenhum campo para atualizar' });
+    }
+    
+    // Build dynamic update query
+    const setClause = updateFields.map(field => `${field} = ?`).join(', ');
+    const values = updateFields.map(field => data[field as keyof typeof data]);
+    
+    await pool.execute(
+      `UPDATE leads SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [...values, id]
+    );
+    
+    // Return updated data
+    const [rows] = await pool.execute('SELECT * FROM leads WHERE id = ?', [id]);
+    const updatedLead = (rows as any[])[0];
+    
+    if (!updatedLead) {
+      return res.status(404).json({ error: 'Lead não encontrado' });
+    }
+    
+    res.json(updatedLead);
+  } catch (error) {
+    console.error('Error updating lead:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
+// Delete lead
+export const deleteLead: RequestHandler = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    const [result] = await pool.execute('DELETE FROM leads WHERE id = ?', [id]);
+    
+    if ((result as any).affectedRows === 0) {
+      return res.status(404).json({ error: 'Lead não encontrado' });
+    }
+    
+    res.json({ message: 'Lead deletado com sucesso' });
+  } catch (error) {
+    console.error('Error deleting lead:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
+// Get leads statistics
+export const getLeadsStats: RequestHandler = async (req, res) => {
+  try {
+    const [totalRows] = await pool.execute('SELECT COUNT(*) as total FROM leads');
+    const [statusRows] = await pool.execute(`
+      SELECT status, COUNT(*) as count 
+      FROM leads 
+      GROUP BY status
+    `);
+    const [recentRows] = await pool.execute(`
+      SELECT COUNT(*) as recent 
+      FROM leads 
+      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAYS)
+    `);
+    
+    const total = (totalRows as any[])[0].total;
+    const recent = (recentRows as any[])[0].recent;
+    const byStatus = (statusRows as any[]).reduce((acc, row) => {
+      acc[row.status] = row.count;
+      return acc;
+    }, {});
+    
+    res.json({
+      total,
+      recent,
+      byStatus
+    });
+  } catch (error) {
+    console.error('Error fetching leads stats:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
