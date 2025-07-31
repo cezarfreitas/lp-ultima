@@ -8,7 +8,6 @@ const ShowroomSectionUpdateSchema = z.object({
   subtitle: z.string().optional(),
   background_type: z.enum(['white', 'gray', 'gradient', 'dark']).optional(),
   layout_type: z.enum(['grid', 'masonry', 'carousel']).optional(),
-  show_categories: z.boolean().optional(),
   max_items: z.number().int().min(3).max(24).optional(),
 });
 
@@ -23,7 +22,6 @@ const ShowroomCreateSchema = z.object({
     { message: "URL da mídia inválida" }
   ),
   media_type: z.enum(['image', 'video']),
-  category: z.enum(['ambiente', 'lookbook', 'lifestyle', 'produtos']),
   is_featured: z.boolean().optional(),
   is_active: z.boolean().optional(),
   position: z.number().int().min(1).optional(),
@@ -40,7 +38,6 @@ const ShowroomUpdateSchema = z.object({
     { message: "URL da mídia inválida" }
   ).optional(),
   media_type: z.enum(['image', 'video']).optional(),
-  category: z.enum(['ambiente', 'lookbook', 'lifestyle', 'produtos']).optional(),
   is_featured: z.boolean().optional(),
   is_active: z.boolean().optional(),
   position: z.number().int().min(1).optional(),
@@ -164,7 +161,7 @@ export const createShowroomItem: RequestHandler = async (req, res) => {
       });
     }
     
-    const { title, description, media_url, media_type, category, is_featured, is_active, position } = validation.data;
+    const { title, description, media_url, media_type, is_featured, is_active, position } = validation.data;
     
     // Get section ID
     const [sectionRows] = await pool.execute('SELECT id FROM showroom_section LIMIT 1');
@@ -186,9 +183,9 @@ export const createShowroomItem: RequestHandler = async (req, res) => {
     }
     
     const [result] = await pool.execute(`
-      INSERT INTO showroom_items (section_id, title, description, media_url, media_type, category, is_featured, is_active, position)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [section.id, title, description || '', media_url, media_type, category, is_featured ?? false, is_active ?? true, finalPosition]);
+      INSERT INTO showroom_items (section_id, title, description, media_url, media_type, is_featured, is_active, position)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `, [section.id, title, description || '', media_url, media_type, is_featured ?? false, is_active ?? true, finalPosition]);
     
     const insertId = (result as any).insertId;
     
@@ -294,39 +291,6 @@ export const reorderShowroomItems: RequestHandler = async (req, res) => {
     res.json({ message: 'Ordem dos itens de showroom atualizada' });
   } catch (error) {
     console.error('Error reordering showroom items:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
-  }
-};
-
-// Get items by category
-export const getShowroomByCategory: RequestHandler = async (req, res) => {
-  try {
-    const category = req.params.category;
-    
-    if (!['ambiente', 'lookbook', 'lifestyle', 'produtos'].includes(category)) {
-      return res.status(400).json({ error: 'Categoria inválida' });
-    }
-    
-    // Get section settings
-    const [sectionRows] = await pool.execute('SELECT * FROM showroom_section LIMIT 1');
-    const section = (sectionRows as any[])[0];
-    
-    if (!section) {
-      return res.status(404).json({ error: 'Seção de showroom não encontrada' });
-    }
-
-    // Get items by category
-    const [itemRows] = await pool.execute(
-      'SELECT * FROM showroom_items WHERE section_id = ? AND category = ? AND is_active = 1 ORDER BY is_featured DESC, position ASC',
-      [section.id, category]
-    );
-
-    res.json({
-      category,
-      items: itemRows
-    });
-  } catch (error) {
-    console.error('Error fetching showroom by category:', error);
     res.status(500).json({ error: 'Erro interno do servidor' });
   }
 };
