@@ -30,8 +30,27 @@ export default function AdminSEO() {
   });
 
   useEffect(() => {
-    fetchSEOData();
+    // Check if already authenticated
+    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    setIsAuthenticated(authenticated);
+
+    if (authenticated) {
+      fetchSEOData();
+    } else {
+      setLoading(false);
+    }
   }, []);
+
+  const handleAuthenticated = () => {
+    setIsAuthenticated(true);
+    setLoading(true);
+    fetchSEOData();
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("admin_authenticated");
+    setIsAuthenticated(false);
+  };
 
   const fetchSEOData = async () => {
     try {
@@ -187,7 +206,7 @@ export default function AdminSEO() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  URL Can��nica
+                  URL Canônica
                 </label>
                 <input
                   type="url"
