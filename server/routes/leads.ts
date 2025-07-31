@@ -5,18 +5,18 @@ import { z } from "zod";
 // Schema for validation
 const LeadCreateSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
-  email: z.string().email("Email inválido"),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  message: z.string().optional(),
+  whatsapp: z.string().min(1, "WhatsApp é obrigatório"),
+  has_cnpj: z.enum(['sim', 'nao']),
+  store_type: z.enum(['fisica', 'online', 'fisica_online', 'midias_sociais']).optional(),
+  cep: z.string().optional(),
 });
 
 const LeadUpdateSchema = z.object({
   name: z.string().min(2).optional(),
-  email: z.string().email().optional(),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  message: z.string().optional(),
+  whatsapp: z.string().optional(),
+  has_cnpj: z.enum(['sim', 'nao']).optional(),
+  store_type: z.enum(['fisica', 'online', 'fisica_online', 'midias_sociais']).optional(),
+  cep: z.string().optional(),
   status: z.enum(['new', 'contacted', 'qualified', 'converted', 'lost']).optional(),
 });
 
@@ -71,16 +71,16 @@ export const createLead: RequestHandler = async (req, res) => {
       });
     }
     
-    const { name, email, phone, company, message } = validation.data;
-    
+    const { name, whatsapp, has_cnpj, store_type, cep } = validation.data;
+
     // Get client info
     const ip_address = req.ip || req.connection.remoteAddress;
     const user_agent = req.get('User-Agent');
-    
+
     const [result] = await pool.execute(`
-      INSERT INTO leads (name, email, phone, company, message, ip_address, user_agent)
+      INSERT INTO leads (name, whatsapp, has_cnpj, store_type, cep, ip_address, user_agent)
       VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, [name, email, phone || null, company || null, message || null, ip_address, user_agent]);
+    `, [name, whatsapp, has_cnpj, store_type || null, cep || null, ip_address, user_agent]);
     
     const insertId = (result as any).insertId;
     
