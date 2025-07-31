@@ -53,7 +53,12 @@ export default function OptimizedImage({
 
   const generateSrcSet = (baseSrc: string) => {
     if (baseSrc.includes("unsplash.com")) {
-      return `${baseSrc}&w=400 400w, ${baseSrc}&w=800 800w, ${baseSrc}&w=1200 1200w`;
+      try {
+        return `${baseSrc}&w=400 400w, ${baseSrc}&w=800 800w, ${baseSrc}&w=1200 1200w`;
+      } catch (error) {
+        console.warn('Failed to generate srcSet for:', baseSrc);
+        return undefined;
+      }
     }
     return undefined;
   };
