@@ -34,8 +34,14 @@ export default function PixelInjector() {
   useEffect(() => {
     if (pixels.length === 0) return;
 
+    // Generate code for simplified pixels
+    const processedPixels = pixels.map(pixel => ({
+      ...pixel,
+      code: generatePixelCode(pixel)
+    }));
+
     // Inject head pixels
-    const headPixels = pixels.filter(pixel => pixel.position === 'head');
+    const headPixels = processedPixels.filter(pixel => pixel.position === 'head');
     headPixels.forEach(pixel => {
       injectToHead(pixel);
     });
