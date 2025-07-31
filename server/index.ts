@@ -154,6 +154,7 @@ export function createServer() {
   app.post("/api/leads", createLead);
   app.get("/api/leads", getLeads);
   app.get("/api/leads/stats", getLeadsStats);
+  app.get("/api/leads/chart", getLeadsChart);
   app.get("/api/leads/:id", getLead);
   app.put("/api/leads/:id", updateLead);
   app.delete("/api/leads/:id", deleteLead);
