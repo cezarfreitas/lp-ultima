@@ -128,16 +128,21 @@ export default function LeadsChart() {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis 
-              dataKey="day" 
+            <XAxis
+              dataKey="day"
               tick={{ fontSize: 12 }}
               axisLine={{ stroke: "#e5e7eb" }}
               tickLine={{ stroke: "#e5e7eb" }}
+              type="number"
+              domain={[1, 31]}
+              allowDecimals={false}
             />
-            <YAxis 
+            <YAxis
               tick={{ fontSize: 12 }}
               axisLine={{ stroke: "#e5e7eb" }}
               tickLine={{ stroke: "#e5e7eb" }}
+              type="number"
+              allowDecimals={false}
             />
             <Tooltip
               contentStyle={{
