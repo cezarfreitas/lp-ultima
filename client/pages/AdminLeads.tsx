@@ -198,6 +198,11 @@ export default function AdminLeads() {
           </div>
         )}
 
+        {/* Leads Chart */}
+        <div className="mb-8">
+          <LeadsChart />
+        </div>
+
         {/* Filters */}
         <div className="bg-white rounded-lg shadow-sm mb-8 p-6">
           <div className="flex flex-wrap gap-4 items-center">
