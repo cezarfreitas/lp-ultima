@@ -44,6 +44,7 @@ const App = () => (
           />
           <Route path="/admin/testimonials" element={<AdminTestimonials />} />
           <Route path="/admin/faq" element={<AdminFAQ />} />
+          <Route path="/admin/showroom" element={<AdminShowroom />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
