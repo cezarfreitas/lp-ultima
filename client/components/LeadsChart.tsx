@@ -10,13 +10,6 @@ import {
   Legend,
 } from "recharts";
 
-/*
- * Note: Os warnings sobre defaultProps que aparecem no console são da biblioteca Recharts,
- * não do nosso código. Estes warnings não afetam a funcionalidade e serão resolvidos
- * quando a biblioteca Recharts for atualizada para usar parâmetros padrão JavaScript
- * ao invés de defaultProps.
- */
-
 interface ChartData {
   day: number;
   date: string;
