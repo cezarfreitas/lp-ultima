@@ -72,15 +72,17 @@ export async function createPixel(req: Request, res: Response) {
     
     try {
       const [result] = await connection.execute(
-        `INSERT INTO pixels (name, type, code, enabled, position, description, created_at, updated_at) 
-         VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+        `INSERT INTO pixels (name, type, code, enabled, position, description, pixel_id, access_token, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
         [
           validatedData.name,
           validatedData.type,
-          validatedData.code,
+          validatedData.code || '',
           validatedData.enabled,
           validatedData.position,
-          validatedData.description || null
+          validatedData.description || null,
+          validatedData.pixel_id || null,
+          validatedData.access_token || null
         ]
       );
       
