@@ -296,10 +296,14 @@ export default function Index() {
                     className="group relative bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden"
                   >
                     <div className="aspect-square bg-gray-100 rounded-lg md:rounded-xl overflow-hidden">
-                      <img
+                      <OptimizedImage
                         src={product.image_url}
                         alt={product.alt_text}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        width={300}
+                        height={300}
+                        priority={index < 4}
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px"
                       />
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
