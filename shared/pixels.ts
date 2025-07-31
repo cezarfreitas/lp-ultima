@@ -92,6 +92,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script>
   // Seu código JavaScript aqui
 </script>`
+  },
+  ga4_simple: {
+    name: 'Google Analytics GA4 (ID Simples)',
+    icon: '📈',
+    defaultPosition: 'head' as const,
+    template: `<!-- Google Analytics GA4 - Só insira o ID -->`,
+    requiresId: true,
+    idLabel: 'Google Analytics ID (ex: G-XXXXXXXXXX)'
+  },
+  meta_simple: {
+    name: 'Meta Pixel (ID Simples)',
+    icon: '📱',
+    defaultPosition: 'head' as const,
+    template: `<!-- Meta Pixel - Só insira o ID -->`,
+    requiresId: true,
+    idLabel: 'Meta Pixel ID (apenas números)'
+  },
+  meta_conversions: {
+    name: 'Meta Conversions API',
+    icon: '🔗',
+    defaultPosition: 'head' as const,
+    template: `<!-- Meta Conversions API - Configuração Avançada -->`,
+    requiresId: true,
+    requiresToken: true,
+    idLabel: 'Meta Pixel ID',
+    tokenLabel: 'Access Token'
   }
 };
 
