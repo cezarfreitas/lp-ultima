@@ -12,6 +12,7 @@ import AdminHeroTabbed from "./pages/AdminHeroTabbed";
 import AdminDesign from "./pages/AdminDesign";
 import AdminLeads from "./pages/AdminLeads";
 import AdminFormContent from "./pages/AdminFormContent";
+import AdminProductGallery from "./pages/AdminProductGallery";
 import AdminSettings from "./pages/AdminSettings";
 import InitDB from "./pages/InitDB";
 import Migrate from "./pages/Migrate";
