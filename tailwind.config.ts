@@ -7,13 +7,13 @@ export default {
   mode: "jit",
   // Safelist critical classes that might be dynamically generated
   safelist: [
-    'hero-section',
-    'hero-bg',
-    'hero-overlay',
-    'hero-content',
-    'hero-title',
-    'hero-btn',
-    'loading-spinner'
+    "hero-section",
+    "hero-bg",
+    "hero-overlay",
+    "hero-content",
+    "hero-title",
+    "hero-btn",
+    "loading-spinner",
   ],
   prefix: "",
   theme: {
