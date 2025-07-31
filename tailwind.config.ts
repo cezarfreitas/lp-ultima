@@ -2,13 +2,9 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: [
-    "./client/**/*.{ts,tsx}",
-    "./shared/**/*.{ts,tsx}",
-    "./index.html"
-  ],
+  content: ["./client/**/*.{ts,tsx}", "./shared/**/*.{ts,tsx}", "./index.html"],
   // Enable JIT mode for faster builds and smaller CSS
-  mode: 'jit',
+  mode: "jit",
   prefix: "",
   theme: {
     container: {

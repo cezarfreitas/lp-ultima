@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ReactNode } from 'react';
+import { useState, useEffect, useRef, ReactNode } from "react";
 
 interface LazySectionProps {
   children: ReactNode;
@@ -11,11 +11,11 @@ interface LazySectionProps {
 
 export default function LazySection({
   children,
-  className = '',
+  className = "",
   threshold = 0.1,
-  rootMargin = '100px 0px',
+  rootMargin = "100px 0px",
   fallback = <div className="min-h-96 bg-gray-100 animate-pulse rounded-lg" />,
-  delay = 0
+  delay = 0,
 }: LazySectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,8 +31,8 @@ export default function LazySection({
       },
       {
         threshold,
-        rootMargin
-      }
+        rootMargin,
+      },
     );
 
     if (sectionRef.current) {
@@ -52,10 +52,12 @@ export default function LazySection({
   }, [isVisible, delay]);
 
   return (
-    <div 
-      ref={sectionRef} 
+    <div
+      ref={sectionRef}
       className={`transition-all duration-600 ${
-        isLoaded ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-8'
+        isLoaded
+          ? "opacity-100 transform-none"
+          : "opacity-0 transform translate-y-8"
       } ${className}`}
     >
       {isLoaded ? children : fallback}

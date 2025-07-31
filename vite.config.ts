@@ -19,11 +19,11 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog']
-        }
-      }
+          vendor: ["react", "react-dom"],
+          router: ["react-router-dom"],
+          ui: ["@radix-ui/react-accordion", "@radix-ui/react-dialog"],
+        },
+      },
     },
     // Enable compression
     cssCodeSplit: true,
@@ -35,9 +35,9 @@ export default defineConfig(({ mode }) => ({
       // Enable Fast Refresh
       fastRefresh: true,
       // Remove DevTools in production
-      devTarget: mode === 'development' ? 'es2020' : 'es2018'
+      devTarget: mode === "development" ? "es2020" : "es2018",
     }),
-    expressPlugin()
+    expressPlugin(),
   ],
   resolve: {
     alias: {
@@ -47,12 +47,12 @@ export default defineConfig(({ mode }) => ({
   },
   // Enable CSS optimization
   css: {
-    devSourcemap: mode === 'development'
+    devSourcemap: mode === "development",
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom']
-  }
+    include: ["react", "react-dom", "react-router-dom"],
+  },
 }));
 
 function expressPlugin(): Plugin {

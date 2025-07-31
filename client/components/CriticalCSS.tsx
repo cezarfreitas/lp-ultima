@@ -1,7 +1,8 @@
 export default function CriticalCSS() {
   return (
-    <style dangerouslySetInnerHTML={{
-      __html: `
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
         /* Critical CSS for initial render */
         .hero-section {
           min-height: 100vh;
@@ -112,7 +113,8 @@ export default function CriticalCSS() {
         .aspect-video {
           aspect-ratio: 16/9;
         }
-      `
-    }} />
+      `,
+      }}
+    />
   );
 }

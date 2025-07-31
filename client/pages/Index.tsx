@@ -10,7 +10,9 @@ import LazySection from "../components/LazySection";
 import OptimizedImage from "../components/OptimizedImage";
 
 // Lazy load non-critical components
-const TestimonialsSection = lazy(() => import("../components/TestimonialsSection"));
+const TestimonialsSection = lazy(
+  () => import("../components/TestimonialsSection"),
+);
 const ShowroomSection = lazy(() => import("../components/ShowroomSection"));
 const FAQSection = lazy(() => import("../components/FAQSection"));
 const AboutSection = lazy(() => import("../components/AboutSection"));
@@ -307,7 +309,10 @@ export default function Index() {
       </section>
 
       {/* Lead Capture Section */}
-      <section id="form" className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50">
+      <section
+        id="form"
+        className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Benefits/Reasons */}
@@ -468,14 +473,18 @@ export default function Index() {
       </section>
 
       {/* Showroom Section */}
-      <Suspense fallback={<div className="min-h-96 bg-gray-100 animate-pulse" />}>
+      <Suspense
+        fallback={<div className="min-h-96 bg-gray-100 animate-pulse" />}
+      >
         <LazySection>
           <ShowroomSection />
         </LazySection>
       </Suspense>
 
       {/* Testimonials Section */}
-      <Suspense fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}>
+      <Suspense
+        fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}
+      >
         <LazySection>
           <TestimonialsSection />
         </LazySection>
@@ -489,14 +498,18 @@ export default function Index() {
       </Suspense>
 
       {/* About Section */}
-      <Suspense fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}>
+      <Suspense
+        fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}
+      >
         <LazySection>
           <AboutSection />
         </LazySection>
       </Suspense>
 
       {/* Footer */}
-      <Suspense fallback={<div className="min-h-48 bg-gray-900 animate-pulse" />}>
+      <Suspense
+        fallback={<div className="min-h-48 bg-gray-900 animate-pulse" />}
+      >
         <LazySection>
           <Footer />
         </LazySection>

@@ -95,7 +95,7 @@ import {
   createPixel,
   updatePixel,
   deletePixel,
-  togglePixel
+  togglePixel,
 } from "./routes/pixels";
 import { migratePixels } from "./routes/migrate-pixels";
 import { sendMetaConversion } from "./routes/meta-conversion";

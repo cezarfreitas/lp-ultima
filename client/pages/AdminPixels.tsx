@@ -21,11 +21,12 @@ export default function AdminPixels() {
     position: "head",
     description: "",
     pixel_id: "",
-    access_token: ""
+    access_token: "",
   });
 
   useEffect(() => {
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
 
     if (authenticated) {
@@ -67,7 +68,9 @@ export default function AdminPixels() {
     setError("");
 
     try {
-      const url = editingPixel ? `/api/pixels/${editingPixel.id}` : "/api/pixels";
+      const url = editingPixel
+        ? `/api/pixels/${editingPixel.id}`
+        : "/api/pixels";
       const method = editingPixel ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -78,7 +81,11 @@ export default function AdminPixels() {
 
       if (response.ok) {
         const data = await response.json();
-        setMessage(editingPixel ? "Pixel atualizado com sucesso!" : "Pixel criado com sucesso!");
+        setMessage(
+          editingPixel
+            ? "Pixel atualizado com sucesso!"
+            : "Pixel criado com sucesso!",
+        );
         setShowForm(false);
         setEditingPixel(null);
         resetForm();
@@ -104,7 +111,7 @@ export default function AdminPixels() {
       position: pixel.position,
       description: pixel.description || "",
       pixel_id: pixel.pixel_id || "",
-      access_token: pixel.access_token || ""
+      access_token: pixel.access_token || "",
     });
     setShowForm(true);
   };
@@ -132,7 +139,7 @@ export default function AdminPixels() {
       });
 
       if (response.ok) {
-        setMessage(`Pixel ${enabled ? 'ativado' : 'desativado'} com sucesso!`);
+        setMessage(`Pixel ${enabled ? "ativado" : "desativado"} com sucesso!`);
         fetchPixels();
       }
     } catch (err) {
@@ -149,7 +156,7 @@ export default function AdminPixels() {
       position: "head",
       description: "",
       pixel_id: "",
-      access_token: ""
+      access_token: "",
     });
   };
 
@@ -159,15 +166,15 @@ export default function AdminPixels() {
     resetForm();
   };
 
-  const handleTypeChange = (type: PixelCreateRequest['type']) => {
+  const handleTypeChange = (type: PixelCreateRequest["type"]) => {
     const pixelType = PIXEL_TYPES[type];
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       type,
       position: pixelType.defaultPosition,
-      code: pixelType.requiresId ? '' : (prev.code || pixelType.template),
-      pixel_id: pixelType.requiresId ? prev.pixel_id : '',
-      access_token: pixelType.requiresToken ? prev.access_token : ''
+      code: pixelType.requiresId ? "" : prev.code || pixelType.template,
+      pixel_id: pixelType.requiresId ? prev.pixel_id : "",
+      access_token: pixelType.requiresToken ? prev.access_token : "",
     }));
   };
 
@@ -200,7 +207,8 @@ export default function AdminPixels() {
                   Pixels e Rastreamento
                 </h1>
                 <p className="text-gray-600">
-                  Gerencie códigos de rastreamento como Google Analytics, Meta Pixel, GTM e códigos personalizados
+                  Gerencie códigos de rastreamento como Google Analytics, Meta
+                  Pixel, GTM e códigos personalizados
                 </p>
               </div>
               <button
@@ -241,7 +249,12 @@ export default function AdminPixels() {
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          name: e.target.value,
+                        }))
+                      }
                       className="w-full p-3 border border-gray-300 rounded-lg"
                       required
                       placeholder="Ex: Google Analytics - Página Principal"
@@ -254,7 +267,11 @@ export default function AdminPixels() {
                     </label>
                     <select
                       value={formData.type}
-                      onChange={(e) => handleTypeChange(e.target.value as PixelCreateRequest['type'])}
+                      onChange={(e) =>
+                        handleTypeChange(
+                          e.target.value as PixelCreateRequest["type"],
+                        )
+                      }
                       className="w-full p-3 border border-gray-300 rounded-lg"
                     >
                       {Object.entries(PIXEL_TYPES).map(([key, type]) => (
@@ -271,7 +288,13 @@ export default function AdminPixels() {
                     </label>
                     <select
                       value={formData.position}
-                      onChange={(e) => setFormData(prev => ({ ...prev, position: e.target.value as PixelCreateRequest['position'] }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          position: e.target
+                            .value as PixelCreateRequest["position"],
+                        }))
+                      }
                       className="w-full p-3 border border-gray-300 rounded-lg"
                     >
                       <option value="head">Head (Cabeçalho)</option>
@@ -285,10 +308,17 @@ export default function AdminPixels() {
                       <input
                         type="checkbox"
                         checked={formData.enabled}
-                        onChange={(e) => setFormData(prev => ({ ...prev, enabled: e.target.checked }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            enabled: e.target.checked,
+                          }))
+                        }
                         className="rounded border-gray-300"
                       />
-                      <span className="text-sm font-medium text-gray-700">Pixel ativado</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Pixel ativado
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -297,14 +327,23 @@ export default function AdminPixels() {
                 {PIXEL_TYPES[formData.type]?.requiresId && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {PIXEL_TYPES[formData.type]?.idLabel || 'ID do Pixel'}
+                      {PIXEL_TYPES[formData.type]?.idLabel || "ID do Pixel"}
                     </label>
                     <input
                       type="text"
                       value={formData.pixel_id}
-                      onChange={(e) => setFormData(prev => ({ ...prev, pixel_id: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          pixel_id: e.target.value,
+                        }))
+                      }
                       className="w-full p-3 border border-gray-300 rounded-lg"
-                      placeholder={formData.type === 'ga4_simple' ? 'G-XXXXXXXXXX' : 'Digite apenas os números'}
+                      placeholder={
+                        formData.type === "ga4_simple"
+                          ? "G-XXXXXXXXXX"
+                          : "Digite apenas os números"
+                      }
                       required
                     />
                   </div>
@@ -313,12 +352,17 @@ export default function AdminPixels() {
                 {PIXEL_TYPES[formData.type]?.requiresToken && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {PIXEL_TYPES[formData.type]?.tokenLabel || 'Access Token'}
+                      {PIXEL_TYPES[formData.type]?.tokenLabel || "Access Token"}
                     </label>
                     <input
                       type="password"
                       value={formData.access_token}
-                      onChange={(e) => setFormData(prev => ({ ...prev, access_token: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          access_token: e.target.value,
+                        }))
+                      }
                       className="w-full p-3 border border-gray-300 rounded-lg"
                       placeholder="Access Token da Meta Conversions API"
                       required
@@ -333,7 +377,12 @@ export default function AdminPixels() {
                     </label>
                     <textarea
                       value={formData.code}
-                      onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          code: e.target.value,
+                        }))
+                      }
                       rows={12}
                       className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
                       placeholder="Cole aqui o código de rastreamento..."
@@ -351,7 +400,8 @@ export default function AdminPixels() {
                           Versão Simplificada
                         </h3>
                         <p className="text-blue-800 text-sm mt-1">
-                          Para esta versão, você só precisa inserir o ID. O código será gerado automaticamente.
+                          Para esta versão, você só precisa inserir o ID. O
+                          código será gerado automaticamente.
                         </p>
                       </div>
                     </div>
@@ -364,7 +414,12 @@ export default function AdminPixels() {
                   </label>
                   <textarea
                     value={formData.description}
-                    onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
                     rows={2}
                     className="w-full p-3 border border-gray-300 rounded-lg"
                     placeholder="Descrição do pixel e seu propósito..."
@@ -377,7 +432,11 @@ export default function AdminPixels() {
                     disabled={saving}
                     className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 disabled:opacity-50 transition-colors"
                   >
-                    {saving ? "Salvando..." : editingPixel ? "Atualizar" : "Criar Pixel"}
+                    {saving
+                      ? "Salvando..."
+                      : editingPixel
+                        ? "Atualizar"
+                        : "Criar Pixel"}
                   </button>
                   <button
                     type="button"
@@ -400,34 +459,41 @@ export default function AdminPixels() {
                   Nenhum pixel configurado
                 </h3>
                 <p className="text-gray-600">
-                  Adicione códigos de rastreamento para monitorar conversões e comportamento dos usuários
+                  Adicione códigos de rastreamento para monitorar conversões e
+                  comportamento dos usuários
                 </p>
               </div>
             ) : (
               <div className="space-y-4">
                 {pixels.map((pixel) => (
-                  <div key={pixel.id} className="border border-gray-200 rounded-lg p-6">
+                  <div
+                    key={pixel.id}
+                    className="border border-gray-200 rounded-lg p-6"
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3">
                           <span className="text-2xl">
-                            {PIXEL_TYPES[pixel.type]?.icon || '⚡'}
+                            {PIXEL_TYPES[pixel.type]?.icon || "⚡"}
                           </span>
                           <div>
                             <h3 className="text-lg font-semibold text-gray-900">
                               {pixel.name}
                             </h3>
                             <p className="text-sm text-gray-600">
-                              {PIXEL_TYPES[pixel.type]?.name || pixel.type} • {pixel.position}
+                              {PIXEL_TYPES[pixel.type]?.name || pixel.type} •{" "}
+                              {pixel.position}
                             </p>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              pixel.enabled 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-gray-100 text-gray-800'
-                            }`}>
-                              {pixel.enabled ? 'Ativo' : 'Inativo'}
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                pixel.enabled
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-gray-100 text-gray-800"
+                              }`}
+                            >
+                              {pixel.enabled ? "Ativo" : "Inativo"}
                             </span>
                           </div>
                         </div>
@@ -437,17 +503,19 @@ export default function AdminPixels() {
                           </p>
                         )}
                       </div>
-                      
+
                       <div className="flex items-center space-x-2 ml-4">
                         <button
-                          onClick={() => handleToggle(pixel.id!, !pixel.enabled)}
+                          onClick={() =>
+                            handleToggle(pixel.id!, !pixel.enabled)
+                          }
                           className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                             pixel.enabled
-                              ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-                              : 'bg-green-100 text-green-800 hover:bg-green-200'
+                              ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                              : "bg-green-100 text-green-800 hover:bg-green-200"
                           }`}
                         >
-                          {pixel.enabled ? 'Desativar' : 'Ativar'}
+                          {pixel.enabled ? "Desativar" : "Ativar"}
                         </button>
                         <button
                           onClick={() => handleEdit(pixel)}
