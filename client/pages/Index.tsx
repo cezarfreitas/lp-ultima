@@ -8,6 +8,7 @@ import PixelInjector from "../components/PixelInjector";
 import CriticalCSS from "../components/CriticalCSS";
 import LazySection from "../components/LazySection";
 import OptimizedImage from "../components/OptimizedImage";
+import APIStatus from "../components/APIStatus";
 
 // Lazy load non-critical components
 const TestimonialsSection = lazy(
