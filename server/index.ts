@@ -219,6 +219,7 @@ export function createServer() {
   app.post("/api/migrate-showroom", migrateShowroom);
   app.post("/api/migrate-footer", migrateFooter);
   app.post("/api/migrate-about", migrateAbout);
+  app.post("/api/migrate-seo", migrateSEO);
 
   return app;
 }
