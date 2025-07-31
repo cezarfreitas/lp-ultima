@@ -77,6 +77,16 @@ import {
   reorderFooterLinks,
 } from "./routes/footer";
 import { migrateFooter } from "./routes/migrate-footer";
+import {
+  getAboutSection,
+  getAllAboutStats,
+  updateAboutSection,
+  createAboutStat,
+  updateAboutStat,
+  deleteAboutStat,
+  reorderAboutStats,
+} from "./routes/about";
+import { migrateAbout } from "./routes/migrate-about";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
@@ -188,11 +198,21 @@ export function createServer() {
   app.delete("/api/footer/links/:id", deleteFooterLink);
   app.post("/api/footer/reorder", reorderFooterLinks);
 
+  // About routes
+  app.get("/api/about", getAboutSection);
+  app.get("/api/admin/about", getAllAboutStats);
+  app.put("/api/about/section", updateAboutSection);
+  app.post("/api/about/stats", createAboutStat);
+  app.put("/api/about/stats/:id", updateAboutStat);
+  app.delete("/api/about/stats/:id", deleteAboutStat);
+  app.post("/api/about/reorder", reorderAboutStats);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
   app.post("/api/migrate-showroom", migrateShowroom);
   app.post("/api/migrate-footer", migrateFooter);
+  app.post("/api/migrate-about", migrateAbout);
 
   return app;
 }
