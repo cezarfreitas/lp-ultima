@@ -47,6 +47,18 @@ export default function Index() {
       }
     } catch (error) {
       console.error("Error fetching hero data:", error);
+    }
+  };
+
+  const fetchDesignData = async () => {
+    try {
+      const response = await fetch("/api/design");
+      if (response.ok) {
+        const data = await response.json();
+        setDesignData(data);
+      }
+    } catch (error) {
+      console.error("Error fetching design data:", error);
     } finally {
       setLoading(false);
     }
