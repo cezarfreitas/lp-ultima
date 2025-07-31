@@ -20,11 +20,13 @@ interface PixelData {
 
 const PixelSchema = z.object({
   name: z.string().min(1).max(255),
-  type: z.enum(['google_analytics', 'meta_pixel', 'google_tag_manager', 'custom_header', 'custom_body']),
-  code: z.string().min(1),
+  type: z.enum(['google_analytics', 'meta_pixel', 'google_tag_manager', 'custom_header', 'custom_body', 'ga4_simple', 'meta_simple', 'meta_conversions']),
+  code: z.string(),
   enabled: z.boolean(),
   position: z.enum(['head', 'body_start', 'body_end']),
-  description: z.string().optional()
+  description: z.string().optional(),
+  pixel_id: z.string().optional(),
+  access_token: z.string().optional()
 });
 
 export async function getAllPixels(req: Request, res: Response) {
