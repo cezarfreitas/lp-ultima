@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { getHeroSection, updateHeroSection, createHeroSection } from "./routes/hero";
+import { initializeDB } from "./routes/db-init";
 import { initializeDatabase } from "./database/config";
 
 export function createServer() {
