@@ -28,6 +28,11 @@ export default function AdminProductGallery() {
   const [editingProduct, setEditingProduct] = useState<ProductItem | null>(
     null,
   );
+  const [uploadSettings, setUploadSettings] = useState<UploadSettingsType>({
+    useMultiFormat: false,
+    preferredFormat: 'medium',
+    autoMigration: false,
+  });
 
   useEffect(() => {
     const authenticated =
