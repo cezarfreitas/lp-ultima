@@ -14,9 +14,9 @@ export default defineConfig(({ mode }) => ({
     },
     // Fix MIME type issues
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   },
   build: {
@@ -70,17 +70,28 @@ function expressPlugin(): Plugin {
 
       // Fix MIME types for modules
       server.middlewares.use((req, res, next) => {
-        const url = req.url || '';
+        const url = req.url || "";
 
         // Set correct MIME types for various file types
-        if (url.endsWith('.tsx') || url.endsWith('.ts') || url.includes('/.vite/') || url.includes('/assets/')) {
-          res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
-        } else if (url.endsWith('.css')) {
-          res.setHeader('Content-Type', 'text/css; charset=utf-8');
-        } else if (url.endsWith('.json')) {
-          res.setHeader('Content-Type', 'application/json; charset=utf-8');
-        } else if (url.endsWith('.js') || url.endsWith('.mjs')) {
-          res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+        if (
+          url.endsWith(".tsx") ||
+          url.endsWith(".ts") ||
+          url.includes("/.vite/") ||
+          url.includes("/assets/")
+        ) {
+          res.setHeader(
+            "Content-Type",
+            "application/javascript; charset=utf-8",
+          );
+        } else if (url.endsWith(".css")) {
+          res.setHeader("Content-Type", "text/css; charset=utf-8");
+        } else if (url.endsWith(".json")) {
+          res.setHeader("Content-Type", "application/json; charset=utf-8");
+        } else if (url.endsWith(".js") || url.endsWith(".mjs")) {
+          res.setHeader(
+            "Content-Type",
+            "application/javascript; charset=utf-8",
+          );
         }
 
         next();

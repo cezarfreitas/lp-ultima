@@ -56,7 +56,7 @@ export default function OptimizedImage({
       try {
         return `${baseSrc}&w=400 400w, ${baseSrc}&w=800 800w, ${baseSrc}&w=1200 1200w`;
       } catch (error) {
-        console.warn('Failed to generate srcSet for:', baseSrc);
+        console.warn("Failed to generate srcSet for:", baseSrc);
         return undefined;
       }
     }
@@ -73,7 +73,7 @@ export default function OptimizedImage({
         params.set("q", "80");
         return `${baseSrc}&${params.toString()}`;
       } catch (error) {
-        console.warn('Failed to optimize Unsplash URL:', baseSrc);
+        console.warn("Failed to optimize Unsplash URL:", baseSrc);
         return baseSrc;
       }
     }
