@@ -102,7 +102,9 @@ export default function AdminPixels() {
       code: pixel.code,
       enabled: pixel.enabled,
       position: pixel.position,
-      description: pixel.description || ""
+      description: pixel.description || "",
+      pixel_id: pixel.pixel_id || "",
+      access_token: pixel.access_token || ""
     });
     setShowForm(true);
   };
