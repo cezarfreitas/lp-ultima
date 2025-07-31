@@ -34,83 +34,84 @@ export default function AdminDashboard() {
       label: "Hero Section",
       icon: "🏠",
       component: AdminHeroTabbed,
-      description: "Seção principal da página"
+      description: "Seção principal da página",
     },
     {
       id: "seo",
       label: "SEO",
       icon: "🚀",
       component: AdminSEO,
-      description: "Otimização para mecanismos de busca"
+      description: "Otimização para mecanismos de busca",
     },
     {
       id: "form",
       label: "Formulário",
       icon: "📝",
       component: AdminFormContent,
-      description: "Conteúdo do formulário de leads"
+      description: "Conteúdo do formulário de leads",
     },
     {
       id: "gallery",
       label: "Galeria",
       icon: "🖼️",
       component: AdminProductGallery,
-      description: "Galeria de produtos"
+      description: "Galeria de produtos",
     },
     {
       id: "testimonials",
       label: "Depoimentos",
       icon: "💬",
       component: AdminTestimonials,
-      description: "Depoimentos de clientes"
+      description: "Depoimentos de clientes",
     },
     {
       id: "faq",
       label: "FAQ",
       icon: "❓",
       component: AdminFAQ,
-      description: "Perguntas frequentes"
+      description: "Perguntas frequentes",
     },
     {
       id: "showroom",
       label: "Showroom",
       icon: "🏪",
       component: AdminShowroom,
-      description: "Showcases de produtos"
+      description: "Showcases de produtos",
     },
     {
       id: "about",
       label: "Sobre",
       icon: "ℹ️",
       component: AdminAbout,
-      description: "Seção sobre a empresa"
+      description: "Seção sobre a empresa",
     },
     {
       id: "footer",
       label: "Rodapé",
       icon: "🦶",
       component: AdminFooter,
-      description: "Links do rodapé"
+      description: "Links do rodapé",
     },
     {
       id: "leads",
       label: "Leads",
       icon: "👥",
       component: AdminLeads,
-      description: "Gerenciar leads capturados"
+      description: "Gerenciar leads capturados",
     },
     {
       id: "settings",
       label: "Configurações",
       icon: "⚙️",
       component: AdminSettings,
-      description: "Configurações gerais"
-    }
+      description: "Configurações gerais",
+    },
   ];
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
     setLoading(false);
   }, []);
@@ -139,7 +140,9 @@ export default function AdminDashboard() {
     return <AdminAuth onAuthenticated={handleAuthenticated} />;
   }
 
-  const ActiveComponent = navigationItems.find(item => item.id === activeTab)?.component || AdminHeroTabbed;
+  const ActiveComponent =
+    navigationItems.find((item) => item.id === activeTab)?.component ||
+    AdminHeroTabbed;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -148,9 +151,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-gray-200">
-            <h1 className="text-xl font-bold text-gray-900">
-              🎯 Admin Ecko
-            </h1>
+            <h1 className="text-xl font-bold text-gray-900">🎯 Admin Ecko</h1>
             <p className="text-sm text-gray-600 mt-1">
               Painel de administração
             </p>
@@ -203,13 +204,16 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">
-                  {navigationItems.find(item => item.id === activeTab)?.label}
+                  {navigationItems.find((item) => item.id === activeTab)?.label}
                 </h2>
                 <p className="text-gray-600 text-sm mt-1">
-                  {navigationItems.find(item => item.id === activeTab)?.description}
+                  {
+                    navigationItems.find((item) => item.id === activeTab)
+                      ?.description
+                  }
                 </p>
               </div>
-              
+
               {/* Quick Actions */}
               <div className="flex items-center space-x-3">
                 <a
@@ -220,7 +224,7 @@ export default function AdminDashboard() {
                 >
                   👁️ Ver Site
                 </a>
-                
+
                 <a
                   href="/setup-complete"
                   className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
@@ -236,17 +240,19 @@ export default function AdminDashboard() {
         <div className="p-6">
           <div className="max-w-7xl mx-auto">
             {/* SEO Alert for new feature */}
-            {activeTab === 'seo' && (
+            {activeTab === "seo" && (
               <div className="mb-6 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                   <span className="text-2xl">🚀</span>
                   <div>
                     <h3 className="font-semibold text-red-900 text-lg">
-                      Novo: Otimização de SEO para "Seja um Lojista Oficial Ecko"
+                      Novo: Otimização de SEO para "Seja um Lojista Oficial
+                      Ecko"
                     </h3>
                     <p className="text-red-800 text-sm mt-1">
-                      Configure meta tags, Open Graph, Twitter Cards e dados estruturados 
-                      otimizados para capturar lojistas interessados na parceria Ecko.
+                      Configure meta tags, Open Graph, Twitter Cards e dados
+                      estruturados otimizados para capturar lojistas
+                      interessados na parceria Ecko.
                     </p>
                   </div>
                 </div>

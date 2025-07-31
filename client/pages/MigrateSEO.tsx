@@ -31,7 +31,10 @@ export default function MigrateSEO() {
       }
     } catch (err) {
       console.error("Migration error:", err);
-      setError("Erro ao executar migração: " + (err instanceof Error ? err.message : "Erro desconhecido"));
+      setError(
+        "Erro ao executar migração: " +
+          (err instanceof Error ? err.message : "Erro desconhecido"),
+      );
     } finally {
       setIsLoading(false);
     }
@@ -50,9 +53,16 @@ export default function MigrateSEO() {
               O que esta migração faz:
             </h2>
             <ul className="list-disc list-inside space-y-2 text-blue-800">
-              <li>Cria a tabela <code>seo_data</code> para gerenciar metadados SEO</li>
-              <li>Insere dados padrão otimizados para "Seja um Lojista Oficial Ecko"</li>
-              <li>Configura meta tags para redes sociais (Open Graph e Twitter)</li>
+              <li>
+                Cria a tabela <code>seo_data</code> para gerenciar metadados SEO
+              </li>
+              <li>
+                Insere dados padrão otimizados para "Seja um Lojista Oficial
+                Ecko"
+              </li>
+              <li>
+                Configura meta tags para redes sociais (Open Graph e Twitter)
+              </li>
               <li>Define configurações de robots e estrutura de dados</li>
             </ul>
           </div>
@@ -62,8 +72,8 @@ export default function MigrateSEO() {
               ⚠️ Importante:
             </h3>
             <p className="text-yellow-800">
-              Esta migração é segura e pode ser executada múltiplas vezes. 
-              Se os dados já existirem, não serão sobrescritos.
+              Esta migração é segura e pode ser executada múltiplas vezes. Se os
+              dados já existirem, não serão sobrescritos.
             </p>
           </div>
 
@@ -75,7 +85,7 @@ export default function MigrateSEO() {
             >
               {isLoading ? "Executando..." : "Executar Migração de SEO"}
             </button>
-            
+
             <button
               onClick={() => window.history.back()}
               className="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
