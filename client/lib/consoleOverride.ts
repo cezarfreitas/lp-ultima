@@ -1,36 +1,33 @@
-// Override de console mais agressivo para suprimir warnings específicos
+// Override de console para suprimir warnings conhecidos do Recharts
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   const originalWarn = console.warn;
-  const originalError = console.error;
 
-  // Override para console.warn
-  console.warn = function(...args: any[]) {
-    const message = String(args[0] || '');
-    
-    // Filtrar warnings específicos do Recharts
-    const shouldSuppress = 
-      message.includes('Support for defaultProps will be removed') ||
-      message.includes('defaultProps will be removed from function components') ||
-      (message.includes('XAxis') && message.includes('defaultProps')) ||
-      (message.includes('YAxis') && message.includes('defaultProps'));
-    
-    if (!shouldSuppress) {
-      originalWarn.apply(console, args);
-    }
-  };
+  console.warn = function(message: any, ...args: any[]) {
+    const messageStr = String(message || '');
 
-  // Override para console.error (caso alguns warnings sejam tratados como erros)
-  console.error = function(...args: any[]) {
-    const message = String(args[0] || '');
-    
-    // Filtrar errors específicos do Recharts sobre defaultProps
-    const shouldSuppress = 
-      message.includes('Support for defaultProps will be removed') ||
-      message.includes('defaultProps will be removed from function components');
-    
-    if (!shouldSuppress) {
-      originalError.apply(console, args);
+    // Lista de padrões de warnings para suprimir
+    const suppressPatterns = [
+      'Support for defaultProps will be removed',
+      'defaultProps will be removed from function components',
+    ];
+
+    // Lista de componentes Recharts que geram estes warnings
+    const rechartsComponents = [
+      'XAxis', 'YAxis', 'CartesianGrid', 'Tooltip',
+      'Legend', 'Line', 'ResponsiveContainer', 'LineChart'
+    ];
+
+    // Verificar se é um warning do Recharts que devemos suprimir
+    const isRechartsWarning = suppressPatterns.some(pattern =>
+      messageStr.includes(pattern)
+    ) && rechartsComponents.some(component =>
+      messageStr.includes(component) || args.some(arg => String(arg).includes(component))
+    );
+
+    // Se não for um warning do Recharts sobre defaultProps, exibir normalmente
+    if (!isRechartsWarning) {
+      originalWarn.apply(console, [message, ...args]);
     }
   };
 }
