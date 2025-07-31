@@ -1,13 +1,7 @@
 import mysql from "mysql2/promise";
+import { config } from "../../shared/config.js";
 
-const dbConfig = {
-  host: "148.230.78.129",
-  port: 3307,
-  user: "ecko",
-  password: "5acf3bfd1f1c3846491a",
-  database: "lp-ecko-db",
-  connectionLimit: 10,
-};
+const dbConfig = config.DATABASE;
 
 export const pool = mysql.createPool(dbConfig);
 
