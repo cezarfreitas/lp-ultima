@@ -8,6 +8,7 @@ import ShowroomSection from "../components/ShowroomSection";
 import FAQSection from "../components/FAQSection";
 import AboutSection from "../components/AboutSection";
 import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
