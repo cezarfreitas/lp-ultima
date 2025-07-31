@@ -32,6 +32,17 @@ export default function Index() {
     fetchProductGallery();
   }, []);
 
+  // Function to optimize image URLs (only for Unsplash)
+  const getOptimizedImageUrl = (url: string) => {
+    if (!url) return url;
+
+    if (url.includes('unsplash.com')) {
+      return `${url}&w=1920&auto=format&fit=crop&q=80`;
+    }
+
+    return url;
+  };
+
   // Function to render text with highlights
   const renderTextWithHighlights = (text: string) => {
     if (!text) return text;
