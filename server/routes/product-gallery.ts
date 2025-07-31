@@ -23,7 +23,13 @@ const ProductItemCreateSchema = z.object({
 });
 
 const ProductItemUpdateSchema = z.object({
-  image_url: z.string().url().optional(),
+  image_url: z.string().min(1).refine(
+    (url) => {
+      // Accept relative URLs (starting with /) or absolute URLs
+      return url.startsWith('/') || z.string().url().safeParse(url).success;
+    },
+    { message: "URL da imagem inválida" }
+  ).optional(),
   alt_text: z.string().optional(),
   position: z.number().int().min(1).optional(),
 });
