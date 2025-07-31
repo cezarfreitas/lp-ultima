@@ -87,6 +87,8 @@ import {
   reorderAboutStats,
 } from "./routes/about";
 import { migrateAbout } from "./routes/migrate-about";
+import { getSEO, updateSEO } from "./routes/seo";
+import { migrateSEO } from "./routes/migrate-seo";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
