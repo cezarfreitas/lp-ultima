@@ -16,7 +16,13 @@ const TestimonialCreateSchema = z.object({
   role: z.string().min(1, "Cargo é obrigatório"),
   company: z.string().min(1, "Empresa é obrigatória"),
   content: z.string().min(10, "Depoimento deve ter pelo menos 10 caracteres"),
-  avatar_url: z.string().url().optional().or(z.literal("")),
+  avatar_url: z.string().refine(
+    (url) => {
+      if (!url) return true; // Empty string is valid
+      return url.startsWith('/') || z.string().url().safeParse(url).success;
+    },
+    { message: "URL do avatar inválida" }
+  ).optional().or(z.literal("")),
   rating: z.number().int().min(1).max(5),
   is_active: z.boolean().optional(),
   position: z.number().int().min(1).optional(),
