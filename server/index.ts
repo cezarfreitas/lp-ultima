@@ -113,68 +113,81 @@ export function createServer() {
   initializeDatabase().catch(console.error);
 
   // Performance middleware
-  app.use(helmet({
-    contentSecurityPolicy: false, // Disable CSP to avoid conflicts with Vite
-    crossOriginEmbedderPolicy: false
-  }));
+  app.use(
+    helmet({
+      contentSecurityPolicy: false, // Disable CSP to avoid conflicts with Vite
+      crossOriginEmbedderPolicy: false,
+    }),
+  );
 
   // Response time tracking
   app.use((req, res, next) => {
     const start = Date.now();
-    res.on('finish', () => {
+    res.on("finish", () => {
       const duration = Date.now() - start;
       if (duration > 500) {
-        console.warn(`Slow response: ${req.method} ${req.path} took ${duration}ms`);
+        console.warn(
+          `Slow response: ${req.method} ${req.path} took ${duration}ms`,
+        );
       }
     });
     next();
   });
 
-  app.use(compression({
-    level: 6, // Balanced compression level
-    threshold: 1024, // Only compress responses larger than 1KB
-    filter: (req, res) => {
-      // Don't compress if client doesn't support it
-      if (req.headers['x-no-compression']) {
-        return false;
-      }
-      // Use compression filter function
-      return compression.filter(req, res);
-    }
-  }));
+  app.use(
+    compression({
+      level: 6, // Balanced compression level
+      threshold: 1024, // Only compress responses larger than 1KB
+      filter: (req, res) => {
+        // Don't compress if client doesn't support it
+        if (req.headers["x-no-compression"]) {
+          return false;
+        }
+        // Use compression filter function
+        return compression.filter(req, res);
+      },
+    }),
+  );
 
   // CORS and body parsing middleware
   app.use(cors());
-  app.use(express.json({ limit: '10mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
   // Add performance headers to API responses
-  app.use('/api', (req, res, next) => {
+  app.use("/api", (req, res, next) => {
     // Enable caching for GET requests
-    if (req.method === 'GET') {
-      res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes cache
+    if (req.method === "GET") {
+      res.setHeader("Cache-Control", "public, max-age=300"); // 5 minutes cache
     } else {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     }
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('Vary', 'Accept-Encoding');
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Vary", "Accept-Encoding");
     next();
   });
 
   // Serve uploaded files statically with caching
-  app.use("/uploads", express.static(paths.uploadsDir(), {
-    maxAge: '7d', // Cache for 7 days
-    etag: true,
-    lastModified: true,
-    setHeaders: (res, path) => {
-      // Add cache control headers
-      res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
-      // Add compression hint
-      if (path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.html')) {
-        res.setHeader('Vary', 'Accept-Encoding');
-      }
-    }
-  }));
+  app.use(
+    "/uploads",
+    express.static(paths.uploadsDir(), {
+      maxAge: "7d", // Cache for 7 days
+      etag: true,
+      lastModified: true,
+      setHeaders: (res, path) => {
+        // Add cache control headers
+        res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+        // Add compression hint
+        if (
+          path.endsWith(".js") ||
+          path.endsWith(".css") ||
+          path.endsWith(".html")
+        ) {
+          res.setHeader("Vary", "Accept-Encoding");
+        }
+      },
+    }),
+  );
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
