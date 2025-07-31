@@ -120,6 +120,9 @@ export default function Index() {
 
   return (
     <div className="min-h-screen">
+      {/* Critical CSS */}
+      <CriticalCSS />
+
       {/* SEO Head Management */}
       <SEOHead />
 
