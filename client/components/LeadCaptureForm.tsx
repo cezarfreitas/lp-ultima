@@ -37,26 +37,27 @@ export default function LeadCaptureForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Don't submit if user is a consumer
-    if (formData.has_cnpj === "nao") {
-      return;
-    }
-
     setSubmitting(true);
     setError(null);
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      if (formData.has_cnpj === "nao") {
+        // Consumer flow - send to consumer webhook
+        await fetch("/api/consumer-webhook", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            whatsapp: formData.whatsapp,
+          }),
+        });
 
-      const data = await response.json();
+        // Redirect to Ecko official store
+        window.open("https://ecko.com.br", "_blank");
 
-      if (response.ok) {
+        // Reset form and show success
         setSubmitted(true);
         setFormData({
           name: "",
@@ -66,7 +67,29 @@ export default function LeadCaptureForm() {
           cep: "",
         });
       } else {
-        setError(data.error || "Erro ao enviar formulário");
+        // Lojista flow - send to leads
+        const response = await fetch("/api/leads", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setSubmitted(true);
+          setFormData({
+            name: "",
+            whatsapp: "",
+            has_cnpj: "" as any,
+            store_type: undefined,
+            cep: "",
+          });
+        } else {
+          setError(data.error || "Erro ao enviar formulário");
+        }
       }
     } catch (error) {
       console.error("Error submitting form:", error);
