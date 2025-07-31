@@ -16,6 +16,7 @@ import AdminProductGallery from "./pages/AdminProductGallery";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminFAQ from "./pages/AdminFAQ";
 import AdminShowroom from "./pages/AdminShowroom";
+import AdminAbout from "./pages/AdminAbout";
 import AdminFooter from "./pages/AdminFooter";
 import AdminSettings from "./pages/AdminSettings";
 import InitDB from "./pages/InitDB";
@@ -23,6 +24,7 @@ import Migrate from "./pages/Migrate";
 import MigrateTestimonials from "./pages/MigrateTestimonials";
 import MigrateFAQ from "./pages/MigrateFAQ";
 import MigrateShowroom from "./pages/MigrateShowroom";
+import MigrateAbout from "./pages/MigrateAbout";
 import MigrateFooter from "./pages/MigrateFooter";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
@@ -48,6 +50,7 @@ const App = () => (
           <Route path="/admin/testimonials" element={<AdminTestimonials />} />
           <Route path="/admin/faq" element={<AdminFAQ />} />
           <Route path="/admin/showroom" element={<AdminShowroom />} />
+          <Route path="/admin/about" element={<AdminAbout />} />
           <Route path="/admin/footer" element={<AdminFooter />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
@@ -55,6 +58,7 @@ const App = () => (
           <Route path="/migrate-testimonials" element={<MigrateTestimonials />} />
           <Route path="/migrate-faq" element={<MigrateFAQ />} />
           <Route path="/migrate-showroom" element={<MigrateShowroom />} />
+          <Route path="/migrate-about" element={<MigrateAbout />} />
           <Route path="/migrate-footer" element={<MigrateFooter />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
