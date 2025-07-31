@@ -5,6 +5,7 @@ import { z } from "zod";
 // Schema for validation
 const HeroUpdateSchema = z.object({
   logo_text: z.string().max(10).optional(),
+  logo_image: z.string().url().max(500).optional(),
   impact_title: z.string().max(255).optional(),
   impact_subtitle: z.string().max(255).optional(),
   description: z.string().optional(),
