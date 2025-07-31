@@ -30,6 +30,7 @@ const App = () => (
           <Route path="/admin" element={<AdminHeroTabbed />} />
           <Route path="/admin/design" element={<AdminDesign />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
+          <Route path="/admin/form-content" element={<AdminFormContent />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
