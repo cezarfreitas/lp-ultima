@@ -44,42 +44,32 @@ export async function migratePixels(req: Request, res: Response) {
            (?, ?, ?, ?, ?, ?, ?, ?),
            (?, ?, ?, ?, ?, ?, ?, ?)`,
           [
-            'Google Analytics - Lojistas Ecko',
-            'google_analytics',
-            `<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
-</script>`,
+            'Google Analytics GA4 - Simples',
+            'ga4_simple',
+            '',
             false,
             'head',
-            'Rastreamento de conversões para captura de lojistas interessados. Substitua GA_MEASUREMENT_ID pelo seu ID do Google Analytics.',
-            
-            'Meta Pixel - Parceria Ecko',
-            'meta_pixel',
-            `<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', 'YOUR_PIXEL_ID');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->`,
+            'Versão simplificada do GA4 - apenas insira seu ID',
+            null,
+            null,
+
+            'Meta Pixel - Simples',
+            'meta_simple',
+            '',
             false,
             'head',
-            'Pixel do Facebook para remarketing e conversões. Substitua YOUR_PIXEL_ID pelo seu ID do Meta Pixel.'
+            'Versão simplificada do Meta Pixel - apenas insira seu ID',
+            null,
+            null,
+
+            'Meta Conversions API',
+            'meta_conversions',
+            '',
+            false,
+            'head',
+            'API de conversões da Meta para rastreamento server-side',
+            null,
+            null
           ]
         );
         
