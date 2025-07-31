@@ -513,10 +513,6 @@ export default function AdminProductGallery() {
                     onUrlChange={(url) =>
                       setNewProduct({ ...newProduct, image_url: url })
                     }
-                    onUpload={(formats) => {
-                      const url = formats?.medium || formats?.large || '';
-                      setNewProduct({ ...newProduct, image_url: url });
-                    }}
                   />
                 </div>
               </div>
