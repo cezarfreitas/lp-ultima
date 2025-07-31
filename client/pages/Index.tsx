@@ -248,10 +248,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Preços Exclusivos
+                      {formContent?.benefit1_title || 'Preços Exclusivos'}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.
+                      {formContent?.benefit1_description || 'Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.'}
                     </p>
                   </div>
                 </div>
@@ -265,10 +265,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Produtos Exclusivos
+                      {formContent?.benefit2_title || 'Produtos Exclusivos'}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Tenha acesso primeiro às novas coleções e produtos limitados da marca Ecko.
+                      {formContent?.benefit2_description || 'Tenha acesso primeiro às novas coleções e produtos limitados da marca Ecko.'}
                     </p>
                   </div>
                 </div>
@@ -282,10 +282,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Suporte Completo
+                      {formContent?.benefit3_title || 'Suporte Completo'}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.
+                      {formContent?.benefit3_description || 'Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.'}
                     </p>
                   </div>
                 </div>
@@ -299,10 +299,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Crescimento Rápido
+                      {formContent?.benefit4_title || 'Crescimento Rápido'}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.
+                      {formContent?.benefit4_description || 'Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.'}
                     </p>
                   </div>
                 </div>
