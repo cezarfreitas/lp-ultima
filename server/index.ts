@@ -24,6 +24,10 @@ import {
   deleteLead,
   getLeadsStats,
 } from "./routes/leads";
+import {
+  getWebhookSettings,
+  updateWebhookSettings,
+} from "./routes/webhooks";
 import { initializeDatabase } from "./database/config";
 import path from "path";
 
