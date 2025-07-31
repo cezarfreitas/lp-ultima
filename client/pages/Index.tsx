@@ -83,7 +83,7 @@ export default function Index() {
 
             {/* Logo Text Below Image */}
             {data.logo_image && data.logo_text && (
-              <div className="text-white font-semibold text-sm tracking-wider uppercase opacity-90">
+              <div className="text-white font-medium text-xs md:text-sm tracking-widest uppercase opacity-90 drop-shadow-lg text-center max-w-xs leading-relaxed">
                 {data.logo_text}
               </div>
             )}
