@@ -73,13 +73,12 @@ export default function Index() {
 
   const fetchHeroData = async () => {
     try {
-      const response = await fetch("/api/hero");
-      if (response.ok) {
-        const data = await response.json();
+      const data = await silentFetchJson<HeroSectionData>("/api/hero");
+      if (data) {
         setHeroData(data);
       }
     } catch (error) {
-      console.error("Error fetching hero data:", error);
+      // silentFetch handles errors silently
     } finally {
       setLoading(false);
     }
