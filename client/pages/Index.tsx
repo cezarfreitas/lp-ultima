@@ -88,7 +88,7 @@ export default function Index() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center max-w-5xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-6 md:px-8 lg:px-16 py-8">
           {/* Logo */}
           <div className="mb-12 flex flex-col items-center">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg mb-6">
