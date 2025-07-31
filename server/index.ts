@@ -231,6 +231,9 @@ export function createServer() {
   app.delete("/api/pixels/:id", deletePixel);
   app.put("/api/pixels/:id/toggle", togglePixel);
 
+  // Meta Conversions API
+  app.post("/api/meta-conversion", sendMetaConversion);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
