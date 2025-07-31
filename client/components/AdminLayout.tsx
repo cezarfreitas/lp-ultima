@@ -128,7 +128,7 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
         </div>
 
         {/* Page content */}
-        <main className="p-4 lg:p-6">
+        <main className="flex-1 p-4 lg:p-6 overflow-auto">
           {children}
         </main>
       </div>
