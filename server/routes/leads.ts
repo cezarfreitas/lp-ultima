@@ -148,9 +148,10 @@ export const getLeads: RequestHandler = async (req, res) => {
       params.push(status);
     }
 
+    // Ensure limit and offset are integers for the query
     const [rows] = await pool.execute(
-      `SELECT * FROM leads ${whereClause} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
-      [...params, limit, offset],
+      `SELECT * FROM leads ${whereClause} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`,
+      params,
     );
 
     const [countRows] = await pool.execute(
