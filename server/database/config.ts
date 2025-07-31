@@ -51,6 +51,18 @@ export async function initializeDatabase() {
       )
     `);
 
+    // Create webhook_settings table
+    await pool.execute(`
+      CREATE TABLE IF NOT EXISTS webhook_settings (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        webhook_url VARCHAR(500) DEFAULT '',
+        webhook_secret VARCHAR(255) DEFAULT '',
+        webhook_enabled BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+
     // Create leads table
     await pool.execute(`
       CREATE TABLE IF NOT EXISTS leads (
