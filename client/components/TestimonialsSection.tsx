@@ -182,7 +182,7 @@ export default function TestimonialsSection() {
           {visibleTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 flex-shrink-0 w-80 md:w-auto snap-start"
             >
               {/* Quote */}
               <div className="mb-6">
