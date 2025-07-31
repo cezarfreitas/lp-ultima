@@ -272,11 +272,10 @@ export default function Index() {
           {/* Call to Action */}
           <div className="text-center mt-12 lg:mt-16">
             <p className="text-lg text-gray-600 mb-6">
-              Como lojista Ecko, você terá acesso a todos esses produtos com
-              preços especiais
+              {renderTextWithHighlights(productGallery?.cta_description || "Como lojista Ecko, você terá acesso a todos esses produtos com preços especiais")}
             </p>
             <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
-              Ver Catálogo Completo
+              {productGallery?.cta_text || "Ver Catálogo Completo"}
             </button>
           </div>
         </div>
