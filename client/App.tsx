@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import AdminHeroTabbed from "./pages/AdminHeroTabbed";
 import AdminDesign from "./pages/AdminDesign";
+import AdminLeads from "./pages/AdminLeads";
 import InitDB from "./pages/InitDB";
 import Migrate from "./pages/Migrate";
 import NotFound from "./pages/NotFound";
