@@ -162,12 +162,12 @@ export default function ShowroomSection() {
   const getGridClasses = (layoutType: string) => {
     switch (layoutType) {
       case "grid":
-        return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+        return "grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6";
       case "carousel":
-        return "flex space-x-6 overflow-x-auto pb-4";
+        return "flex space-x-4 md:space-x-6 overflow-x-auto pb-4";
       case "masonry":
       default:
-        return "columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6";
+        return "columns-2 md:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6";
     }
   };
 
