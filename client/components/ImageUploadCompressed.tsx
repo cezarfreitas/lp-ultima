@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 
 interface ImageUploadCompressedProps {
-  label: string;
+  label?: string;
   currentUrl?: string;
-  onUrlChange: (url: string) => void;
+  onUrlChange?: (url: string) => void;
+  onUpload?: (url: string) => void;
   placeholder?: string;
   previewHeight?: string;
   maxWidth?: number;
