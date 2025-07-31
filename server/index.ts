@@ -37,6 +37,16 @@ import {
   deleteProductItem,
   reorderProducts,
 } from "./routes/product-gallery";
+import {
+  getTestimonialsSection,
+  getAllTestimonials,
+  updateTestimonialsSection,
+  createTestimonial,
+  updateTestimonial,
+  deleteTestimonial,
+  reorderTestimonials,
+} from "./routes/testimonials";
+import { migrateTestimonials } from "./routes/migrate-testimonials";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
