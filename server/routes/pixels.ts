@@ -117,15 +117,17 @@ export async function updatePixel(req: Request, res: Response) {
     
     try {
       await connection.execute(
-        `UPDATE pixels SET name = ?, type = ?, code = ?, enabled = ?, position = ?, 
-         description = ?, updated_at = NOW() WHERE id = ?`,
+        `UPDATE pixels SET name = ?, type = ?, code = ?, enabled = ?, position = ?,
+         description = ?, pixel_id = ?, access_token = ?, updated_at = NOW() WHERE id = ?`,
         [
           validatedData.name,
           validatedData.type,
-          validatedData.code,
+          validatedData.code || '',
           validatedData.enabled,
           validatedData.position,
           validatedData.description || null,
+          validatedData.pixel_id || null,
+          validatedData.access_token || null,
           pixelId
         ]
       );
