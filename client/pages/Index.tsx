@@ -90,22 +90,32 @@ export default function Index() {
           </div>
 
           {/* Texto de Impacto */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            {data.impact_title}
-            <span className="block bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent">
-              {data.impact_subtitle}
-            </span>
-          </h1>
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
+              <span className="block mb-2 text-white drop-shadow-lg">
+                {data.impact_title}
+              </span>
+              {data.impact_subtitle && (
+                <span className="block bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent drop-shadow-sm text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+                  {data.impact_subtitle}
+                </span>
+              )}
+            </h1>
 
-          {/* Divisor decorativo */}
-          <div className="flex justify-center mb-8">
-            <div className="h-1 w-24 bg-gradient-to-r from-red-500 to-red-700 rounded-full"></div>
+            {/* Divisor decorativo */}
+            <div className="flex justify-center mt-6 mb-8">
+              <div className="h-1 w-20 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
+            </div>
           </div>
 
           {/* Texto Descritivo */}
-          <p className="text-xl md:text-2xl text-gray-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {data.description}
-          </p>
+          <div className="mb-10 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-100 leading-relaxed tracking-wide font-light">
+              <span className="drop-shadow-md">
+                {data.description}
+              </span>
+            </p>
+          </div>
 
           {/* Botão */}
           <button className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border border-red-500/30">
