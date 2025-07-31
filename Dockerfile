@@ -24,9 +24,9 @@ FROM node:18-alpine AS production
 
 WORKDIR /app
 
-# Copy package files and install production dependencies
+# Copy package files and install production dependencies with tsx
 COPY package*.json ./
-RUN npm ci --only=production --legacy-peer-deps
+RUN npm ci --only=production --legacy-peer-deps && npm install tsx --legacy-peer-deps
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./public
