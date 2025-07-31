@@ -2,14 +2,16 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { createServer } from "./index";
 import * as express from "express";
+import { config, paths, validateConfig } from "../shared/config.js";
+
+// Validate configuration on startup
+validateConfig();
 
 const app = createServer();
-const port = process.env.PORT || 3000;
+const port = config.PORT;
 
-// In production, serve the built SPA files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, "../dist");
+// Get the correct static files path based on environment
+const distPath = paths.getStaticDir();
 
 // Serve static files
 app.use(express.static(distPath));
