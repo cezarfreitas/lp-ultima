@@ -461,6 +461,9 @@ export default function Index() {
 
       {/* Testimonials Section */}
       <TestimonialsSection />
+
+      {/* FAQ Section */}
+      <FAQSection />
     </div>
   );
 }
