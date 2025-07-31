@@ -59,10 +59,7 @@ export default function Index() {
           .replace(/^\[destaque\]/, "")
           .replace(/\[\/destaque\]$/, "");
         return (
-          <span
-            key={index}
-            className="text-primary font-bold drop-shadow-sm"
-          >
+          <span key={index} className="text-primary font-bold drop-shadow-sm">
             {highlightedText}
           </span>
         );
