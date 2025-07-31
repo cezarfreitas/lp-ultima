@@ -638,10 +638,6 @@ export default function AdminProductGallery() {
                   onUrlChange={(url) =>
                     setEditingProduct({ ...editingProduct, image_url: url })
                   }
-                  onUpload={(formats) => {
-                    const url = formats?.medium || formats?.large || '';
-                    setEditingProduct({ ...editingProduct, image_url: url });
-                  }}
                 />
               </div>
 
