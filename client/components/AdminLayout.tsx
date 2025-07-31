@@ -24,6 +24,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Personalizar aparência",
     },
     {
+      name: "Leads",
+      href: "/admin/leads",
+      icon: "👥",
+      description: "Gerenciar leads capturados",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
