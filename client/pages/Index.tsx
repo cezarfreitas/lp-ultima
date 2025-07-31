@@ -34,11 +34,11 @@ export default function Index() {
   }, []);
 
   // Function to optimize image URLs (only for Unsplash)
-  const getOptimizedImageUrl = (url: string) => {
+  const getOptimizedImageUrl = (url: string, width = 1920, quality = 75) => {
     if (!url) return url;
 
     if (url.includes("unsplash.com")) {
-      return `${url}&w=1920&auto=format&fit=crop&q=80`;
+      return `${url}&w=${width}&auto=format&fit=crop&q=${quality}`;
     }
 
     return url;
