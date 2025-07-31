@@ -296,8 +296,8 @@ export const sendConsumerWebhook: RequestHandler = async (req, res) => {
 
     // Save consumer lead to database
     const [result] = await pool.execute(`
-      INSERT INTO leads (name, email, whatsapp, has_cnpj, source, status, webhook_sent, webhook_attempts, ip_address, user_agent)
-      VALUES (?, '', ?, 'nao', 'consumidor', 'new', 0, 0, ?, ?)
+      INSERT INTO leads (name, whatsapp, has_cnpj, source, status, webhook_sent, webhook_attempts, ip_address, user_agent)
+      VALUES (?, ?, 'nao', 'consumidor', 'new', 0, 0, ?, ?)
     `, [name, whatsapp, req.ip || '', req.get('User-Agent') || '']);
 
     // Send webhook asynchronously
