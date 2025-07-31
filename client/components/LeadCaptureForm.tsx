@@ -78,6 +78,7 @@ export default function LeadCaptureForm() {
         const data = await response.json();
 
         if (response.ok) {
+          setIsConsumerSubmission(false);
           setSubmitted(true);
           setFormData({
             name: "",
