@@ -15,6 +15,25 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          charts: ['recharts'],
+        },
+      },
+    },
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production',
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+    reportCompressedSize: false, // Faster builds
   },
   plugins: [react(), expressPlugin()],
   resolve: {
