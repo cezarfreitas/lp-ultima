@@ -281,10 +281,25 @@ export default function AdminProductGallery() {
           text: "Produto atualizado com sucesso!",
         });
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao atualizar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao atualizar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
@@ -401,7 +416,7 @@ export default function AdminProductGallery() {
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              📸 Fotos ({gallery?.products?.length || 0})
+              ���� Fotos ({gallery?.products?.length || 0})
             </button>
           </nav>
         </div>
