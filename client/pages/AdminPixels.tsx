@@ -143,11 +143,13 @@ export default function AdminPixels() {
   const resetForm = () => {
     setFormData({
       name: "",
-      type: "google_analytics",
+      type: "ga4_simple",
       code: "",
       enabled: false,
       position: "head",
-      description: ""
+      description: "",
+      pixel_id: "",
+      access_token: ""
     });
   };
 
