@@ -53,6 +53,18 @@ export default function Index() {
     }
   };
 
+  const fetchFormContent = async () => {
+    try {
+      const response = await fetch("/api/form-content");
+      if (response.ok) {
+        const data = await response.json();
+        setFormContent(data);
+      }
+    } catch (error) {
+      console.error("Error fetching form content:", error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
