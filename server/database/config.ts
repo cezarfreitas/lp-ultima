@@ -61,6 +61,7 @@ export async function initializeDatabase() {
 export interface HeroSection {
   id: number;
   logo_text: string;
+  logo_image: string;
   impact_title: string;
   impact_subtitle: string;
   description: string;
