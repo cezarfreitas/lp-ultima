@@ -89,7 +89,7 @@ if (!(container as any)._reactRootContainer) {
 } else {
   // In development, React might have already created a root
   const existingRoot = (container as any)._reactRootContainer;
-  if (existingRoot && typeof existingRoot.render === 'function') {
+  if (existingRoot && typeof existingRoot.render === "function") {
     existingRoot.render(<App />);
   } else {
     createRoot(container).render(<App />);
