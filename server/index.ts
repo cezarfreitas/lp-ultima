@@ -6,6 +6,7 @@ import { getHeroSection, updateHeroSection, createHeroSection } from "./routes/h
 import { initializeDB } from "./routes/db-init";
 import { uploadFile } from "./routes/upload";
 import { migrateLogo, migrateDesign } from "./routes/migrate";
+import { removeLimits } from "./routes/remove-limits";
 import { getDesignSettings, updateDesignSettings, createDesignSettings } from "./routes/design";
 import { initializeDatabase } from "./database/config";
 import path from "path";
