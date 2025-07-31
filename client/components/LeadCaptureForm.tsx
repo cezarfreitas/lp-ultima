@@ -16,7 +16,7 @@ export default function LeadCaptureForm() {
   const [showConsumerMessage, setShowConsumerMessage] = useState(false);
 
   const handleInputChange = (field: keyof LeadCreateRequest, value: string) => {
-    console.log('Input change:', field, value); // Debug log
+    console.log("Input change:", field, value); // Debug log
     setFormData((prev) => {
       const newData = {
         ...prev,
@@ -32,7 +32,7 @@ export default function LeadCaptureForm() {
         setShowConsumerMessage(false);
       }
 
-      console.log('Form data updated:', newData); // Debug log
+      console.log("Form data updated:", newData); // Debug log
       return newData;
     });
   };
