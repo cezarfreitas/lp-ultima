@@ -246,28 +246,47 @@ export const deleteLead: RequestHandler = async (req, res) => {
   }
 };
 
+// Send consumer webhook
+export const sendConsumerWebhook: RequestHandler = async (req, res) => {
+  try {
+    const { name, whatsapp } = req.body;
+
+    if (!name || !whatsapp) {
+      return res.status(400).json({ error: 'Nome e WhatsApp são obrigatórios' });
+    }
+
+    // Send webhook asynchronously
+    sendWebhook({ name, whatsapp }, 'consumidor').catch(console.error);
+
+    res.json({ message: 'Webhook de consumidor enviado' });
+  } catch (error) {
+    console.error('Error sending consumer webhook:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+};
+
 // Get leads statistics
 export const getLeadsStats: RequestHandler = async (req, res) => {
   try {
     const [totalRows] = await pool.execute('SELECT COUNT(*) as total FROM leads');
     const [statusRows] = await pool.execute(`
-      SELECT status, COUNT(*) as count 
-      FROM leads 
+      SELECT status, COUNT(*) as count
+      FROM leads
       GROUP BY status
     `);
     const [recentRows] = await pool.execute(`
-      SELECT COUNT(*) as recent 
-      FROM leads 
+      SELECT COUNT(*) as recent
+      FROM leads
       WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAYS)
     `);
-    
+
     const total = (totalRows as any[])[0].total;
     const recent = (recentRows as any[])[0].recent;
     const byStatus = (statusRows as any[]).reduce((acc, row) => {
       acc[row.status] = row.count;
       return acc;
     }, {});
-    
+
     res.json({
       total,
       recent,
