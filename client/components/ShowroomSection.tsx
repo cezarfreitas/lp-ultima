@@ -207,19 +207,19 @@ export default function ShowroomSection() {
 
   return (
     <section
-      className={`py-16 ${getBackgroundClasses(sectionData.background_type)}`}
+      className={`py-12 md:py-16 ${getBackgroundClasses(sectionData.background_type)}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4"
             dangerouslySetInnerHTML={{
               __html: renderTextWithHighlights(sectionData.title),
             }}
           />
           <p
-            className={`text-lg max-w-3xl mx-auto ${
+            className={`text-base md:text-lg max-w-3xl mx-auto ${
               sectionData.background_type === "dark"
                 ? "text-gray-300"
                 : "text-gray-600"
@@ -234,9 +234,9 @@ export default function ShowroomSection() {
           {visibleItems.map((item, index) => (
             <div
               key={item.id}
-              className={`relative group overflow-hidden rounded-xl ${
+              className={`relative group overflow-hidden rounded-lg md:rounded-xl ${
                 sectionData.layout_type === "masonry"
-                  ? "break-inside-avoid mb-6"
+                  ? "break-inside-avoid mb-4 md:mb-6"
                   : ""
               } ${
                 item.is_featured && index < 2
