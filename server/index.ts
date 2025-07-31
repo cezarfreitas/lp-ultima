@@ -67,5 +67,13 @@ export function createServer() {
   app.put("/api/design", updateDesignSettings);
   app.post("/api/design", createDesignSettings);
 
+  // Leads routes
+  app.post("/api/leads", createLead);
+  app.get("/api/leads", getLeads);
+  app.get("/api/leads/stats", getLeadsStats);
+  app.get("/api/leads/:id", getLead);
+  app.put("/api/leads/:id", updateLead);
+  app.delete("/api/leads/:id", deleteLead);
+
   return app;
 }
