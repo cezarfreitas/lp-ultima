@@ -19,15 +19,21 @@ export default function Migrate() {
         },
       });
 
-      const data = await response.json();
-
       if (response.ok) {
+        const data = await response.json();
         setMessage({
           type: "success",
           text: `${description}: ${data.message}`,
         });
       } else {
-        setMessage({ type: "error", text: data.error || "Erro na migração" });
+        let errorMessage = "Erro na migração";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch {
+          errorMessage = `Erro ${response.status}: ${response.statusText}`;
+        }
+        setMessage({ type: "error", text: errorMessage });
       }
     } catch (error) {
       console.error("Migration error:", error);
