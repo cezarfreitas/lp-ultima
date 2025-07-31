@@ -16,6 +16,14 @@ import {
   updateDesignSettings,
   createDesignSettings,
 } from "./routes/design";
+import {
+  createLead,
+  getLeads,
+  getLead,
+  updateLead,
+  deleteLead,
+  getLeadsStats,
+} from "./routes/leads";
 import { initializeDatabase } from "./database/config";
 import path from "path";
 
