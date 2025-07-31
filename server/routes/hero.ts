@@ -83,17 +83,18 @@ export const createHeroSection: RequestHandler = async (req, res) => {
     
     const {
       logo_text = 'L',
+      logo_image = '',
       impact_title = 'Seja bem-vindo ao',
       impact_subtitle = 'Futuro Digital',
       description = 'Transforme suas ideias em realidade com nossa plataforma inovadora.',
       button_text = 'Comece Agora',
       background_image = 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80'
     } = validation.data;
-    
+
     const [result] = await pool.execute(`
-      INSERT INTO hero_section (logo_text, impact_title, impact_subtitle, description, button_text, background_image)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `, [logo_text, impact_title, impact_subtitle, description, button_text, background_image]);
+      INSERT INTO hero_section (logo_text, logo_image, impact_title, impact_subtitle, description, button_text, background_image)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [logo_text, logo_image, impact_title, impact_subtitle, description, button_text, background_image]);
     
     const insertId = (result as any).insertId;
     
