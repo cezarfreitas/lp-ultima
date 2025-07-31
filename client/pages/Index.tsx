@@ -245,28 +245,28 @@ export default function Index() {
       </section>
 
       {/* Product Gallery Section */}
-      <section className="py-16 md:py-20 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+      <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           {/* Section Header */}
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight px-4">
               {renderTextWithHighlights(
                 productGallery?.title || "Nossos [destaque]Produtos[/destaque]",
               )}
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto px-4">
               {renderTextWithHighlights(
                 productGallery?.subtitle ||
                   "Descubra a coleção exclusiva Ecko com estilo urbano autêntico e qualidade premium",
               )}
             </p>
-            <div className="flex justify-center mt-8">
-              <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
+            <div className="flex justify-center mt-4 md:mt-8">
+              <div className="h-1 w-12 md:w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
             </div>
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {productGallery?.products
               ?.sort((a, b) => a.position - b.position)
               .map((product) => (
