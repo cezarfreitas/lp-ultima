@@ -108,7 +108,7 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       </div>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="flex-1 lg:flex lg:flex-col">
         {/* Top bar */}
         <div className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 lg:px-6">
           <button
