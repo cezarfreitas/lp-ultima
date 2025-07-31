@@ -45,10 +45,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<AdminHeroTabbed />} />
-<<<<<<< HEAD
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-=======
->>>>>>> 32629b8128c29e4f70d040a1e75794c718a7ac16
           <Route path="/admin/design" element={<AdminDesign />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
           <Route path="/admin/form-content" element={<AdminFormContent />} />
