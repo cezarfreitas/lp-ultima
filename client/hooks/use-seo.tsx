@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import { SEOData, DEFAULT_SEO_DATA } from "@shared/seo";
 import { silentFetchJson } from "../lib/silentFetch";
 
