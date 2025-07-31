@@ -1,22 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { silentFetch } from '../lib/silentFetch';
 
 interface APIStatusProps {
   children: React.ReactNode;
   showNotice?: boolean;
 }
 
-export default function APIStatus({
-  children,
-  showNotice = false,
-}: APIStatusProps) {
+export default function APIStatus({ children, showNotice = false }: APIStatusProps) {
   const [apiAvailable, setApiAvailable] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkAPI = async () => {
       try {
-        const response = await fetch("/api/ping", {
-          method: "GET",
-          signal: AbortSignal.timeout(3000), // 3 second timeout
+        const response = await fetch('/api/ping', { 
+          method: 'GET',
+          signal: AbortSignal.timeout(3000) // 3 second timeout
         });
         setApiAvailable(response.ok);
       } catch (error) {
@@ -40,8 +38,7 @@ export default function APIStatus({
             <div>
               <p className="font-medium text-sm">APIs não configuradas</p>
               <p className="text-xs mt-1">
-                Execute <code>/setup-complete</code> para ativar todas as
-                funcionalidades
+                Execute <code>/setup-complete</code> para ativar todas as funcionalidades
               </p>
             </div>
           </div>
