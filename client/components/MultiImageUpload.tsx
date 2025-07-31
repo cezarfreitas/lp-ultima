@@ -122,11 +122,11 @@ export default function MultiImageUpload({
           ),
         );
 
-        // Upload to server
+        // Upload to server with multi-format processing
         const formData = new FormData();
         formData.append("file", compressedFile);
 
-        const response = await fetch("/api/upload", {
+        const response = await fetch("/api/upload-multi", {
           method: "POST",
           body: formData,
         });
