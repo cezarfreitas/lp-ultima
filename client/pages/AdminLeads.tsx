@@ -180,10 +180,18 @@ export default function AdminLeads() {
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-                Convertidos
+                Lojistas
               </h3>
-              <p className="text-3xl font-bold text-purple-600 mt-2">
-                {stats.byStatus.converted || 0}
+              <p className="text-3xl font-bold text-blue-600 mt-2">
+                {stats.byType?.lojista || 0}
+              </p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+                Consumidores
+              </h3>
+              <p className="text-3xl font-bold text-orange-600 mt-2">
+                {stats.byType?.consumidor || 0}
               </p>
             </div>
           </div>
