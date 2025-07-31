@@ -314,10 +314,10 @@ export default function Index() {
               <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                    {formContent?.form_title || 'Seja um Lojista Oficial'}
+                    {renderTextWithHighlights(formContent?.form_title || 'Seja um Lojista Oficial')}
                   </h3>
                   <p className="text-gray-600">
-                    {formContent?.form_subtitle || 'Preencha o formulário e nossa equipe entrará em contato em até 24 horas.'}
+                    {renderTextWithHighlights(formContent?.form_subtitle || 'Preencha o formulário e nossa equipe entrará em contato em até 24 horas.')}
                   </p>
                 </div>
 
