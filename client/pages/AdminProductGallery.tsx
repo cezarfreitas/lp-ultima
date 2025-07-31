@@ -61,18 +61,26 @@ export default function AdminProductGallery() {
     try {
       const response = await fetch("/api/product-gallery");
       if (response.ok) {
-        const data = await response.json();
-        setGallery(data);
-        setFormData({
-          title: data.title || "",
-          subtitle: data.subtitle || "",
-          cta_text: data.cta_text || "",
-          cta_description: data.cta_description || "",
-        });
+        try {
+          const data = await response.json();
+          setGallery(data);
+          setFormData({
+            title: data.title || "",
+            subtitle: data.subtitle || "",
+            cta_text: data.cta_text || "",
+            cta_description: data.cta_description || "",
+          });
+        } catch (parseError) {
+          console.error("Error parsing gallery response:", parseError);
+          setMessage({ type: "error", text: "Erro ao processar dados da galeria" });
+        }
+      } else {
+        console.error("Failed to fetch gallery:", response.status, response.statusText);
+        setMessage({ type: "error", text: "Erro ao carregar galeria" });
       }
     } catch (error) {
       console.error("Error fetching gallery:", error);
-      setMessage({ type: "error", text: "Erro ao carregar galeria" });
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setLoading(false);
     }
