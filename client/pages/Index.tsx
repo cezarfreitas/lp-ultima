@@ -272,9 +272,9 @@ export default function Index() {
               .map((product) => (
                 <div
                   key={product.id}
-                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  className="group relative bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden"
                 >
-                  <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
+                  <div className="aspect-square bg-gray-100 rounded-lg md:rounded-xl overflow-hidden">
                     <img
                       src={product.image_url}
                       alt={product.alt_text}
@@ -287,14 +287,14 @@ export default function Index() {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-12 lg:mt-16">
-            <p className="text-lg text-gray-600 mb-6">
+          <div className="text-center mt-8 md:mt-12 lg:mt-16 px-4">
+            <p className="text-base md:text-lg text-gray-600 mb-4 md:mb-6">
               {renderTextWithHighlights(
                 productGallery?.cta_description ||
                   "Como lojista Ecko, você terá acesso a todos esses produtos com preços especiais",
               )}
             </p>
-            <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
+            <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base md:text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
               {productGallery?.cta_text || "Ver Catálogo Completo"}
             </button>
           </div>
@@ -302,16 +302,16 @@ export default function Index() {
       </section>
 
       {/* Lead Capture Section */}
-      <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+      <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Benefits/Reasons */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
                   {renderTextWithHighlights(formContent?.main_title || "")}
                 </h2>
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
                   {renderTextWithHighlights(formContent?.main_subtitle || "")}
                 </p>
               </div>
