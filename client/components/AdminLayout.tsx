@@ -15,20 +15,20 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       name: "Seção Hero",
       href: "/admin",
       icon: "🏠",
-      description: "Configurar conteúdo principal"
+      description: "Configurar conteúdo principal",
     },
     {
       name: "Cores & Fontes",
       href: "/admin/design",
       icon: "🎨",
-      description: "Personalizar aparência"
+      description: "Personalizar aparência",
     },
     {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
-      description: "Configurações gerais"
-    }
+      description: "Configurações gerais",
+    },
   ];
 
   const isActive = (href: string) => {
@@ -49,9 +49,11 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:z-auto ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      <div
+        className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:z-auto ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         {/* Sidebar header */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-900">Admin Panel</h2>
@@ -72,14 +74,16 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
                 to={item.href}
                 className={`group flex items-start p-3 rounded-lg transition-colors ${
                   isActive(item.href)
-                    ? 'bg-indigo-50 text-indigo-700 border-r-2 border-indigo-500'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-500"
+                    : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 <span className="text-2xl mr-3">{item.icon}</span>
                 <div>
                   <div className="text-sm font-medium">{item.name}</div>
-                  <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {item.description}
+                  </div>
                 </div>
               </Link>
             ))}
@@ -128,9 +132,7 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
         </div>
 
         {/* Page content */}
-        <main className="flex-1 p-4 lg:p-6 overflow-auto">
-          {children}
-        </main>
+        <main className="flex-1 p-4 lg:p-6 overflow-auto">{children}</main>
       </div>
     </div>
   );

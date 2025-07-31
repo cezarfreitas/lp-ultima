@@ -30,9 +30,9 @@ export const removeLimits: RequestHandler = async (req, res) => {
     }
   } catch (error) {
     console.error("Remove limits error:", error);
-    res.status(500).json({ 
-      error: "Erro ao remover limites", 
-      details: error instanceof Error ? error.message : "Unknown error"
+    res.status(500).json({
+      error: "Erro ao remover limites",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 };

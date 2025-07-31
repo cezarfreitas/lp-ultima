@@ -26,7 +26,7 @@ export const migrateLogo: RequestHandler = async (req, res) => {
     console.error("Migration error:", error);
     res.status(500).json({
       error: "Erro na migração",
-      details: error instanceof Error ? error.message : "Unknown error"
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 };
@@ -62,21 +62,24 @@ export const migrateDesign: RequestHandler = async (req, res) => {
       `);
 
       // Insert default values
-      await pool.execute(`
+      await pool.execute(
+        `
         INSERT INTO design_settings (primary_color, secondary_color, accent_color, background_color, text_color, font_family, font_size_base, font_weight_normal, font_weight_bold, border_radius)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `, [
-        '#dc2626', // Red
-        '#6b7280', // Gray
-        '#000000', // Black
-        '#ffffff', // White
-        '#000000', // Black text
-        'Inter',
-        '16px',
-        '400',
-        '700',
-        '8px'
-      ]);
+      `,
+        [
+          "#dc2626", // Red
+          "#6b7280", // Gray
+          "#000000", // Black
+          "#ffffff", // White
+          "#000000", // Black text
+          "Inter",
+          "16px",
+          "400",
+          "700",
+          "8px",
+        ],
+      );
 
       res.json({ message: "Tabela design_settings criada com sucesso!" });
     } else {
@@ -86,7 +89,7 @@ export const migrateDesign: RequestHandler = async (req, res) => {
     console.error("Design migration error:", error);
     res.status(500).json({
       error: "Erro na migração de design",
-      details: error instanceof Error ? error.message : "Unknown error"
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 };

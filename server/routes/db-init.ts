@@ -7,9 +7,9 @@ export const initializeDB: RequestHandler = async (req, res) => {
     res.json({ message: "Database initialized successfully" });
   } catch (error) {
     console.error("Database initialization error:", error);
-    res.status(500).json({ 
-      error: "Failed to initialize database", 
-      details: error instanceof Error ? error.message : "Unknown error"
+    res.status(500).json({
+      error: "Failed to initialize database",
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 };

@@ -11,13 +11,17 @@ export default function AdminHeroTabbed() {
   const [formData, setFormData] = useState<HeroUpdateRequest>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
       fetchHeroData();
     } else {
@@ -54,7 +58,7 @@ export default function AdminHeroTabbed() {
       }
     } catch (error) {
       console.error("Error fetching hero data:", error);
-      setMessage({type: 'error', text: 'Erro ao carregar dados'});
+      setMessage({ type: "error", text: "Erro ao carregar dados" });
     } finally {
       setLoading(false);
     }
@@ -75,18 +79,18 @@ export default function AdminHeroTabbed() {
       });
 
       // Check if response has content to read
-      const contentType = response.headers.get('content-type');
-      
+      const contentType = response.headers.get("content-type");
+
       if (response.ok) {
-        if (contentType && contentType.includes('application/json')) {
+        if (contentType && contentType.includes("application/json")) {
           const responseData = await response.json();
           setHeroData(responseData);
         }
-        setMessage({type: 'success', text: 'Dados salvos com sucesso!'});
+        setMessage({ type: "success", text: "Dados salvos com sucesso!" });
       } else {
-        let errorMessage = 'Erro ao salvar dados';
-        
-        if (contentType && contentType.includes('application/json')) {
+        let errorMessage = "Erro ao salvar dados";
+
+        if (contentType && contentType.includes("application/json")) {
           try {
             const errorData = await response.json();
             errorMessage = errorData.error || errorMessage;
@@ -94,21 +98,21 @@ export default function AdminHeroTabbed() {
             // If JSON parsing fails, use default message
           }
         }
-        
-        setMessage({type: 'error', text: errorMessage});
+
+        setMessage({ type: "error", text: errorMessage });
       }
     } catch (error) {
       console.error("Error updating hero data:", error);
-      setMessage({type: 'error', text: 'Erro ao salvar dados'});
+      setMessage({ type: "error", text: "Erro ao salvar dados" });
     } finally {
       setSaving(false);
     }
   };
 
   const handleInputChange = (field: keyof HeroUpdateRequest, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -131,9 +135,9 @@ export default function AdminHeroTabbed() {
 
   const tabs = [
     {
-      id: 'content',
-      label: 'Conteúdo',
-      icon: '📝',
+      id: "content",
+      label: "Conteúdo",
+      icon: "📝",
       content: (
         <div className="space-y-6">
           <div className="grid grid-cols-1 gap-6">
@@ -144,13 +148,19 @@ export default function AdminHeroTabbed() {
               </label>
               <textarea
                 rows={3}
-                value={formData.impact_title || ''}
-                onChange={(e) => handleInputChange('impact_title', e.target.value)}
+                value={formData.impact_title || ""}
+                onChange={(e) =>
+                  handleInputChange("impact_title", e.target.value)
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Seja bem-vindo ao [destaque]Ecko[/destaque]"
               />
               <p className="text-sm text-gray-500 mt-1">
-                Use <code className="bg-gray-100 px-1 rounded">[destaque]palavra[/destaque]</code> para destacar palavras específicas
+                Use{" "}
+                <code className="bg-gray-100 px-1 rounded">
+                  [destaque]palavra[/destaque]
+                </code>{" "}
+                para destacar palavras específicas
               </p>
             </div>
 
@@ -161,13 +171,19 @@ export default function AdminHeroTabbed() {
               </label>
               <textarea
                 rows={4}
-                value={formData.description || ''}
-                onChange={(e) => handleInputChange('description', e.target.value)}
+                value={formData.description || ""}
+                onChange={(e) =>
+                  handleInputChange("description", e.target.value)
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Transforme suas ideias com a [destaque]Ecko[/destaque]..."
               />
               <p className="text-sm text-gray-500 mt-1">
-                Use <code className="bg-gray-100 px-1 rounded">[destaque]palavra[/destaque]</code> para destacar palavras com gradiente vermelho
+                Use{" "}
+                <code className="bg-gray-100 px-1 rounded">
+                  [destaque]palavra[/destaque]
+                </code>{" "}
+                para destacar palavras com gradiente vermelho
               </p>
             </div>
 
@@ -178,8 +194,10 @@ export default function AdminHeroTabbed() {
               </label>
               <input
                 type="text"
-                value={formData.button_text || ''}
-                onChange={(e) => handleInputChange('button_text', e.target.value)}
+                value={formData.button_text || ""}
+                onChange={(e) =>
+                  handleInputChange("button_text", e.target.value)
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Comece Agora"
               />
@@ -189,9 +207,9 @@ export default function AdminHeroTabbed() {
       ),
     },
     {
-      id: 'branding',
-      label: 'Marca & Imagens',
-      icon: '🎨',
+      id: "branding",
+      label: "Marca & Imagens",
+      icon: "🎨",
       content: (
         <div className="space-y-8">
           {/* Logo Section */}
@@ -205,19 +223,23 @@ export default function AdminHeroTabbed() {
                 </label>
                 <input
                   type="text"
-                  value={formData.logo_text || ''}
-                  onChange={(e) => handleInputChange('logo_text', e.target.value)}
+                  value={formData.logo_text || ""}
+                  onChange={(e) =>
+                    handleInputChange("logo_text", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   placeholder="Transforme seu amor pela Ecko em negócios"
                 />
-                <p className="text-sm text-gray-500 mt-1">Texto que aparece abaixo do logo</p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Texto que aparece abaixo do logo
+                </p>
               </div>
 
               {/* Logo Image Upload */}
               <ImageUploadCompressed
                 label="Imagem do Logo"
-                currentUrl={formData.logo_image || ''}
-                onUrlChange={(url) => handleInputChange('logo_image', url)}
+                currentUrl={formData.logo_image || ""}
+                onUrlChange={(url) => handleInputChange("logo_image", url)}
                 placeholder="https://exemplo.com/logo.png"
                 previewHeight="h-24"
                 maxWidth={400}
@@ -228,11 +250,13 @@ export default function AdminHeroTabbed() {
 
           {/* Background Image */}
           <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Imagem de Fundo</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              Imagem de Fundo
+            </h3>
             <ImageUploadCompressed
               label="Imagem de Fundo da Hero"
-              currentUrl={formData.background_image || ''}
-              onUrlChange={(url) => handleInputChange('background_image', url)}
+              currentUrl={formData.background_image || ""}
+              onUrlChange={(url) => handleInputChange("background_image", url)}
               placeholder="https://images.unsplash.com/..."
               previewHeight="h-48"
               maxWidth={1920}
@@ -243,23 +267,28 @@ export default function AdminHeroTabbed() {
       ),
     },
     {
-      id: 'preview',
-      label: 'Preview',
-      icon: '👁️',
+      id: "preview",
+      label: "Preview",
+      icon: "👁️",
       content: (
         <div className="space-y-6">
-          <div className="bg-gray-900 rounded-lg overflow-hidden" style={{ minHeight: '400px' }}>
-            <div 
+          <div
+            className="bg-gray-900 rounded-lg overflow-hidden"
+            style={{ minHeight: "400px" }}
+          >
+            <div
               className="relative h-96 flex items-center justify-center"
               style={{
-                backgroundImage: formData.background_image ? `url('${formData.background_image}')` : 'linear-gradient(135deg, #dc2626 0%, #7c2d12 100%)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                backgroundImage: formData.background_image
+                  ? `url('${formData.background_image}')`
+                  : "linear-gradient(135deg, #dc2626 0%, #7c2d12 100%)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             >
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/50"></div>
-              
+
               {/* Content Preview */}
               <div className="relative z-10 text-center max-w-4xl mx-auto px-6 text-white">
                 {/* Logo Preview */}
@@ -272,7 +301,7 @@ export default function AdminHeroTabbed() {
                     />
                   </div>
                 )}
-                
+
                 {/* Logo Text Preview */}
                 {formData.logo_text && (
                   <div className="mb-8">
@@ -285,14 +314,20 @@ export default function AdminHeroTabbed() {
                 {/* Title Preview */}
                 {formData.impact_title && (
                   <h1 className="text-2xl md:text-3xl font-black text-white mb-4 uppercase">
-                    {formData.impact_title.replace(/\[destaque\](.*?)\[\/destaque\]/g, '$1')}
+                    {formData.impact_title.replace(
+                      /\[destaque\](.*?)\[\/destaque\]/g,
+                      "$1",
+                    )}
                   </h1>
                 )}
 
                 {/* Description Preview */}
                 {formData.description && (
                   <p className="text-sm text-gray-200 mb-6 max-w-xl mx-auto">
-                    {formData.description.replace(/\[destaque\](.*?)\[\/destaque\]/g, '$1')}
+                    {formData.description.replace(
+                      /\[destaque\](.*?)\[\/destaque\]/g,
+                      "$1",
+                    )}
                   </p>
                 )}
 
@@ -305,7 +340,7 @@ export default function AdminHeroTabbed() {
               </div>
             </div>
           </div>
-          
+
           <div className="text-center">
             <a
               href="/"
@@ -327,16 +362,20 @@ export default function AdminHeroTabbed() {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm mb-8 p-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Seção Hero</h1>
-          <p className="text-gray-600">Configure o conteúdo da seção principal da landing page</p>
+          <p className="text-gray-600">
+            Configure o conteúdo da seção principal da landing page
+          </p>
         </div>
 
         {/* Message */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-green-50 border border-green-200 text-green-800' 
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}>
+          <div
+            className={`mb-6 p-4 rounded-lg ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-800"
+                : "bg-red-50 border border-red-200 text-red-800"
+            }`}
+          >
             {message.text}
           </div>
         )}
@@ -344,7 +383,7 @@ export default function AdminHeroTabbed() {
         {/* Form with Tabs */}
         <form onSubmit={handleSubmit}>
           <AdminTabs tabs={tabs} />
-          
+
           {/* Save Button */}
           <div className="mt-8 flex justify-end">
             <button
@@ -352,7 +391,7 @@ export default function AdminHeroTabbed() {
               disabled={saving}
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
             >
-              {saving ? 'Salvando...' : 'Salvar Alterações'}
+              {saving ? "Salvando..." : "Salvar Alterações"}
             </button>
           </div>
         </form>

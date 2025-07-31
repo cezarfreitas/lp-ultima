@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { DesignSettings, DesignUpdateRequest, AVAILABLE_FONTS, FONT_SIZES, FONT_WEIGHTS, BORDER_RADIUS_OPTIONS } from "@shared/design";
+import {
+  DesignSettings,
+  DesignUpdateRequest,
+  AVAILABLE_FONTS,
+  FONT_SIZES,
+  FONT_WEIGHTS,
+  BORDER_RADIUS_OPTIONS,
+} from "@shared/design";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 
@@ -9,13 +16,17 @@ export default function AdminDesign() {
   const [formData, setFormData] = useState<DesignUpdateRequest>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
       fetchDesignData();
     } else {
@@ -55,7 +66,7 @@ export default function AdminDesign() {
       }
     } catch (error) {
       console.error("Error fetching design data:", error);
-      setMessage({type: 'error', text: 'Erro ao carregar dados'});
+      setMessage({ type: "error", text: "Erro ao carregar dados" });
     } finally {
       setLoading(false);
     }
@@ -76,18 +87,21 @@ export default function AdminDesign() {
       });
 
       // Check if response has content to read
-      const contentType = response.headers.get('content-type');
-      
+      const contentType = response.headers.get("content-type");
+
       if (response.ok) {
-        if (contentType && contentType.includes('application/json')) {
+        if (contentType && contentType.includes("application/json")) {
           const responseData = await response.json();
           setDesignData(responseData);
         }
-        setMessage({type: 'success', text: 'Configurações salvas com sucesso!'});
+        setMessage({
+          type: "success",
+          text: "Configurações salvas com sucesso!",
+        });
       } else {
-        let errorMessage = 'Erro ao salvar configurações';
-        
-        if (contentType && contentType.includes('application/json')) {
+        let errorMessage = "Erro ao salvar configurações";
+
+        if (contentType && contentType.includes("application/json")) {
           try {
             const errorData = await response.json();
             errorMessage = errorData.error || errorMessage;
@@ -95,21 +109,24 @@ export default function AdminDesign() {
             // If JSON parsing fails, use default message
           }
         }
-        
-        setMessage({type: 'error', text: errorMessage});
+
+        setMessage({ type: "error", text: errorMessage });
       }
     } catch (error) {
       console.error("Error updating design data:", error);
-      setMessage({type: 'error', text: 'Erro ao salvar configurações'});
+      setMessage({ type: "error", text: "Erro ao salvar configurações" });
     } finally {
       setSaving(false);
     }
   };
 
-  const handleInputChange = (field: keyof DesignUpdateRequest, value: string) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    field: keyof DesignUpdateRequest,
+    value: string,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -135,17 +152,23 @@ export default function AdminDesign() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm mb-8 p-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Cores & Fontes</h1>
-          <p className="text-gray-600">Personalize a aparência visual do site</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Cores & Fontes
+          </h1>
+          <p className="text-gray-600">
+            Personalize a aparência visual do site
+          </p>
         </div>
 
         {/* Message */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-green-50 border border-green-200 text-green-800' 
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}>
+          <div
+            className={`mb-6 p-4 rounded-lg ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-800"
+                : "bg-red-50 border border-red-200 text-red-800"
+            }`}
+          >
             {message.text}
           </div>
         )}
@@ -155,7 +178,7 @@ export default function AdminDesign() {
           {/* Colors Section */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-6">🎨 Cores</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Primary Color */}
               <div>
@@ -165,14 +188,18 @@ export default function AdminDesign() {
                 <div className="flex items-center space-x-3">
                   <input
                     type="color"
-                    value={formData.primary_color || '#dc2626'}
-                    onChange={(e) => handleInputChange('primary_color', e.target.value)}
+                    value={formData.primary_color || "#dc2626"}
+                    onChange={(e) =>
+                      handleInputChange("primary_color", e.target.value)
+                    }
                     className="w-12 h-12 border border-gray-300 rounded-lg cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={formData.primary_color || '#dc2626'}
-                    onChange={(e) => handleInputChange('primary_color', e.target.value)}
+                    value={formData.primary_color || "#dc2626"}
+                    onChange={(e) =>
+                      handleInputChange("primary_color", e.target.value)
+                    }
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="#dc2626"
                   />
@@ -187,14 +214,18 @@ export default function AdminDesign() {
                 <div className="flex items-center space-x-3">
                   <input
                     type="color"
-                    value={formData.secondary_color || '#6b7280'}
-                    onChange={(e) => handleInputChange('secondary_color', e.target.value)}
+                    value={formData.secondary_color || "#6b7280"}
+                    onChange={(e) =>
+                      handleInputChange("secondary_color", e.target.value)
+                    }
                     className="w-12 h-12 border border-gray-300 rounded-lg cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={formData.secondary_color || '#6b7280'}
-                    onChange={(e) => handleInputChange('secondary_color', e.target.value)}
+                    value={formData.secondary_color || "#6b7280"}
+                    onChange={(e) =>
+                      handleInputChange("secondary_color", e.target.value)
+                    }
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="#6b7280"
                   />
@@ -209,14 +240,18 @@ export default function AdminDesign() {
                 <div className="flex items-center space-x-3">
                   <input
                     type="color"
-                    value={formData.accent_color || '#000000'}
-                    onChange={(e) => handleInputChange('accent_color', e.target.value)}
+                    value={formData.accent_color || "#000000"}
+                    onChange={(e) =>
+                      handleInputChange("accent_color", e.target.value)
+                    }
                     className="w-12 h-12 border border-gray-300 rounded-lg cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={formData.accent_color || '#000000'}
-                    onChange={(e) => handleInputChange('accent_color', e.target.value)}
+                    value={formData.accent_color || "#000000"}
+                    onChange={(e) =>
+                      handleInputChange("accent_color", e.target.value)
+                    }
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="#000000"
                   />
@@ -231,14 +266,18 @@ export default function AdminDesign() {
                 <div className="flex items-center space-x-3">
                   <input
                     type="color"
-                    value={formData.background_color || '#ffffff'}
-                    onChange={(e) => handleInputChange('background_color', e.target.value)}
+                    value={formData.background_color || "#ffffff"}
+                    onChange={(e) =>
+                      handleInputChange("background_color", e.target.value)
+                    }
                     className="w-12 h-12 border border-gray-300 rounded-lg cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={formData.background_color || '#ffffff'}
-                    onChange={(e) => handleInputChange('background_color', e.target.value)}
+                    value={formData.background_color || "#ffffff"}
+                    onChange={(e) =>
+                      handleInputChange("background_color", e.target.value)
+                    }
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="#ffffff"
                   />
@@ -253,14 +292,18 @@ export default function AdminDesign() {
                 <div className="flex items-center space-x-3">
                   <input
                     type="color"
-                    value={formData.text_color || '#000000'}
-                    onChange={(e) => handleInputChange('text_color', e.target.value)}
+                    value={formData.text_color || "#000000"}
+                    onChange={(e) =>
+                      handleInputChange("text_color", e.target.value)
+                    }
                     className="w-12 h-12 border border-gray-300 rounded-lg cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={formData.text_color || '#000000'}
-                    onChange={(e) => handleInputChange('text_color', e.target.value)}
+                    value={formData.text_color || "#000000"}
+                    onChange={(e) =>
+                      handleInputChange("text_color", e.target.value)
+                    }
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="#000000"
                   />
@@ -271,8 +314,10 @@ export default function AdminDesign() {
 
           {/* Typography Section */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">📝 Tipografia</h2>
-            
+            <h2 className="text-xl font-bold text-gray-900 mb-6">
+              📝 Tipografia
+            </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Font Family */}
               <div>
@@ -280,12 +325,16 @@ export default function AdminDesign() {
                   Família da Fonte
                 </label>
                 <select
-                  value={formData.font_family || 'Inter'}
-                  onChange={(e) => handleInputChange('font_family', e.target.value)}
+                  value={formData.font_family || "Inter"}
+                  onChange={(e) =>
+                    handleInputChange("font_family", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  {AVAILABLE_FONTS.map(font => (
-                    <option key={font} value={font}>{font}</option>
+                  {AVAILABLE_FONTS.map((font) => (
+                    <option key={font} value={font}>
+                      {font}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -296,12 +345,16 @@ export default function AdminDesign() {
                   Tamanho Base
                 </label>
                 <select
-                  value={formData.font_size_base || '16px'}
-                  onChange={(e) => handleInputChange('font_size_base', e.target.value)}
+                  value={formData.font_size_base || "16px"}
+                  onChange={(e) =>
+                    handleInputChange("font_size_base", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  {FONT_SIZES.map(size => (
-                    <option key={size} value={size}>{size}</option>
+                  {FONT_SIZES.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -312,12 +365,29 @@ export default function AdminDesign() {
                   Peso Normal
                 </label>
                 <select
-                  value={formData.font_weight_normal || '400'}
-                  onChange={(e) => handleInputChange('font_weight_normal', e.target.value)}
+                  value={formData.font_weight_normal || "400"}
+                  onChange={(e) =>
+                    handleInputChange("font_weight_normal", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  {FONT_WEIGHTS.map(weight => (
-                    <option key={weight} value={weight}>{weight} - {weight === '300' ? 'Light' : weight === '400' ? 'Normal' : weight === '500' ? 'Medium' : weight === '600' ? 'Semi Bold' : weight === '700' ? 'Bold' : weight === '800' ? 'Extra Bold' : 'Black'}</option>
+                  {FONT_WEIGHTS.map((weight) => (
+                    <option key={weight} value={weight}>
+                      {weight} -{" "}
+                      {weight === "300"
+                        ? "Light"
+                        : weight === "400"
+                          ? "Normal"
+                          : weight === "500"
+                            ? "Medium"
+                            : weight === "600"
+                              ? "Semi Bold"
+                              : weight === "700"
+                                ? "Bold"
+                                : weight === "800"
+                                  ? "Extra Bold"
+                                  : "Black"}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -328,12 +398,29 @@ export default function AdminDesign() {
                   Peso Negrito
                 </label>
                 <select
-                  value={formData.font_weight_bold || '700'}
-                  onChange={(e) => handleInputChange('font_weight_bold', e.target.value)}
+                  value={formData.font_weight_bold || "700"}
+                  onChange={(e) =>
+                    handleInputChange("font_weight_bold", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  {FONT_WEIGHTS.map(weight => (
-                    <option key={weight} value={weight}>{weight} - {weight === '300' ? 'Light' : weight === '400' ? 'Normal' : weight === '500' ? 'Medium' : weight === '600' ? 'Semi Bold' : weight === '700' ? 'Bold' : weight === '800' ? 'Extra Bold' : 'Black'}</option>
+                  {FONT_WEIGHTS.map((weight) => (
+                    <option key={weight} value={weight}>
+                      {weight} -{" "}
+                      {weight === "300"
+                        ? "Light"
+                        : weight === "400"
+                          ? "Normal"
+                          : weight === "500"
+                            ? "Medium"
+                            : weight === "600"
+                              ? "Semi Bold"
+                              : weight === "700"
+                                ? "Bold"
+                                : weight === "800"
+                                  ? "Extra Bold"
+                                  : "Black"}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -344,12 +431,27 @@ export default function AdminDesign() {
                   Raio da Borda
                 </label>
                 <select
-                  value={formData.border_radius || '8px'}
-                  onChange={(e) => handleInputChange('border_radius', e.target.value)}
+                  value={formData.border_radius || "8px"}
+                  onChange={(e) =>
+                    handleInputChange("border_radius", e.target.value)
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  {BORDER_RADIUS_OPTIONS.map(radius => (
-                    <option key={radius} value={radius}>{radius} - {radius === '0px' ? 'Quadrado' : radius === '4px' ? 'Leve' : radius === '8px' ? 'Suave' : radius === '12px' ? 'Médio' : radius === '16px' ? 'Arredondado' : 'Muito Arredondado'}</option>
+                  {BORDER_RADIUS_OPTIONS.map((radius) => (
+                    <option key={radius} value={radius}>
+                      {radius} -{" "}
+                      {radius === "0px"
+                        ? "Quadrado"
+                        : radius === "4px"
+                          ? "Leve"
+                          : radius === "8px"
+                            ? "Suave"
+                            : radius === "12px"
+                              ? "Médio"
+                              : radius === "16px"
+                                ? "Arredondado"
+                                : "Muito Arredondado"}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -359,39 +461,40 @@ export default function AdminDesign() {
           {/* Preview Section */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-6">👁️ Preview</h2>
-            
-            <div 
+
+            <div
               className="p-6 border-2 border-dashed border-gray-300 rounded-lg"
               style={{
-                backgroundColor: formData.background_color || '#ffffff',
-                fontFamily: formData.font_family || 'Inter',
-                fontSize: formData.font_size_base || '16px',
-                borderRadius: formData.border_radius || '8px'
+                backgroundColor: formData.background_color || "#ffffff",
+                fontFamily: formData.font_family || "Inter",
+                fontSize: formData.font_size_base || "16px",
+                borderRadius: formData.border_radius || "8px",
               }}
             >
-              <h3 
-                style={{ 
-                  color: formData.primary_color || '#dc2626',
-                  fontWeight: formData.font_weight_bold || '700'
+              <h3
+                style={{
+                  color: formData.primary_color || "#dc2626",
+                  fontWeight: formData.font_weight_bold || "700",
                 }}
                 className="text-2xl mb-4"
               >
                 Título Principal
               </h3>
-              <p 
-                style={{ 
-                  color: formData.text_color || '#000000',
-                  fontWeight: formData.font_weight_normal || '400'
+              <p
+                style={{
+                  color: formData.text_color || "#000000",
+                  fontWeight: formData.font_weight_normal || "400",
                 }}
                 className="mb-4"
               >
-                Este é um exemplo de como o texto ficará com as configurações atuais.
+                Este é um exemplo de como o texto ficará com as configurações
+                atuais.
               </p>
               <button
                 style={{
-                  backgroundColor: formData.primary_color || '#dc2626',
-                  color: formData.background_color || '#ffffff',
-                  borderRadius: formData.border_radius || '8px'
+                  backgroundColor: formData.primary_color || "#dc2626",
+                  color: formData.background_color || "#ffffff",
+                  borderRadius: formData.border_radius || "8px",
                 }}
                 className="px-4 py-2"
               >
@@ -407,7 +510,7 @@ export default function AdminDesign() {
               disabled={saving}
               className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {saving ? 'Salvando...' : 'Salvar Configurações'}
+              {saving ? "Salvando..." : "Salvar Configurações"}
             </button>
           </div>
         </form>

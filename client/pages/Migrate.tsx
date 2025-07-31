@@ -2,7 +2,10 @@ import { useState } from "react";
 
 export default function Migrate() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const handleMigrate = async (endpoint: string, description: string) => {
     setLoading(true);
@@ -19,13 +22,16 @@ export default function Migrate() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({type: 'success', text: `${description}: ${data.message}`});
+        setMessage({
+          type: "success",
+          text: `${description}: ${data.message}`,
+        });
       } else {
-        setMessage({type: 'error', text: data.error || 'Erro na migração'});
+        setMessage({ type: "error", text: data.error || "Erro na migração" });
       }
     } catch (error) {
       console.error("Migration error:", error);
-      setMessage({type: 'error', text: 'Erro ao conectar com o servidor'});
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setLoading(false);
     }
@@ -37,17 +43,20 @@ export default function Migrate() {
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
           Migração do Banco
         </h1>
-        
+
         <p className="text-gray-600 text-center mb-8">
-          Execute as migrações necessárias para adicionar novas funcionalidades ao banco de dados.
+          Execute as migrações necessárias para adicionar novas funcionalidades
+          ao banco de dados.
         </p>
 
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success'
-              ? 'bg-green-50 border border-green-200 text-green-800'
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}>
+          <div
+            className={`mb-6 p-4 rounded-lg ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-800"
+                : "bg-red-50 border border-red-200 text-red-800"
+            }`}
+          >
             {message.text}
           </div>
         )}
@@ -56,7 +65,9 @@ export default function Migrate() {
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-medium text-gray-900 mb-2">Upload de Logo</h3>
             <p className="text-sm text-gray-600 mb-3">
-              Adiciona a coluna <code className="bg-gray-100 px-1 rounded">logo_image</code> para suportar upload de logos.
+              Adiciona a coluna{" "}
+              <code className="bg-gray-100 px-1 rounded">logo_image</code> para
+              suportar upload de logos.
             </p>
             <button
               onClick={() => handleMigrate("/api/migrate-logo", "Logo")}
@@ -68,9 +79,13 @@ export default function Migrate() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium text-gray-900 mb-2">Configurações de Design</h3>
+            <h3 className="font-medium text-gray-900 mb-2">
+              Configurações de Design
+            </h3>
             <p className="text-sm text-gray-600 mb-3">
-              Cria a tabela <code className="bg-gray-100 px-1 rounded">design_settings</code> para cores e fontes.
+              Cria a tabela{" "}
+              <code className="bg-gray-100 px-1 rounded">design_settings</code>{" "}
+              para cores e fontes.
             </p>
             <button
               onClick={() => handleMigrate("/api/migrate-design", "Design")}
@@ -82,7 +97,9 @@ export default function Migrate() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium text-gray-900 mb-2">Remover Limites de Caracteres</h3>
+            <h3 className="font-medium text-gray-900 mb-2">
+              Remover Limites de Caracteres
+            </h3>
             <p className="text-sm text-gray-600 mb-3">
               Remove limites de caracteres de todos os campos de texto.
             </p>
@@ -95,7 +112,7 @@ export default function Migrate() {
             </button>
           </div>
 
-          {message?.type === 'success' && (
+          {message?.type === "success" && (
             <a
               href="/admin"
               className="block w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 text-center transition-colors"
