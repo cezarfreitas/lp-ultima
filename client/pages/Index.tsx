@@ -143,7 +143,7 @@ export default function Index() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-8">
+        <div className="hero-content">
           {/* Logo */}
           <div className="mb-12 flex flex-col items-center">
             {data.logo_image ? (
