@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import {
   DesignSettings,
   DesignUpdateRequest,
-  AVAILABLE_FONTS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  BORDER_RADIUS_OPTIONS,
 } from "@shared/design";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
