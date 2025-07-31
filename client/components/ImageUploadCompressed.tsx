@@ -41,13 +41,14 @@ export default function ImageUploadCompressed({
 
     setUploading(true);
     setUploadError(null);
-    setCompressionInfo("Processando imagem em múltiplos formatos...");
+    setCompressionInfo("Comprimindo e enviando...");
 
     try {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/api/upload/multi-format", {
+      // Use simple upload endpoint to avoid body stream conflicts
+      const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
@@ -55,22 +56,24 @@ export default function ImageUploadCompressed({
       const data = await response.json();
 
       if (response.ok) {
-        const formats: ImageFormats = data.formats;
-
-        // Update URL for backwards compatibility (only if onUpload is not provided)
-        if (onUrlChange && !onUpload) {
-          onUrlChange(formats[preferredFormat]);
+        // Update URL for backwards compatibility
+        if (onUrlChange) {
+          onUrlChange(data.url);
         }
 
-        // Pass all formats to callback (takes precedence over onUrlChange)
+        // Create formats object for onUpload callback if provided
         if (onUpload) {
+          const formats: ImageFormats = {
+            thumbnail: data.url,
+            small: data.url,
+            medium: data.url,
+            large: data.url,
+          };
           onUpload(formats);
         }
 
         // Update compression info
-        setCompressionInfo(
-          `Gerados 4 formatos • Economia: ${data.compression.total_savings_percent}% • ${data.compression.space_saved} economizados`
-        );
+        setCompressionInfo("Upload realizado com sucesso!");
       } else {
         setUploadError(data.error || "Erro no upload");
         setCompressionInfo("");
