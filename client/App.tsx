@@ -68,6 +68,7 @@ const App = () => (
           <Route path="/migrate-about" element={<MigrateAbout />} />
           <Route path="/migrate-footer" element={<MigrateFooter />} />
           <Route path="/migrate-seo" element={<MigrateSEO />} />
+          <Route path="/setup-complete" element={<SetupComplete />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
