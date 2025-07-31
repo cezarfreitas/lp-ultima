@@ -212,6 +212,24 @@ export default function AdminLeads() {
                 ))}
               </select>
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Filtrar por Tipo
+              </label>
+              <select
+                value={selectedType}
+                onChange={(e) => {
+                  setSelectedType(e.target.value);
+                  setPage(1);
+                }}
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="all">Todos</option>
+                <option value="lojista">Lojistas</option>
+                <option value="consumidor">Consumidores</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -410,7 +428,7 @@ export default function AdminLeads() {
                     <p className="mt-1 text-sm text-gray-900">
                       {selectedLead.has_cnpj === "sim"
                         ? "Sim, é lojista"
-                        : "Não, �� consumidor"}
+                        : "Não, é consumidor"}
                     </p>
                   </div>
                   {selectedLead.store_type && (
