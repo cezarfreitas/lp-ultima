@@ -321,11 +321,52 @@ export default function AdminFormContent() {
           </div>
         </div>
 
+        {/* Highlight System Info */}
+        <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg shadow-sm p-6 border border-purple-200">
+          <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+            ✨ Sistema de Destaque
+          </h3>
+
+          <div className="space-y-4">
+            <p className="text-gray-700">
+              Você pode destacar palavras em qualquer campo de texto usando:
+            </p>
+
+            <div className="bg-white rounded-lg p-4 border border-purple-200">
+              <code className="text-sm text-purple-800 bg-purple-100 px-2 py-1 rounded">
+                [destaque]palavra[/destaque]
+              </code>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Como escrever:</h4>
+                <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                  <code>Por que ser um [destaque]Lojista[/destaque] Ecko?</code>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Como aparece:</h4>
+                <div className="bg-white p-3 rounded-lg text-sm border">
+                  Por que ser um <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">Lojista</span> Ecko?
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-blue-800">
+                💡 <strong>Dica:</strong> Funciona em todos os campos de texto - títulos, subtítulos e descrições. As palavras destacadas aparecem com gradiente vermelho.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Message */}
         {message && (
           <div className={`p-4 rounded-md ${
-            message.type === 'success' 
-              ? 'bg-green-50 border border-green-200 text-green-700' 
+            message.type === 'success'
+              ? 'bg-green-50 border border-green-200 text-green-700'
               : 'bg-red-50 border border-red-200 text-red-700'
           }`}>
             {message.text}
