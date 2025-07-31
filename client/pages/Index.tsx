@@ -64,7 +64,7 @@ export default function Index() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+        <div className="relative z-10 text-center max-w-5xl mx-auto px-6 md:px-8 lg:px-12">
           {/* Logo */}
           <div className="mb-8 flex flex-col items-center">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg mb-3">
