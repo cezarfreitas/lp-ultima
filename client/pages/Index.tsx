@@ -290,7 +290,7 @@ export default function Index() {
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
               {productGallery?.products
                 ?.sort((a, b) => a.position - b.position)
-                .map((product) => (
+                .map((product, index) => (
                   <div
                     key={product.id}
                     className="group relative bg-white rounded-lg md:rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden"
