@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { HeroSectionData, HeroUpdateRequest } from "@shared/hero";
 import AdminAuth from "../components/AdminAuth";
+import AdminLayout from "../components/AdminLayout";
 import ImageUpload from "../components/ImageUpload";
 
 export default function Admin() {
