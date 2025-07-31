@@ -11,15 +11,8 @@ export default function APIStatus({ children, showNotice = false }: APIStatusPro
 
   useEffect(() => {
     const checkAPI = async () => {
-      try {
-        const response = await fetch('/api/ping', { 
-          method: 'GET',
-          signal: AbortSignal.timeout(3000) // 3 second timeout
-        });
-        setApiAvailable(response.ok);
-      } catch (error) {
-        setApiAvailable(false);
-      }
+      const response = await silentFetch('/api/ping', { method: 'GET' }, 3000);
+      setApiAvailable(response ? response.ok : false);
     };
 
     // Check API availability with a small delay
