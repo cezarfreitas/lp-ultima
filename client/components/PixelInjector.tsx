@@ -26,32 +26,8 @@ export default function PixelInjector() {
   }, []);
 
   const fetchEnabledPixels = async () => {
-    try {
-      // Create fetch with timeout and abort controller for cleaner error handling
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2000);
-
-      const response = await fetch("/api/pixels/enabled", {
-        signal: controller.signal,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      clearTimeout(timeoutId);
-
-      if (response.ok) {
-        const data = await response.json();
-        setPixels(data);
-      } else {
-        // API not available, no pixels to inject
-        setPixels([]);
-      }
-    } catch (error) {
-      // Silently handle all fetch errors - API not available
-      setPixels([]);
-    }
+    const data = await silentFetchJson<PixelData[]>("/api/pixels/enabled");
+    setPixels(data || []);
   };
 
   useEffect(() => {
