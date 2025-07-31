@@ -123,7 +123,7 @@ export default function LeadCaptureForm() {
           Obrigado pelo seu interesse!
         </h3>
         <p className="text-green-700 mb-4">
-          Recebemos seus dados e entraremos em contato em breve.
+          Seus dados foram enviados com sucesso.
         </p>
         <button
           onClick={() => setSubmitted(false)}
