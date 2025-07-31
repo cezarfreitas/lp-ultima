@@ -47,24 +47,125 @@ export default function PixelInjector() {
     });
 
     // Inject body start pixels
-    const bodyStartPixels = pixels.filter(pixel => pixel.position === 'body_start');
+    const bodyStartPixels = processedPixels.filter(pixel => pixel.position === 'body_start');
     bodyStartPixels.forEach(pixel => {
       injectToBodyStart(pixel);
     });
 
     // Inject body end pixels
-    const bodyEndPixels = pixels.filter(pixel => pixel.position === 'body_end');
+    const bodyEndPixels = processedPixels.filter(pixel => pixel.position === 'body_end');
     bodyEndPixels.forEach(pixel => {
       injectToBodyEnd(pixel);
     });
 
     // Special handling for GTM body tag
-    const gtmPixels = pixels.filter(pixel => pixel.type === 'google_tag_manager');
+    const gtmPixels = processedPixels.filter(pixel => pixel.type === 'google_tag_manager');
     gtmPixels.forEach(pixel => {
       injectGTMBodyTag(pixel);
     });
 
+    // Special handling for Meta Conversions API
+    const metaConversionsPixels = processedPixels.filter(pixel => pixel.type === 'meta_conversions');
+    metaConversionsPixels.forEach(pixel => {
+      setupMetaConversionsAPI(pixel);
+    });
+
   }, [pixels]);
+
+  const generatePixelCode = (pixel: PixelData): string => {
+    if (!pixel.pixel_id) return pixel.code;
+
+    switch (pixel.type) {
+      case 'ga4_simple':
+        return `<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${pixel.pixel_id}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${pixel.pixel_id}');
+</script>`;
+
+      case 'meta_simple':
+        return `<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${pixel.pixel_id}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=${pixel.pixel_id}&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->`;
+
+      case 'meta_conversions':
+        return `<!-- Meta Pixel + Conversions API -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${pixel.pixel_id}');
+fbq('track', 'PageView');
+
+// Enhanced tracking for lead capture
+window.trackMetaLead = function(email, phone) {
+  fbq('track', 'Lead', {
+    content_name: 'Seja um Lojista Ecko',
+    content_category: 'Partnership',
+    value: 100,
+    currency: 'BRL'
+  });
+
+  // Send to Conversions API
+  sendToConversionsAPI('Lead', {
+    email: email,
+    phone: phone,
+    content_name: 'Seja um Lojista Ecko'
+  });
+};
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=${pixel.pixel_id}&ev=PageView&noscript=1"
+/></noscript>`;
+
+      default:
+        return pixel.code;
+    }
+  };
+
+  const setupMetaConversionsAPI = (pixel: PixelData) => {
+    if (!pixel.access_token || !pixel.pixel_id) return;
+
+    // Create function to send to Conversions API
+    const script = document.createElement('script');
+    script.innerHTML = `
+      window.sendToConversionsAPI = function(eventName, userData) {
+        fetch('/api/meta-conversion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pixel_id: '${pixel.pixel_id}',
+            event_name: eventName,
+            user_data: userData,
+            event_time: Math.floor(Date.now() / 1000)
+          })
+        }).catch(console.error);
+      };
+    `;
+    document.head.appendChild(script);
+  };
 
   const injectToHead = (pixel: PixelData) => {
     // Check if pixel is already injected
