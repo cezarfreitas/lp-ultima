@@ -31,6 +31,53 @@ export const migrateLogo: RequestHandler = async (req, res) => {
   }
 };
 
+export const migrateLeads: RequestHandler = async (req, res) => {
+  try {
+    // Check if leads table exists
+    const [tables] = await pool.execute(`
+      SELECT TABLE_NAME
+      FROM INFORMATION_SCHEMA.TABLES
+      WHERE TABLE_SCHEMA = 'lp-ecko-db'
+      AND TABLE_NAME = 'leads'
+    `);
+
+    if ((tables as any[]).length === 0) {
+      // Table doesn't exist, create it
+      await pool.execute(`
+        CREATE TABLE leads (
+          id INT PRIMARY KEY AUTO_INCREMENT,
+          name VARCHAR(255) NOT NULL,
+          email VARCHAR(255) NOT NULL,
+          phone VARCHAR(50),
+          company VARCHAR(255),
+          message TEXT,
+          source VARCHAR(100) DEFAULT 'website',
+          status ENUM('new', 'contacted', 'qualified', 'converted', 'lost') DEFAULT 'new',
+          webhook_sent BOOLEAN DEFAULT FALSE,
+          webhook_attempts INT DEFAULT 0,
+          ip_address VARCHAR(45),
+          user_agent TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          INDEX idx_email (email),
+          INDEX idx_status (status),
+          INDEX idx_created_at (created_at)
+        )
+      `);
+
+      res.json({ message: "Tabela leads criada com sucesso!" });
+    } else {
+      res.json({ message: "Tabela leads já existe." });
+    }
+  } catch (error) {
+    console.error("Leads migration error:", error);
+    res.status(500).json({
+      error: "Erro na migração de leads",
+      details: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+};
+
 export const migrateDesign: RequestHandler = async (req, res) => {
   try {
     // Check if design_settings table exists
