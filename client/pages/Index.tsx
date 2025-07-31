@@ -169,10 +169,22 @@ export default function Index() {
 
         {/* Floating Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/30 rounded-full animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-white/20 rounded-full animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-3/4 w-1 h-1 bg-white/40 rounded-full animate-pulse delay-500"></div>
-          <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-white/25 rounded-full animate-pulse delay-1500"></div>
+          {/* Top elements */}
+          <div className="absolute top-20 left-8 w-2 h-2 bg-red-400/40 rounded-full animate-pulse"></div>
+          <div className="absolute top-32 right-12 w-1 h-1 bg-white/50 rounded-full animate-pulse delay-700"></div>
+
+          {/* Middle elements */}
+          <div className="absolute top-1/2 left-16 w-3 h-3 bg-red-300/30 rounded-full animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-20 w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse delay-300"></div>
+
+          {/* Bottom elements */}
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-red-500/35 rounded-full animate-pulse delay-1500"></div>
+          <div className="absolute bottom-40 right-1/3 w-2.5 h-2.5 bg-white/30 rounded-full animate-pulse delay-200"></div>
+          <div className="absolute bottom-24 left-3/4 w-1 h-1 bg-red-400/45 rounded-full animate-pulse delay-1200"></div>
+
+          {/* Geometric shapes */}
+          <div className="absolute top-1/3 right-8 w-4 h-4 border border-red-500/25 rotate-45 animate-pulse delay-800"></div>
+          <div className="absolute bottom-1/3 left-12 w-5 h-5 border border-white/20 rounded-full animate-pulse delay-600"></div>
         </div>
       </section>
     </div>
