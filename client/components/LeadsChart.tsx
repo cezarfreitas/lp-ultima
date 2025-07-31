@@ -10,17 +10,12 @@ import {
   Legend,
 } from "recharts";
 
-// Suprimir warnings específicos do Recharts sobre defaultProps
-const originalConsoleWarn = console.warn;
-console.warn = (...args) => {
-  const message = args[0];
-  if (typeof message === 'string' &&
-      message.includes('Support for defaultProps will be removed') &&
-      (message.includes('XAxis') || message.includes('YAxis'))) {
-    return; // Suprimir este warning específico
-  }
-  originalConsoleWarn.apply(console, args);
-};
+/*
+ * Note: Os warnings sobre defaultProps que aparecem no console são da biblioteca Recharts,
+ * não do nosso código. Estes warnings não afetam a funcionalidade e serão resolvidos
+ * quando a biblioteca Recharts for atualizada para usar parâmetros padrão JavaScript
+ * ao invés de defaultProps.
+ */
 
 interface ChartData {
   day: number;
