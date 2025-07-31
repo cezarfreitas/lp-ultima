@@ -103,6 +103,54 @@ export default function LeadCaptureForm() {
     }
   };
 
+  const trackConversion = () => {
+    // Track with Google Analytics if available
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL', // Replace with actual conversion ID
+        value: 100.0,
+        currency: 'BRL',
+        transaction_id: Date.now().toString()
+      });
+
+      (window as any).gtag('event', 'generate_lead', {
+        currency: 'BRL',
+        value: 100.0
+      });
+    }
+
+    // Track with Meta Pixel if available
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead', {
+        content_name: 'Seja um Lojista Oficial Ecko',
+        content_category: 'Partnership',
+        value: 100,
+        currency: 'BRL'
+      });
+    }
+
+    // Track with Meta Conversions API if available
+    if (typeof window !== 'undefined' && (window as any).trackMetaLead) {
+      (window as any).trackMetaLead(
+        formData.name + '@example.com', // Generate email or use actual if collected
+        formData.whatsapp
+      );
+    }
+
+    // Track custom events for other platforms
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'lead_form_submission',
+        event_category: 'Partnership',
+        event_label: 'Seja um Lojista Ecko',
+        value: 100,
+        currency: 'BRL',
+        has_cnpj: formData.has_cnpj,
+        store_type: formData.store_type
+      });
+    }
+  };
+
   if (submitted) {
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
