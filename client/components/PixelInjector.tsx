@@ -25,9 +25,15 @@ export default function PixelInjector() {
       if (response.ok) {
         const data = await response.json();
         setPixels(data);
+      } else {
+        // API not available, no pixels to inject
+        console.log("Pixels API not available, no tracking pixels loaded");
+        setPixels([]);
       }
     } catch (error) {
-      console.error("Error fetching pixels:", error);
+      // Network error or API not available, silently continue without pixels
+      console.log("Pixels API not available, no tracking pixels loaded");
+      setPixels([]);
     }
   };
 
