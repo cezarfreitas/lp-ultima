@@ -102,7 +102,8 @@ export default function ImageUploadCompressed({
       const data = await response.json();
 
       if (response.ok) {
-        onUrlChange(data.url);
+        if (onUrlChange) onUrlChange(data.url);
+        if (onUpload) onUpload(data.url);
       } else {
         setUploadError(data.error || "Erro no upload");
         setCompressionInfo("");
