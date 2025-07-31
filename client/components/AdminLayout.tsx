@@ -60,6 +60,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar showroom e experiências",
     },
     {
+      name: "Rodapé",
+      href: "/admin/footer",
+      icon: "🦶",
+      description: "Gerenciar conteúdo do rodapé",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
