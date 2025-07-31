@@ -97,6 +97,20 @@ export default function Migrate() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-medium text-gray-900 mb-2">Sistema de Leads</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Cria a tabela <code className="bg-gray-100 px-1 rounded">leads</code> para captura de leads.
+            </p>
+            <button
+              onClick={() => handleMigrate("/api/migrate-leads", "Leads")}
+              disabled={loading}
+              className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? "Migrando..." : "Migrar Leads"}
+            </button>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-medium text-gray-900 mb-2">
               Remover Limites de Caracteres
             </h3>
