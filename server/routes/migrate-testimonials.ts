@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { pool } from "../database/config";
-import { DEFAULT_TESTIMONIALS_DATA } from "@shared/testimonials";
+import { DEFAULT_TESTIMONIALS_DATA } from "../../shared/testimonials.js";
 
 export const migrateTestimonials: RequestHandler = async (req, res) => {
   try {
@@ -41,65 +41,53 @@ export const migrateTestimonials: RequestHandler = async (req, res) => {
     `);
 
     // Insert default section if doesn't exist
-    const [sectionRows] = await pool.execute(
-      "SELECT COUNT(*) as count FROM testimonials_section",
-    );
+    const [sectionRows] = await pool.execute('SELECT COUNT(*) as count FROM testimonials_section');
     const sectionCount = (sectionRows as any[])[0].count;
 
     let sectionId;
     if (sectionCount === 0) {
-      const [sectionResult] = await pool.execute(
-        `
+      const [sectionResult] = await pool.execute(`
         INSERT INTO testimonials_section (title, subtitle, background_type, show_ratings, max_testimonials)
         VALUES (?, ?, ?, ?, ?)
-      `,
-        [
-          "O que nossos [destaque]Parceiros[/destaque] dizem",
-          "Veja os depoimentos de quem já faz parte da nossa rede de lojistas e transformou seu negócio com a Ecko.",
-          "gray",
-          true,
-          6,
-        ],
-      );
+      `, [
+        'O que nossos [destaque]Parceiros[/destaque] dizem',
+        'Veja os depoimentos de quem já faz parte da nossa rede de lojistas e transformou seu negócio com a Ecko.',
+        'gray',
+        true,
+        6
+      ]);
       sectionId = (sectionResult as any).insertId;
     } else {
-      const [sections] = await pool.execute(
-        "SELECT id FROM testimonials_section LIMIT 1",
-      );
+      const [sections] = await pool.execute('SELECT id FROM testimonials_section LIMIT 1');
       sectionId = (sections as any[])[0].id;
     }
 
     // Insert default testimonials if table is empty
-    const [testimonialRows] = await pool.execute(
-      "SELECT COUNT(*) as count FROM testimonials",
-    );
+    const [testimonialRows] = await pool.execute('SELECT COUNT(*) as count FROM testimonials');
     const testimonialCount = (testimonialRows as any[])[0].count;
 
     if (testimonialCount === 0) {
       for (const testimonial of DEFAULT_TESTIMONIALS_DATA) {
-        await pool.execute(
-          `
+        await pool.execute(`
           INSERT INTO testimonials (section_id, name, role, company, content, rating, is_active, position)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `,
-          [
-            sectionId,
-            testimonial.name,
-            testimonial.role,
-            testimonial.company,
-            testimonial.content,
-            testimonial.rating,
-            testimonial.is_active,
-            testimonial.position,
-          ],
-        );
+        `, [
+          sectionId,
+          testimonial.name,
+          testimonial.role,
+          testimonial.company,
+          testimonial.content,
+          testimonial.rating,
+          testimonial.is_active,
+          testimonial.position
+        ]);
       }
     }
 
     res.json({
       message: "Tabelas de depoimentos criadas com sucesso!",
       tables: ["testimonials_section", "testimonials"],
-      defaultData: `${DEFAULT_TESTIMONIALS_DATA.length} depoimentos padrão inseridos`,
+      defaultData: `${DEFAULT_TESTIMONIALS_DATA.length} depoimentos padrão inseridos`
     });
   } catch (error) {
     console.error("Migration error:", error);
