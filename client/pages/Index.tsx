@@ -61,7 +61,7 @@ export default function Index() {
         return (
           <span
             key={index}
-            className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold drop-shadow-sm"
+            className="text-primary font-bold drop-shadow-sm"
           >
             {highlightedText}
           </span>
