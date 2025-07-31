@@ -165,7 +165,9 @@ export default function AdminPixels() {
       ...prev,
       type,
       position: pixelType.defaultPosition,
-      code: prev.code || pixelType.template
+      code: pixelType.requiresId ? '' : (prev.code || pixelType.template),
+      pixel_id: pixelType.requiresId ? prev.pixel_id : '',
+      access_token: pixelType.requiresToken ? prev.access_token : ''
     }));
   };
 
