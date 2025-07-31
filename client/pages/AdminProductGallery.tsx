@@ -460,7 +460,7 @@ export default function AdminProductGallery() {
                 Adicione várias imagens de uma vez com compressão automática
               </p>
 
-              <MultiImageUpload
+              <MultiImageUploadFallback
                 onImagesUploaded={handleAddMultipleProducts}
                 maxFiles={12}
               />
