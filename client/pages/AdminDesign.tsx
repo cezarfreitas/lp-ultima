@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  DesignSettings,
-  DesignUpdateRequest,
-} from "@shared/design";
+import { DesignSettings, DesignUpdateRequest } from "@shared/design";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 
@@ -307,8 +304,6 @@ export default function AdminDesign() {
               </div>
             </div>
           </div>
-
-
 
           {/* Preview Section */}
           <div className="bg-white rounded-lg shadow-sm p-6">
