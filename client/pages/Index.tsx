@@ -9,6 +9,30 @@ export default function Index() {
     fetchHeroData();
   }, []);
 
+  // Function to render text with highlights
+  const renderTextWithHighlights = (text: string) => {
+    if (!text) return text;
+
+    // Split text by [destaque] tags
+    const parts = text.split(/(\[destaque\].*?\[\/destaque\])/g);
+
+    return parts.map((part, index) => {
+      if (part.startsWith('[destaque]') && part.endsWith('[/destaque]')) {
+        // Extract the highlighted text
+        const highlightedText = part.replace(/^\[destaque\]/, '').replace(/\[\/destaque\]$/, '');
+        return (
+          <span
+            key={index}
+            className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold drop-shadow-sm"
+          >
+            {highlightedText}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
   const fetchHeroData = async () => {
     try {
       const response = await fetch("/api/hero");
