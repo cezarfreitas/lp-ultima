@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { HeroSectionData } from "@shared/hero";
 import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
 import LeadCaptureForm from "../components/LeadCaptureForm";
-import TestimonialsSection from "../components/TestimonialsSection";
-import ShowroomSection from "../components/ShowroomSection";
-import FAQSection from "../components/FAQSection";
-import AboutSection from "../components/AboutSection";
-import Footer from "../components/Footer";
 import SEOHead from "../components/SEOHead";
 import PixelInjector from "../components/PixelInjector";
+import CriticalCSS from "../components/CriticalCSS";
+import LazySection from "../components/LazySection";
+import OptimizedImage from "../components/OptimizedImage";
+
+// Lazy load non-critical components
+const TestimonialsSection = lazy(() => import("../components/TestimonialsSection"));
+const ShowroomSection = lazy(() => import("../components/ShowroomSection"));
+const FAQSection = lazy(() => import("../components/FAQSection"));
+const AboutSection = lazy(() => import("../components/AboutSection"));
+const Footer = lazy(() => import("../components/Footer"));
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
