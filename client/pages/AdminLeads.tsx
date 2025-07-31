@@ -26,7 +26,7 @@ export default function AdminLeads() {
     } else {
       setLoading(false);
     }
-  }, [selectedStatus, page]);
+  }, [selectedStatus, selectedType, page]);
 
   const handleAuthenticated = () => {
     setIsAuthenticated(true);
@@ -410,7 +410,7 @@ export default function AdminLeads() {
                     <p className="mt-1 text-sm text-gray-900">
                       {selectedLead.has_cnpj === "sim"
                         ? "Sim, é lojista"
-                        : "Não, é consumidor"}
+                        : "Não, �� consumidor"}
                     </p>
                   </div>
                   {selectedLead.store_type && (
