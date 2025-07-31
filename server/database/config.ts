@@ -109,25 +109,28 @@ export async function initializeDatabase() {
 
     // Check if leads table exists and has old structure, then migrate
     try {
-      const [columns] = await pool.execute(`
+      const [columns] = await pool.execute(
+        `
         SELECT COLUMN_NAME
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'leads'
-      `, [dbConfig.database]);
+      `,
+        [dbConfig.database],
+      );
 
-      const columnNames = (columns as any[]).map(col => col.COLUMN_NAME);
+      const columnNames = (columns as any[]).map((col) => col.COLUMN_NAME);
 
       // If old columns exist, migrate them
-      if (columnNames.includes('email')) {
-        console.log('Migrating leads table to new structure...');
+      if (columnNames.includes("email")) {
+        console.log("Migrating leads table to new structure...");
 
         // Drop old structure and recreate
-        await pool.execute('DROP TABLE IF EXISTS leads_backup');
+        await pool.execute("DROP TABLE IF EXISTS leads_backup");
         await pool.execute(`
           CREATE TABLE leads_backup AS SELECT * FROM leads
         `);
 
-        await pool.execute('DROP TABLE leads');
+        await pool.execute("DROP TABLE leads");
 
         // Recreate with new structure
         await pool.execute(`
@@ -152,10 +155,10 @@ export async function initializeDatabase() {
           )
         `);
 
-        console.log('Leads table migrated successfully');
+        console.log("Leads table migrated successfully");
       }
     } catch (error) {
-      console.log('No existing leads table to migrate or migration not needed');
+      console.log("No existing leads table to migrate or migration not needed");
     }
 
     // Insert default data if tables are empty
@@ -219,11 +222,7 @@ export async function initializeDatabase() {
         INSERT INTO webhook_settings (webhook_url, webhook_secret, webhook_enabled)
         VALUES (?, ?, ?)
       `,
-        [
-          "",
-          "",
-          false,
-        ],
+        ["", "", false],
       );
     }
 

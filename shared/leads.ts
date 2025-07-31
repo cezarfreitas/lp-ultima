@@ -3,11 +3,11 @@ export interface Lead {
   name: string;
   email: string;
   whatsapp?: string;
-  has_cnpj: 'sim' | 'nao';
-  store_type?: 'fisica' | 'online' | 'fisica_online' | 'midias_sociais';
+  has_cnpj: "sim" | "nao";
+  store_type?: "fisica" | "online" | "fisica_online" | "midias_sociais";
   cep?: string;
   source: string;
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
+  status: "new" | "contacted" | "qualified" | "converted" | "lost";
   webhook_sent: boolean;
   webhook_attempts: number;
   ip_address?: string;
@@ -19,18 +19,18 @@ export interface Lead {
 export interface LeadCreateRequest {
   name: string;
   whatsapp: string;
-  has_cnpj: 'sim' | 'nao';
-  store_type?: 'fisica' | 'online' | 'fisica_online' | 'midias_sociais';
+  has_cnpj: "sim" | "nao";
+  store_type?: "fisica" | "online" | "fisica_online" | "midias_sociais";
   cep?: string;
 }
 
 export interface LeadUpdateRequest {
   name?: string;
   whatsapp?: string;
-  has_cnpj?: 'sim' | 'nao';
-  store_type?: 'fisica' | 'online' | 'fisica_online' | 'midias_sociais';
+  has_cnpj?: "sim" | "nao";
+  store_type?: "fisica" | "online" | "fisica_online" | "midias_sociais";
   cep?: string;
-  status?: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
+  status?: "new" | "contacted" | "qualified" | "converted" | "lost";
 }
 
 export interface WebhookConfig {
@@ -40,9 +40,9 @@ export interface WebhookConfig {
 }
 
 export const LEAD_STATUSES = [
-  { value: 'new', label: 'Novo', color: 'blue' },
-  { value: 'contacted', label: 'Contatado', color: 'yellow' },
-  { value: 'qualified', label: 'Qualificado', color: 'green' },
-  { value: 'converted', label: 'Convertido', color: 'purple' },
-  { value: 'lost', label: 'Perdido', color: 'red' },
+  { value: "new", label: "Novo", color: "blue" },
+  { value: "contacted", label: "Contatado", color: "yellow" },
+  { value: "qualified", label: "Qualificado", color: "green" },
+  { value: "converted", label: "Convertido", color: "purple" },
+  { value: "lost", label: "Perdido", color: "red" },
 ] as const;

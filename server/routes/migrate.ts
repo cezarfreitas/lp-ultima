@@ -73,7 +73,7 @@ export const migrateLeads: RequestHandler = async (req, res) => {
     console.error("Leads migration error:", error);
     res.status(500).json({
       error: "Erro na migração de leads",
-      details: error instanceof Error ? error.message : "Unknown error"
+      details: error instanceof Error ? error.message : "Unknown error",
     });
   }
 };

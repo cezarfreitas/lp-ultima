@@ -7,19 +7,23 @@ export default function AdminSettings() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [settings, setSettings] = useState<WebhookSettings | null>(null);
   const [formData, setFormData] = useState({
-    webhook_url: '',
-    webhook_secret: '',
+    webhook_url: "",
+    webhook_secret: "",
     webhook_enabled: false,
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
       fetchSettings();
     } else {
@@ -40,28 +44,28 @@ export default function AdminSettings() {
 
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/webhooks');
+      const response = await fetch("/api/webhooks");
       if (response.ok) {
         const data = await response.json();
         setSettings(data);
         setFormData({
-          webhook_url: data.webhook_url || '',
-          webhook_secret: data.webhook_secret || '',
+          webhook_url: data.webhook_url || "",
+          webhook_secret: data.webhook_secret || "",
           webhook_enabled: data.webhook_enabled || false,
         });
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
-      setMessage({ type: 'error', text: 'Erro ao carregar configurações' });
+      setMessage({ type: "error", text: "Erro ao carregar configurações" });
     } finally {
       setLoading(false);
     }
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -70,10 +74,10 @@ export default function AdminSettings() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/webhooks', {
-        method: 'PUT',
+      const response = await fetch("/api/webhooks", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -81,14 +85,20 @@ export default function AdminSettings() {
       if (response.ok) {
         const updatedData = await response.json();
         setSettings(updatedData);
-        setMessage({ type: 'success', text: 'Configurações salvas com sucesso!' });
+        setMessage({
+          type: "success",
+          text: "Configurações salvas com sucesso!",
+        });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao salvar configurações' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao salvar configurações",
+        });
       }
     } catch (error) {
-      console.error('Error saving settings:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error saving settings:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setSaving(false);
     }
@@ -129,7 +139,8 @@ export default function AdminSettings() {
               Configurações de Webhook
             </h3>
             <p className="text-sm text-gray-600 mb-6">
-              Configure o webhook que receberá as notificações quando um lead for capturado ou um consumidor for identificado.
+              Configure o webhook que receberá as notificações quando um lead
+              for capturado ou um consumidor for identificado.
             </p>
 
             <div className="space-y-6">
@@ -141,7 +152,9 @@ export default function AdminSettings() {
                 <input
                   type="url"
                   value={formData.webhook_url}
-                  onChange={(e) => handleInputChange('webhook_url', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("webhook_url", e.target.value)
+                  }
                   placeholder="https://seu-webhook.com/leads"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -158,7 +171,9 @@ export default function AdminSettings() {
                 <input
                   type="password"
                   value={formData.webhook_secret}
-                  onChange={(e) => handleInputChange('webhook_secret', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("webhook_secret", e.target.value)
+                  }
                   placeholder="chave-secreta-para-validacao"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -173,19 +188,26 @@ export default function AdminSettings() {
                   type="checkbox"
                   id="webhook_enabled"
                   checked={formData.webhook_enabled}
-                  onChange={(e) => handleInputChange('webhook_enabled', e.target.checked)}
+                  onChange={(e) =>
+                    handleInputChange("webhook_enabled", e.target.checked)
+                  }
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
-                <label htmlFor="webhook_enabled" className="ml-2 block text-sm text-gray-900">
+                <label
+                  htmlFor="webhook_enabled"
+                  className="ml-2 block text-sm text-gray-900"
+                >
                   Habilitar webhook
                 </label>
               </div>
 
               {/* Webhook Payload Example */}
               <div className="bg-gray-50 rounded-md p-4">
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Exemplo de Payload</h4>
+                <h4 className="text-sm font-medium text-gray-900 mb-2">
+                  Exemplo de Payload
+                </h4>
                 <pre className="text-xs text-gray-600 overflow-x-auto">
-{`// Para lojista
+                  {`// Para lojista
 {
   "event": "new_lead",
   "type": "lojista", 
@@ -215,11 +237,13 @@ export default function AdminSettings() {
 
             {/* Message */}
             {message && (
-              <div className={`mt-4 p-4 rounded-md ${
-                message.type === 'success' 
-                  ? 'bg-green-50 border border-green-200 text-green-700' 
-                  : 'bg-red-50 border border-red-200 text-red-700'
-              }`}>
+              <div
+                className={`mt-4 p-4 rounded-md ${
+                  message.type === "success"
+                    ? "bg-green-50 border border-green-200 text-green-700"
+                    : "bg-red-50 border border-red-200 text-red-700"
+                }`}
+              >
                 {message.text}
               </div>
             )}
@@ -237,7 +261,7 @@ export default function AdminSettings() {
                     Salvando...
                   </div>
                 ) : (
-                  'Salvar Configurações'
+                  "Salvar Configurações"
                 )}
               </button>
             </div>

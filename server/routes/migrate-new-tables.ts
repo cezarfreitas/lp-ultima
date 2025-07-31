@@ -48,11 +48,7 @@ export const migrateNewTables: RequestHandler = async (req, res) => {
         INSERT INTO webhook_settings (webhook_url, webhook_secret, webhook_enabled)
         VALUES (?, ?, ?)
       `,
-        [
-          "",
-          "",
-          false,
-        ],
+        ["", "", false],
       );
     }
 
@@ -89,7 +85,8 @@ export const migrateNewTables: RequestHandler = async (req, res) => {
     }
 
     res.json({
-      message: "Novas tabelas criadas com sucesso (webhook_settings e form_content)",
+      message:
+        "Novas tabelas criadas com sucesso (webhook_settings e form_content)",
     });
   } catch (error) {
     console.error("Migration error:", error);

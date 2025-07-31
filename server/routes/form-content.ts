@@ -21,17 +21,17 @@ const FormContentUpdateSchema = z.object({
 // Get form content
 export const getFormContent: RequestHandler = async (req, res) => {
   try {
-    const [rows] = await pool.execute('SELECT * FROM form_content LIMIT 1');
+    const [rows] = await pool.execute("SELECT * FROM form_content LIMIT 1");
     const content = (rows as any[])[0];
-    
+
     if (!content) {
-      return res.status(404).json({ error: 'Conteúdo não encontrado' });
+      return res.status(404).json({ error: "Conteúdo não encontrado" });
     }
-    
+
     res.json(content);
   } catch (error) {
-    console.error('Error fetching form content:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    console.error("Error fetching form content:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
 
@@ -39,37 +39,41 @@ export const getFormContent: RequestHandler = async (req, res) => {
 export const updateFormContent: RequestHandler = async (req, res) => {
   try {
     const validation = FormContentUpdateSchema.safeParse(req.body);
-    
+
     if (!validation.success) {
-      return res.status(400).json({ 
-        error: 'Dados inválidos', 
-        details: validation.error.errors 
+      return res.status(400).json({
+        error: "Dados inválidos",
+        details: validation.error.errors,
       });
     }
-    
+
     const data = validation.data;
-    const updateFields = Object.keys(data).filter(key => data[key as keyof typeof data] !== undefined);
-    
+    const updateFields = Object.keys(data).filter(
+      (key) => data[key as keyof typeof data] !== undefined,
+    );
+
     if (updateFields.length === 0) {
-      return res.status(400).json({ error: 'Nenhum campo para atualizar' });
+      return res.status(400).json({ error: "Nenhum campo para atualizar" });
     }
-    
+
     // Build dynamic update query
-    const setClause = updateFields.map(field => `${field} = ?`).join(', ');
-    const values = updateFields.map(field => data[field as keyof typeof data]);
-    
+    const setClause = updateFields.map((field) => `${field} = ?`).join(", ");
+    const values = updateFields.map(
+      (field) => data[field as keyof typeof data],
+    );
+
     await pool.execute(
       `UPDATE form_content SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = (SELECT * FROM (SELECT id FROM form_content LIMIT 1) as temp)`,
-      values
+      values,
     );
-    
+
     // Return updated data
-    const [rows] = await pool.execute('SELECT * FROM form_content LIMIT 1');
+    const [rows] = await pool.execute("SELECT * FROM form_content LIMIT 1");
     const updatedContent = (rows as any[])[0];
-    
+
     res.json(updatedContent);
   } catch (error) {
-    console.error('Error updating form content:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    console.error("Error updating form content:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
   }
 };

@@ -12,17 +12,17 @@ const WebhookUpdateSchema = z.object({
 // Get webhook settings
 export const getWebhookSettings: RequestHandler = async (req, res) => {
   try {
-    const [rows] = await pool.execute('SELECT * FROM webhook_settings LIMIT 1');
+    const [rows] = await pool.execute("SELECT * FROM webhook_settings LIMIT 1");
     const settings = (rows as any[])[0];
-    
+
     if (!settings) {
-      return res.status(404).json({ error: 'Configurações não encontradas' });
+      return res.status(404).json({ error: "Configurações não encontradas" });
     }
-    
+
     res.json(settings);
   } catch (error) {
-    console.error('Error fetching webhook settings:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    console.error("Error fetching webhook settings:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
 
@@ -30,37 +30,41 @@ export const getWebhookSettings: RequestHandler = async (req, res) => {
 export const updateWebhookSettings: RequestHandler = async (req, res) => {
   try {
     const validation = WebhookUpdateSchema.safeParse(req.body);
-    
+
     if (!validation.success) {
-      return res.status(400).json({ 
-        error: 'Dados inválidos', 
-        details: validation.error.errors 
+      return res.status(400).json({
+        error: "Dados inválidos",
+        details: validation.error.errors,
       });
     }
-    
+
     const data = validation.data;
-    const updateFields = Object.keys(data).filter(key => data[key as keyof typeof data] !== undefined);
-    
+    const updateFields = Object.keys(data).filter(
+      (key) => data[key as keyof typeof data] !== undefined,
+    );
+
     if (updateFields.length === 0) {
-      return res.status(400).json({ error: 'Nenhum campo para atualizar' });
+      return res.status(400).json({ error: "Nenhum campo para atualizar" });
     }
-    
+
     // Build dynamic update query
-    const setClause = updateFields.map(field => `${field} = ?`).join(', ');
-    const values = updateFields.map(field => data[field as keyof typeof data]);
-    
+    const setClause = updateFields.map((field) => `${field} = ?`).join(", ");
+    const values = updateFields.map(
+      (field) => data[field as keyof typeof data],
+    );
+
     await pool.execute(
       `UPDATE webhook_settings SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = (SELECT * FROM (SELECT id FROM webhook_settings LIMIT 1) as temp)`,
-      values
+      values,
     );
-    
+
     // Return updated data
-    const [rows] = await pool.execute('SELECT * FROM webhook_settings LIMIT 1');
+    const [rows] = await pool.execute("SELECT * FROM webhook_settings LIMIT 1");
     const updatedSettings = (rows as any[])[0];
-    
+
     res.json(updatedSettings);
   } catch (error) {
-    console.error('Error updating webhook settings:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    console.error("Error updating webhook settings:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
   }
 };

@@ -105,7 +105,9 @@ export default function Migrate() {
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-medium text-gray-900 mb-2">Sistema de Leads</h3>
             <p className="text-sm text-gray-600 mb-3">
-              Cria a tabela <code className="bg-gray-100 px-1 rounded">leads</code> para captura de leads.
+              Cria a tabela{" "}
+              <code className="bg-gray-100 px-1 rounded">leads</code> para
+              captura de leads.
             </p>
             <button
               onClick={() => handleMigrate("/api/migrate-leads", "Leads")}
@@ -117,12 +119,19 @@ export default function Migrate() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium text-gray-900 mb-2">Webhooks e Textos do Formulário</h3>
+            <h3 className="font-medium text-gray-900 mb-2">
+              Webhooks e Textos do Formulário
+            </h3>
             <p className="text-sm text-gray-600 mb-3">
-              Cria as tabelas <code className="bg-gray-100 px-1 rounded">webhook_settings</code> e <code className="bg-gray-100 px-1 rounded">form_content</code> para configurações e textos editáveis.
+              Cria as tabelas{" "}
+              <code className="bg-gray-100 px-1 rounded">webhook_settings</code>{" "}
+              e <code className="bg-gray-100 px-1 rounded">form_content</code>{" "}
+              para configurações e textos editáveis.
             </p>
             <button
-              onClick={() => handleMigrate("/api/migrate-new-tables", "Novas Tabelas")}
+              onClick={() =>
+                handleMigrate("/api/migrate-new-tables", "Novas Tabelas")
+              }
               disabled={loading}
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >

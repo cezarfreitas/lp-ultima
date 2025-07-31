@@ -7,28 +7,32 @@ export default function AdminFormContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [content, setContent] = useState<FormContent | null>(null);
   const [formData, setFormData] = useState({
-    main_title: '',
-    main_subtitle: '',
-    form_title: '',
-    form_subtitle: '',
-    benefit1_title: '',
-    benefit1_description: '',
-    benefit2_title: '',
-    benefit2_description: '',
-    benefit3_title: '',
-    benefit3_description: '',
-    benefit4_title: '',
-    benefit4_description: '',
+    main_title: "",
+    main_subtitle: "",
+    form_title: "",
+    form_subtitle: "",
+    benefit1_title: "",
+    benefit1_description: "",
+    benefit2_title: "",
+    benefit2_description: "",
+    benefit3_title: "",
+    benefit3_description: "",
+    benefit4_title: "",
+    benefit4_description: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     // Check if already authenticated
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
       fetchContent();
     } else {
@@ -49,37 +53,37 @@ export default function AdminFormContent() {
 
   const fetchContent = async () => {
     try {
-      const response = await fetch('/api/form-content');
+      const response = await fetch("/api/form-content");
       if (response.ok) {
         const data = await response.json();
         setContent(data);
         setFormData({
-          main_title: data.main_title || '',
-          main_subtitle: data.main_subtitle || '',
-          form_title: data.form_title || '',
-          form_subtitle: data.form_subtitle || '',
-          benefit1_title: data.benefit1_title || '',
-          benefit1_description: data.benefit1_description || '',
-          benefit2_title: data.benefit2_title || '',
-          benefit2_description: data.benefit2_description || '',
-          benefit3_title: data.benefit3_title || '',
-          benefit3_description: data.benefit3_description || '',
-          benefit4_title: data.benefit4_title || '',
-          benefit4_description: data.benefit4_description || '',
+          main_title: data.main_title || "",
+          main_subtitle: data.main_subtitle || "",
+          form_title: data.form_title || "",
+          form_subtitle: data.form_subtitle || "",
+          benefit1_title: data.benefit1_title || "",
+          benefit1_description: data.benefit1_description || "",
+          benefit2_title: data.benefit2_title || "",
+          benefit2_description: data.benefit2_description || "",
+          benefit3_title: data.benefit3_title || "",
+          benefit3_description: data.benefit3_description || "",
+          benefit4_title: data.benefit4_title || "",
+          benefit4_description: data.benefit4_description || "",
         });
       }
     } catch (error) {
       console.error("Error fetching content:", error);
-      setMessage({ type: 'error', text: 'Erro ao carregar conteúdo' });
+      setMessage({ type: "error", text: "Erro ao carregar conteúdo" });
     } finally {
       setLoading(false);
     }
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -88,10 +92,10 @@ export default function AdminFormContent() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/form-content', {
-        method: 'PUT',
+      const response = await fetch("/api/form-content", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -99,14 +103,17 @@ export default function AdminFormContent() {
       if (response.ok) {
         const updatedData = await response.json();
         setContent(updatedData);
-        setMessage({ type: 'success', text: 'Conteúdo salvo com sucesso!' });
+        setMessage({ type: "success", text: "Conteúdo salvo com sucesso!" });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao salvar conteúdo' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao salvar conteúdo",
+        });
       }
     } catch (error) {
-      console.error('Error saving content:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error saving content:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setSaving(false);
     }
@@ -146,7 +153,7 @@ export default function AdminFormContent() {
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
               Seção Principal
             </h3>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -155,7 +162,9 @@ export default function AdminFormContent() {
                 <input
                   type="text"
                   value={formData.main_title}
-                  onChange={(e) => handleInputChange('main_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("main_title", e.target.value)
+                  }
                   placeholder="Por que ser um"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -168,7 +177,9 @@ export default function AdminFormContent() {
                 <textarea
                   rows={3}
                   value={formData.main_subtitle}
-                  onChange={(e) => handleInputChange('main_subtitle', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("main_subtitle", e.target.value)
+                  }
                   placeholder="Junte-se à nossa rede de parceiros..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -181,7 +192,7 @@ export default function AdminFormContent() {
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
               Seção do Formulário
             </h3>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -190,7 +201,9 @@ export default function AdminFormContent() {
                 <input
                   type="text"
                   value={formData.form_title}
-                  onChange={(e) => handleInputChange('form_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("form_title", e.target.value)
+                  }
                   placeholder="Seja um Lojista Oficial"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -203,7 +216,9 @@ export default function AdminFormContent() {
                 <textarea
                   rows={2}
                   value={formData.form_subtitle}
-                  onChange={(e) => handleInputChange('form_subtitle', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("form_subtitle", e.target.value)
+                  }
                   placeholder="Preencha o formulário e nossa equipe..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -217,27 +232,35 @@ export default function AdminFormContent() {
           <h3 className="text-lg leading-6 font-medium text-gray-900 mb-6">
             Benefícios
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Benefit 1 */}
             <div className="space-y-4">
               <h4 className="font-medium text-gray-900">Benefício 1</h4>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Título
+                </label>
                 <input
                   type="text"
                   value={formData.benefit1_title}
-                  onChange={(e) => handleInputChange('benefit1_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit1_title", e.target.value)
+                  }
                   placeholder="Preços Exclusivos"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Descrição
+                </label>
                 <textarea
                   rows={3}
                   value={formData.benefit1_description}
-                  onChange={(e) => handleInputChange('benefit1_description', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit1_description", e.target.value)
+                  }
                   placeholder="Acesso a preços diferenciados..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -248,21 +271,29 @@ export default function AdminFormContent() {
             <div className="space-y-4">
               <h4 className="font-medium text-gray-900">Benefício 2</h4>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Título
+                </label>
                 <input
                   type="text"
                   value={formData.benefit2_title}
-                  onChange={(e) => handleInputChange('benefit2_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit2_title", e.target.value)
+                  }
                   placeholder="Produtos Exclusivos"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Descrição
+                </label>
                 <textarea
                   rows={3}
                   value={formData.benefit2_description}
-                  onChange={(e) => handleInputChange('benefit2_description', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit2_description", e.target.value)
+                  }
                   placeholder="Tenha acesso primeiro às novas coleções..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -273,21 +304,29 @@ export default function AdminFormContent() {
             <div className="space-y-4">
               <h4 className="font-medium text-gray-900">Benefício 3</h4>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Título
+                </label>
                 <input
                   type="text"
                   value={formData.benefit3_title}
-                  onChange={(e) => handleInputChange('benefit3_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit3_title", e.target.value)
+                  }
                   placeholder="Suporte Completo"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Descrição
+                </label>
                 <textarea
                   rows={3}
                   value={formData.benefit3_description}
-                  onChange={(e) => handleInputChange('benefit3_description', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit3_description", e.target.value)
+                  }
                   placeholder="Nossa equipe oferece treinamento..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -298,21 +337,29 @@ export default function AdminFormContent() {
             <div className="space-y-4">
               <h4 className="font-medium text-gray-900">Benefício 4</h4>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Título
+                </label>
                 <input
                   type="text"
                   value={formData.benefit4_title}
-                  onChange={(e) => handleInputChange('benefit4_title', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit4_title", e.target.value)
+                  }
                   placeholder="Crescimento Rápido"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Descrição
+                </label>
                 <textarea
                   rows={3}
                   value={formData.benefit4_description}
-                  onChange={(e) => handleInputChange('benefit4_description', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("benefit4_description", e.target.value)
+                  }
                   placeholder="Aproveite a força da marca Ecko..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -340,23 +387,33 @@ export default function AdminFormContent() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Como escrever:</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Como escrever:
+                </h4>
                 <div className="bg-gray-50 p-3 rounded-lg text-sm">
                   <code>Por que ser um [destaque]Lojista[/destaque] Ecko?</code>
                 </div>
               </div>
 
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Como aparece:</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Como aparece:
+                </h4>
                 <div className="bg-white p-3 rounded-lg text-sm border">
-                  Por que ser um <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">Lojista</span> Ecko?
+                  Por que ser um{" "}
+                  <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">
+                    Lojista
+                  </span>{" "}
+                  Ecko?
                 </div>
               </div>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <p className="text-sm text-blue-800">
-                💡 <strong>Dica:</strong> Funciona em todos os campos de texto - títulos, subtítulos e descrições. As palavras destacadas aparecem com gradiente vermelho.
+                💡 <strong>Dica:</strong> Funciona em todos os campos de texto -
+                títulos, subtítulos e descrições. As palavras destacadas
+                aparecem com gradiente vermelho.
               </p>
             </div>
           </div>
@@ -364,11 +421,13 @@ export default function AdminFormContent() {
 
         {/* Message */}
         {message && (
-          <div className={`p-4 rounded-md ${
-            message.type === 'success'
-              ? 'bg-green-50 border border-green-200 text-green-700'
-              : 'bg-red-50 border border-red-200 text-red-700'
-          }`}>
+          <div
+            className={`p-4 rounded-md ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-700"
+                : "bg-red-50 border border-red-200 text-red-700"
+            }`}
+          >
             {message.text}
           </div>
         )}
@@ -386,7 +445,7 @@ export default function AdminFormContent() {
                 Salvando...
               </div>
             ) : (
-              'Salvar Alterações'
+              "Salvar Alterações"
             )}
           </button>
         </div>

@@ -352,7 +352,8 @@ export default function AdminDesign() {
 
             <div className="space-y-4">
               <p className="text-gray-700">
-                Você pode destacar palavras em qualquer texto usando a sintaxe especial:
+                Você pode destacar palavras em qualquer texto usando a sintaxe
+                especial:
               </p>
 
               <div className="bg-white rounded-lg p-4 border border-blue-200">
@@ -370,16 +371,24 @@ export default function AdminDesign() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Resultado:</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Resultado:
+                  </h4>
                   <div className="bg-white p-3 rounded-lg text-sm border">
-                    Seja um <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">Lojista</span> oficial
+                    Seja um{" "}
+                    <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">
+                      Lojista
+                    </span>{" "}
+                    oficial
                   </div>
                 </div>
               </div>
 
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <p className="text-sm text-yellow-800">
-                  💡 <strong>Dica:</strong> O destaque usa as cores configuradas acima (Vermelho) e pode ser usado em qualquer campo de texto do site.
+                  💡 <strong>Dica:</strong> O destaque usa as cores configuradas
+                  acima (Vermelho) e pode ser usado em qualquer campo de texto
+                  do site.
                 </p>
               </div>
             </div>
