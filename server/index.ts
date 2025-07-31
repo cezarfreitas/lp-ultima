@@ -117,6 +117,19 @@ export function createServer() {
     contentSecurityPolicy: false, // Disable CSP to avoid conflicts with Vite
     crossOriginEmbedderPolicy: false
   }));
+
+  // Response time tracking
+  app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+      const duration = Date.now() - start;
+      if (duration > 500) {
+        console.warn(`Slow response: ${req.method} ${req.path} took ${duration}ms`);
+      }
+    });
+    next();
+  });
+
   app.use(compression({
     level: 6, // Balanced compression level
     threshold: 1024, // Only compress responses larger than 1KB
