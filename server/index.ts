@@ -80,6 +80,7 @@ export function createServer() {
   app.get("/api/leads/:id", getLead);
   app.put("/api/leads/:id", updateLead);
   app.delete("/api/leads/:id", deleteLead);
+  app.post("/api/consumer-webhook", sendConsumerWebhook);
 
   // Webhook settings routes
   app.get("/api/webhooks", getWebhookSettings);
