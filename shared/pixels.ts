@@ -14,11 +14,13 @@ export interface PixelData {
 
 export interface PixelCreateRequest {
   name: string;
-  type: 'google_analytics' | 'meta_pixel' | 'google_tag_manager' | 'custom_header' | 'custom_body';
+  type: 'google_analytics' | 'meta_pixel' | 'google_tag_manager' | 'custom_header' | 'custom_body' | 'ga4_simple' | 'meta_simple' | 'meta_conversions';
   code: string;
   enabled: boolean;
   position: 'head' | 'body_start' | 'body_end';
   description?: string;
+  pixel_id?: string;
+  access_token?: string;
 }
 
 export interface PixelUpdateRequest extends PixelCreateRequest {
