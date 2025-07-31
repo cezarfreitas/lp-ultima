@@ -70,12 +70,19 @@ function expressPlugin(): Plugin {
 
       // Fix MIME types for modules
       server.middlewares.use((req, res, next) => {
-        if (req.url?.endsWith('.tsx') || req.url?.endsWith('.ts')) {
-          res.setHeader('Content-Type', 'application/javascript');
+        const url = req.url || '';
+
+        // Set correct MIME types for various file types
+        if (url.endsWith('.tsx') || url.endsWith('.ts') || url.includes('/.vite/') || url.includes('/assets/')) {
+          res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+        } else if (url.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css; charset=utf-8');
+        } else if (url.endsWith('.json')) {
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        } else if (url.endsWith('.js') || url.endsWith('.mjs')) {
+          res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
         }
-        if (req.url?.endsWith('.css')) {
-          res.setHeader('Content-Type', 'text/css');
-        }
+
         next();
       });
 
