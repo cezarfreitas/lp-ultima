@@ -1,4 +1,4 @@
-import "./lib/suppressWarnings";
+import "./lib/consoleOverride";
 import "./global.css";
 import React from "react";
 
