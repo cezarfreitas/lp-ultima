@@ -254,96 +254,61 @@ export default function Index() {
 
             {/* Product 2 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1603252109303-2751441dd157?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Moletom Ecko Premium"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Moletom Ecko Premium</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 159,90</span>
-                  <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">Popular</span>
-                </div>
               </div>
             </div>
 
             {/* Product 3 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Tênis Ecko Street"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Tênis Ecko Street</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 299,90</span>
-                  <span className="text-xs text-gray-500 bg-red-50 px-2 py-1 rounded-full">Exclusivo</span>
-                </div>
               </div>
             </div>
 
             {/* Product 4 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Boné Ecko Classic"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Boné Ecko Classic</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 79,90</span>
-                  <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">Best</span>
-                </div>
               </div>
             </div>
 
             {/* Product 5 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1516762689617-e1cfddf819d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Calça Jeans Ecko"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Calça Jeans Ecko</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 199,90</span>
-                  <span className="text-xs text-gray-500 bg-red-50 px-2 py-1 rounded-full">Trend</span>
-                </div>
               </div>
             </div>
 
             {/* Product 6 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Jaqueta Ecko Bomber"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Jaqueta Ecko Bomber</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 249,90</span>
-                  <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full">Hot</span>
-                </div>
               </div>
             </div>
 
