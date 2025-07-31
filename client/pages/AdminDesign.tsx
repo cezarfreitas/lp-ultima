@@ -318,9 +318,6 @@ export default function AdminDesign() {
               className="p-6 border-2 border-dashed border-gray-300 rounded-lg"
               style={{
                 backgroundColor: formData.background_color || "#ffffff",
-                fontFamily: formData.font_family || "Inter",
-                fontSize: formData.font_size_base || "16px",
-                borderRadius: formData.border_radius || "8px",
               }}
             >
               <h3
