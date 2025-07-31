@@ -148,6 +148,19 @@ export function createServer() {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+  // Add performance headers to API responses
+  app.use('/api', (req, res, next) => {
+    // Enable caching for GET requests
+    if (req.method === 'GET') {
+      res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes cache
+    } else {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Vary', 'Accept-Encoding');
+    next();
+  });
+
   // Serve uploaded files statically with caching
   app.use("/uploads", express.static(paths.uploadsDir(), {
     maxAge: '7d', // Cache for 7 days
