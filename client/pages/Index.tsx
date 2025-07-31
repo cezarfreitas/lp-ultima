@@ -13,6 +13,7 @@ export default function Index() {
   useEffect(() => {
     fetchHeroData();
     fetchFormContent();
+    fetchProductGallery();
   }, []);
 
   // Function to render text with highlights
