@@ -242,20 +242,13 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Product 1 */}
             <div className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-              <div className="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
+              <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Camiseta Ecko Urbana"
+                  alt="Produto Ecko"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 text-sm md:text-base mb-2 line-clamp-2">Camiseta Ecko Urbana</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-600 font-bold text-lg">R$ 89,90</span>
-                  <span className="text-xs text-gray-500 bg-red-50 px-2 py-1 rounded-full">Novo</span>
-                </div>
               </div>
             </div>
 
