@@ -28,6 +28,7 @@ import MigrateAbout from "./pages/MigrateAbout";
 import MigrateFooter from "./pages/MigrateFooter";
 import AdminSEO from "./pages/AdminSEO";
 import MigrateSEO from "./pages/MigrateSEO";
+import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
 
