@@ -307,7 +307,7 @@ export const getLeadsStats: RequestHandler = async (req, res) => {
     const [recentRows] = await pool.execute(`
       SELECT COUNT(*) as recent
       FROM leads
-      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAYS)
+      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
     `);
 
     const total = (totalRows as any[])[0].total;
