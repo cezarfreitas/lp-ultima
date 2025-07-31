@@ -18,6 +18,10 @@ export default function MigrateSEO() {
         },
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -26,6 +30,7 @@ export default function MigrateSEO() {
         setError(data.error || "Erro desconhecido na migração");
       }
     } catch (err) {
+      console.error("Migration error:", err);
       setError("Erro ao executar migração: " + (err instanceof Error ? err.message : "Erro desconhecido"));
     } finally {
       setIsLoading(false);
