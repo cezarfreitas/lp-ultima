@@ -118,10 +118,15 @@ export default function Index() {
           </div>
 
           {/* Botão */}
-          <button className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border border-red-500/30">
-            <span className="relative z-10">{data.button_text}</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-          </button>
+          <div className="mt-8">
+            <button className="group relative inline-flex items-center justify-center px-10 py-4 md:px-12 md:py-5 text-lg md:text-xl font-bold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border border-red-500/30 shadow-lg tracking-wide">
+              <span className="relative z-10 drop-shadow-sm">{data.button_text}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300 opacity-50"></div>
+            </button>
+          </div>
 
           {/* Indicador de Scroll */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
