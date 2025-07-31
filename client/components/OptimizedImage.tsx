@@ -51,10 +51,16 @@ export default function OptimizedImage({
     return () => observer.disconnect();
   }, [priority]);
 
-  const generateSrcSet = (baseSrc: string) => {
+  const generateSrcSet = (baseSrc: string, targetWidth?: number) => {
     if (baseSrc.includes("unsplash.com")) {
       try {
-        return `${baseSrc}&w=400 400w, ${baseSrc}&w=800 800w, ${baseSrc}&w=1200 1200w`;
+        // Use smaller, more appropriate sizes for actual display
+        const baseW = targetWidth || 400;
+        const w1 = Math.floor(baseW * 0.5); // 50% for mobile
+        const w2 = baseW; // 100% for tablet
+        const w3 = Math.floor(baseW * 1.5); // 150% for retina
+
+        return `${baseSrc}&w=${w1} ${w1}w, ${baseSrc}&w=${w2} ${w2}w, ${baseSrc}&w=${w3} ${w3}w`;
       } catch (error) {
         console.warn("Failed to generate srcSet for:", baseSrc);
         return undefined;
