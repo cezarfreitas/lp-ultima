@@ -11,6 +11,7 @@ export default function LeadCaptureForm() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isConsumerSubmission, setIsConsumerSubmission] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showConsumerMessage, setShowConsumerMessage] = useState(false);
 
