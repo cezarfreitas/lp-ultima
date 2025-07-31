@@ -63,7 +63,9 @@ export default function MultiImageUpload({
     });
   };
 
-  const handleFileSelection = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelection = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(event.target.files || []);
     if (files.length === 0) return;
 
@@ -80,7 +82,7 @@ export default function MultiImageUpload({
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const imageId = Date.now() + i;
-      
+
       const newImage: UploadedImage = {
         id: imageId.toString(),
         url: "",
@@ -93,30 +95,32 @@ export default function MultiImageUpload({
       newImages.push(newImage);
     }
 
-    setImages(prev => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newImages]);
 
     // Process each image
     const uploadedUrls: string[] = [];
-    
+
     for (let i = 0; i < newImages.length; i++) {
       const imageData = newImages[i];
-      
+
       try {
         // Update progress to compression
-        setImages(prev => prev.map(img => 
-          img.id === imageData.id 
-            ? { ...img, progress: 25 } 
-            : img
-        ));
+        setImages((prev) =>
+          prev.map((img) =>
+            img.id === imageData.id ? { ...img, progress: 25 } : img,
+          ),
+        );
 
         // Compress image
         const compressedFile = await compressImage(imageData.file);
-        
-        setImages(prev => prev.map(img => 
-          img.id === imageData.id 
-            ? { ...img, compressedSize: compressedFile.size, progress: 50 } 
-            : img
-        ));
+
+        setImages((prev) =>
+          prev.map((img) =>
+            img.id === imageData.id
+              ? { ...img, compressedSize: compressedFile.size, progress: 50 }
+              : img,
+          ),
+        );
 
         // Upload to server
         const formData = new FormData();
@@ -130,19 +134,20 @@ export default function MultiImageUpload({
         const data = await response.json();
 
         if (response.ok) {
-          setImages(prev => prev.map(img => 
-            img.id === imageData.id 
-              ? { ...img, url: data.url, progress: 100 } 
-              : img
-          ));
+          setImages((prev) =>
+            prev.map((img) =>
+              img.id === imageData.id
+                ? { ...img, url: data.url, progress: 100 }
+                : img,
+            ),
+          );
           uploadedUrls.push(data.url);
         } else {
           throw new Error(data.error || "Erro no upload");
         }
-
       } catch (error) {
         console.error("Upload error:", error);
-        setImages(prev => prev.filter(img => img.id !== imageData.id));
+        setImages((prev) => prev.filter((img) => img.id !== imageData.id));
         setUploadError(`Erro ao fazer upload de ${imageData.file.name}`);
       }
     }
@@ -157,7 +162,7 @@ export default function MultiImageUpload({
   };
 
   const removeImage = (imageId: string) => {
-    setImages(prev => prev.filter(img => img.id !== imageId));
+    setImages((prev) => prev.filter((img) => img.id !== imageId));
   };
 
   const clearAll = () => {
@@ -171,7 +176,7 @@ export default function MultiImageUpload({
 
   const getCompressionPercentage = (original: number, compressed: number) => {
     if (compressed === 0) return 0;
-    return ((original - compressed) / original * 100).toFixed(1);
+    return (((original - compressed) / original) * 100).toFixed(1);
   };
 
   return (
@@ -190,8 +195,18 @@ export default function MultiImageUpload({
 
         <div className="space-y-4">
           <div className="text-gray-600">
-            <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 48 48"
+            >
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <p className="mt-2">Adicione múltiplas imagens de uma vez</p>
           </div>
@@ -206,7 +221,8 @@ export default function MultiImageUpload({
           </button>
 
           <div className="text-sm text-gray-500">
-            PNG, JPG até 5MB cada • Máximo {maxFiles} imagens • Compressão automática
+            PNG, JPG até 5MB cada • Máximo {maxFiles} imagens • Compressão
+            automática
           </div>
         </div>
       </div>
@@ -235,7 +251,10 @@ export default function MultiImageUpload({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {images.map((image) => (
-              <div key={image.id} className="relative bg-white border border-gray-200 rounded-lg p-4">
+              <div
+                key={image.id}
+                className="relative bg-white border border-gray-200 rounded-lg p-4"
+              >
                 {/* Image Preview */}
                 <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                   {image.url ? (
@@ -261,12 +280,18 @@ export default function MultiImageUpload({
                   <div className="font-medium truncate" title={image.file.name}>
                     {image.file.name}
                   </div>
-                  
+
                   {image.compressedSize > 0 && (
                     <div className="text-green-600">
-                      {formatFileSize(image.originalSize)} → {formatFileSize(image.compressedSize)}
+                      {formatFileSize(image.originalSize)} →{" "}
+                      {formatFileSize(image.compressedSize)}
                       <span className="ml-1">
-                        ({getCompressionPercentage(image.originalSize, image.compressedSize)}% menor)
+                        (
+                        {getCompressionPercentage(
+                          image.originalSize,
+                          image.compressedSize,
+                        )}
+                        % menor)
                       </span>
                     </div>
                   )}
@@ -274,7 +299,7 @@ export default function MultiImageUpload({
                   {/* Progress Bar */}
                   {image.progress < 100 && (
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
-                      <div 
+                      <div
                         className="bg-indigo-600 h-1.5 rounded-full transition-all duration-300"
                         style={{ width: `${image.progress}%` }}
                       ></div>

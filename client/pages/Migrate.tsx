@@ -140,12 +140,22 @@ export default function Migrate() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium text-gray-900 mb-2">Galeria de Produtos</h3>
+            <h3 className="font-medium text-gray-900 mb-2">
+              Galeria de Produtos
+            </h3>
             <p className="text-sm text-gray-600 mb-3">
-              Cria as tabelas <code className="bg-gray-100 px-1 rounded">product_gallery</code> e <code className="bg-gray-100 px-1 rounded">product_items</code> para gerenciar a galeria de produtos.
+              Cria as tabelas{" "}
+              <code className="bg-gray-100 px-1 rounded">product_gallery</code>{" "}
+              e <code className="bg-gray-100 px-1 rounded">product_items</code>{" "}
+              para gerenciar a galeria de produtos.
             </p>
             <button
-              onClick={() => handleMigrate("/api/migrate-product-gallery", "Galeria de Produtos")}
+              onClick={() =>
+                handleMigrate(
+                  "/api/migrate-product-gallery",
+                  "Galeria de Produtos",
+                )
+              }
               disabled={loading}
               className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >

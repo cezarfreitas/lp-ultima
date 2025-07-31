@@ -69,7 +69,8 @@ export const migrateProductGallery: RequestHandler = async (req, res) => {
     }
 
     res.json({
-      message: "Tabelas da galeria de produtos criadas com sucesso (product_gallery e product_items)",
+      message:
+        "Tabelas da galeria de produtos criadas com sucesso (product_gallery e product_items)",
     });
   } catch (error) {
     console.error("Migration error:", error);

@@ -157,7 +157,10 @@ export const getLeads: RequestHandler = async (req, res) => {
       }
     }
 
-    const whereClause = whereConditions.length > 0 ? "WHERE " + whereConditions.join(" AND ") : "";
+    const whereClause =
+      whereConditions.length > 0
+        ? "WHERE " + whereConditions.join(" AND ")
+        : "";
 
     // Ensure limit and offset are integers for the query
     const [rows] = await pool.execute(
@@ -295,10 +298,13 @@ export const sendConsumerWebhook: RequestHandler = async (req, res) => {
     }
 
     // Save consumer lead to database
-    const [result] = await pool.execute(`
+    const [result] = await pool.execute(
+      `
       INSERT INTO leads (name, whatsapp, has_cnpj, source, status, webhook_sent, webhook_attempts, ip_address, user_agent)
       VALUES (?, ?, 'nao', 'consumidor', 'new', 0, 0, ?, ?)
-    `, [name, whatsapp, req.ip || '', req.get('User-Agent') || '']);
+    `,
+      [name, whatsapp, req.ip || "", req.get("User-Agent") || ""],
+    );
 
     // Send webhook asynchronously
     sendWebhook({ name, whatsapp }, "consumidor").catch(console.error);

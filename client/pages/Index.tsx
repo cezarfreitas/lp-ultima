@@ -7,7 +7,9 @@ import LeadCaptureForm from "../components/LeadCaptureForm";
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
   const [formContent, setFormContent] = useState<FormContent | null>(null);
-  const [productGallery, setProductGallery] = useState<ProductGallery | null>(null);
+  const [productGallery, setProductGallery] = useState<ProductGallery | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -243,10 +245,15 @@ export default function Index() {
           {/* Section Header */}
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              {renderTextWithHighlights(productGallery?.title || "Nossos [destaque]Produtos[/destaque]")}
+              {renderTextWithHighlights(
+                productGallery?.title || "Nossos [destaque]Produtos[/destaque]",
+              )}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              {renderTextWithHighlights(productGallery?.subtitle || "Descubra a coleção exclusiva Ecko com estilo urbano autêntico e qualidade premium")}
+              {renderTextWithHighlights(
+                productGallery?.subtitle ||
+                  "Descubra a coleção exclusiva Ecko com estilo urbano autêntico e qualidade premium",
+              )}
             </p>
             <div className="flex justify-center mt-8">
               <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
@@ -255,24 +262,32 @@ export default function Index() {
 
           {/* Products Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-            {productGallery?.products?.sort((a, b) => a.position - b.position).map((product) => (
-              <div key={product.id} className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-                <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
-                  <img
-                    src={product.image_url}
-                    alt={product.alt_text}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            {productGallery?.products
+              ?.sort((a, b) => a.position - b.position)
+              .map((product) => (
+                <div
+                  key={product.id}
+                  className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                >
+                  <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
+                    <img
+                      src={product.image_url}
+                      alt={product.alt_text}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
 
           {/* Call to Action */}
           <div className="text-center mt-12 lg:mt-16">
             <p className="text-lg text-gray-600 mb-6">
-              {renderTextWithHighlights(productGallery?.cta_description || "Como lojista Ecko, você terá acesso a todos esses produtos com preços especiais")}
+              {renderTextWithHighlights(
+                productGallery?.cta_description ||
+                  "Como lojista Ecko, você terá acesso a todos esses produtos com preços especiais",
+              )}
             </p>
             <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
               {productGallery?.cta_text || "Ver Catálogo Completo"}

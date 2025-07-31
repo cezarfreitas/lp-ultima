@@ -99,8 +99,6 @@ export default function LeadCaptureForm() {
     }
   };
 
-
-
   if (submitted) {
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
@@ -120,13 +118,14 @@ export default function LeadCaptureForm() {
           </svg>
         </div>
         <h3 className="text-lg font-semibold text-green-800 mb-2">
-          {isConsumerSubmission ? "Cupom enviado!" : "Obrigado pelo seu interesse!"}
+          {isConsumerSubmission
+            ? "Cupom enviado!"
+            : "Obrigado pelo seu interesse!"}
         </h3>
         <p className="text-green-700 mb-4">
           {isConsumerSubmission
             ? "Vamos enviar uma mensagem no seu WhatsApp com o cupom de desconto de 10%."
-            : "Recebemos seus dados e entraremos em contato em breve."
-          }
+            : "Recebemos seus dados e entraremos em contato em breve."}
         </p>
         <button
           onClick={() => {
@@ -206,15 +205,21 @@ export default function LeadCaptureForm() {
         </div>
       </div>
 
-
-
       {/* Consumer Notice */}
       {formData.has_cnpj === "nao" && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              <svg
+                className="h-5 w-5 text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <div className="ml-3">
@@ -223,7 +228,8 @@ export default function LeadCaptureForm() {
               </h3>
               <div className="mt-2 text-sm text-yellow-700">
                 <p>
-                  Mas não fique triste! Você pode ganhar um cupom de 10% de desconto na loja Ecko oficial.
+                  Mas não fique triste! Você pode ganhar um cupom de 10% de
+                  desconto na loja Ecko oficial.
                 </p>
               </div>
             </div>
@@ -288,7 +294,8 @@ export default function LeadCaptureForm() {
           !formData.has_cnpj ||
           !formData.name ||
           !formData.whatsapp ||
-          (formData.has_cnpj === "sim" && (!formData.store_type || !formData.cep))
+          (formData.has_cnpj === "sim" &&
+            (!formData.store_type || !formData.cep))
         }
         className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
       >
