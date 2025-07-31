@@ -161,9 +161,20 @@ export function createServer() {
   app.delete("/api/faq/:id", deleteFAQ);
   app.post("/api/faq/reorder", reorderFAQs);
 
+  // Showroom routes
+  app.get("/api/showroom", getShowroomSection);
+  app.get("/api/admin/showroom", getAllShowroomItems);
+  app.put("/api/showroom/section", updateShowroomSection);
+  app.post("/api/showroom", createShowroomItem);
+  app.put("/api/showroom/:id", updateShowroomItem);
+  app.delete("/api/showroom/:id", deleteShowroomItem);
+  app.post("/api/showroom/reorder", reorderShowroomItems);
+  app.get("/api/showroom/category/:category", getShowroomByCategory);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
+  app.post("/api/migrate-showroom", migrateShowroom);
 
   return app;
 }
