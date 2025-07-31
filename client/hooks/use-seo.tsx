@@ -6,7 +6,12 @@ export function useSEO() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSEOData();
+    // Add a small delay to avoid immediate fetch errors on initial load
+    const timer = setTimeout(() => {
+      fetchSEOData();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const fetchSEOData = async () => {
