@@ -344,6 +344,47 @@ export default function AdminDesign() {
             </div>
           </div>
 
+          {/* Highlight System Info */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-sm p-6 border border-blue-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              ✨ Sistema de Destaque
+            </h2>
+
+            <div className="space-y-4">
+              <p className="text-gray-700">
+                Você pode destacar palavras em qualquer texto usando a sintaxe especial:
+              </p>
+
+              <div className="bg-white rounded-lg p-4 border border-blue-200">
+                <code className="text-sm text-blue-800 bg-blue-100 px-2 py-1 rounded">
+                  [destaque]palavra[/destaque]
+                </code>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Exemplo:</h4>
+                  <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                    <code>Seja um [destaque]Lojista[/destaque] oficial</code>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Resultado:</h4>
+                  <div className="bg-white p-3 rounded-lg text-sm border">
+                    Seja um <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent font-bold">Lojista</span> oficial
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-yellow-800">
+                  💡 <strong>Dica:</strong> O destaque usa as cores configuradas acima (Vermelho) e pode ser usado em qualquer campo de texto do site.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Save Button */}
           <div className="flex justify-end pt-6 border-t border-gray-200">
             <button
