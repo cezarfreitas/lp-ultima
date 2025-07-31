@@ -123,7 +123,7 @@ export default function OptimizedImage({
       {isInView && (
         <img
           src={getOptimizedSrc(src, width)}
-          srcSet={generateSrcSet(src)}
+          srcSet={generateSrcSet(src, width)}
           sizes={sizes}
           alt={alt}
           width={width}
