@@ -8,6 +8,8 @@ interface PixelData {
   enabled: boolean;
   position: 'head' | 'body_start' | 'body_end';
   description?: string;
+  pixel_id?: string;
+  access_token?: string;
 }
 
 export default function PixelInjector() {
