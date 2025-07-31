@@ -150,11 +150,18 @@ export default function Index() {
           </div>
 
           {/* Indicador de Scroll */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="flex flex-col items-center text-gray-300/80">
-              <span className="text-xs md:text-sm mb-3 font-light tracking-wider drop-shadow-lg">Role para baixo</span>
-              <div className="w-6 h-10 border-2 border-red-500/60 rounded-full flex justify-center backdrop-blur-sm bg-white/5">
-                <div className="w-1 h-3 bg-red-500 rounded-full mt-2 animate-bounce shadow-lg"></div>
+          <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="flex flex-col items-center text-white/90">
+              <span className="text-xs md:text-sm mb-4 font-medium tracking-widest uppercase drop-shadow-xl">Role para baixo</span>
+              <div className="w-7 h-12 border-2 border-red-500/80 rounded-full flex justify-center backdrop-blur-md bg-black/20 shadow-2xl">
+                <div className="w-1.5 h-4 bg-red-500 rounded-full mt-2 animate-bounce shadow-xl"></div>
+              </div>
+
+              {/* Seta decorativa */}
+              <div className="mt-3 animate-bounce delay-500">
+                <svg className="w-4 h-4 text-red-500/70" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
               </div>
             </div>
           </div>
