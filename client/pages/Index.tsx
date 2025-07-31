@@ -4,13 +4,13 @@ export default function Index() {
       {/* Hero Section with Background Image */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
         >
           {/* Dark Overlay */}
@@ -38,7 +38,7 @@ export default function Index() {
 
           {/* Texto Descritivo */}
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Transforme suas ideias em realidade com nossa plataforma inovadora. 
+            Transforme suas ideias em realidade com nossa plataforma inovadora.
             Conecte-se, crie e conquiste novos horizontes.
           </p>
 
