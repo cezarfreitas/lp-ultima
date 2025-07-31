@@ -24,10 +24,30 @@ export default defineConfig(({ mode }) => ({
     // Optimize chunks for better loading
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          ui: ["@radix-ui/react-accordion", "@radix-ui/react-dialog"],
+        manualChunks: (id) => {
+          // Vendor chunks
+          if (id.includes("node_modules")) {
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "react-vendor";
+            }
+            if (id.includes("react-router")) {
+              return "router";
+            }
+            if (id.includes("@radix-ui") || id.includes("lucide-react")) {
+              return "ui-vendor";
+            }
+            return "vendor";
+          }
+
+          // Admin chunks (lazy loaded)
+          if (id.includes("/pages/Admin") || id.includes("/components/Admin")) {
+            return "admin";
+          }
+
+          // Components chunks
+          if (id.includes("/components/")) {
+            return "components";
+          }
         },
       },
     },
