@@ -16,7 +16,20 @@ export function useSEO() {
 
   const fetchSEOData = async () => {
     try {
-      const response = await fetch("/api/seo");
+      // Create fetch with timeout and abort controller for cleaner error handling
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+      const response = await fetch("/api/seo", {
+        signal: controller.signal,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      clearTimeout(timeoutId);
+
       if (response.ok) {
         const data = await response.json();
         setSeoData(data);
@@ -26,7 +39,7 @@ export function useSEO() {
         updatePageSEO(DEFAULT_SEO_DATA);
       }
     } catch (error) {
-      // Network error or API not available, use default data silently
+      // Silently handle all fetch errors - API not available
       updatePageSEO(DEFAULT_SEO_DATA);
     } finally {
       setLoading(false);
