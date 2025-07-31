@@ -460,9 +460,11 @@ export default function AdminProductGallery() {
                 Adicione várias imagens de uma vez com compressão automática
               </p>
 
-              <MultiImageUploadFallback
+              <MultiImageUploadHybrid
                 onImagesUploaded={handleAddMultipleProducts}
                 maxFiles={12}
+                useMultiFormat={true}
+                preferredFormat="medium"
               />
             </div>
 
