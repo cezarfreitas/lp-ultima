@@ -108,7 +108,7 @@ export default function Index() {
             {/* Slogan/Tagline */}
             {data.logo_text && (
               <div className="text-center mb-8">
-                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-md mx-auto">
+                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-2xl mx-auto">
                   {data.logo_text}
                 </div>
               </div>
