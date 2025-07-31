@@ -25,6 +25,7 @@ import {
   updateLead,
   deleteLead,
   getLeadsStats,
+  getLeadsChart,
   sendConsumerWebhook,
 } from "./routes/leads";
 import { getWebhookSettings, updateWebhookSettings } from "./routes/webhooks";
