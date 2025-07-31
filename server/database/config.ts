@@ -23,7 +23,7 @@ export async function initializeDatabase() {
         logo_text VARCHAR(10) DEFAULT 'L',
         impact_title VARCHAR(255) NOT NULL DEFAULT 'Seja bem-vindo ao',
         impact_subtitle VARCHAR(255) NOT NULL DEFAULT 'Futuro Digital',
-        description TEXT NOT NULL DEFAULT 'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
+        description VARCHAR(1000) NOT NULL DEFAULT 'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
         button_text VARCHAR(100) NOT NULL DEFAULT 'Comece Agora',
         background_image VARCHAR(500) NOT NULL DEFAULT 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
