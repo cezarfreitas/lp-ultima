@@ -12,28 +12,28 @@ RUN npm install --legacy-peer-deps
 # Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Build only the client (static site)
+RUN npm run build:client
 
-# Production stage
-FROM node:18-alpine AS production
+# Production stage - use nginx for static file serving
+FROM nginx:alpine AS production
 
-WORKDIR /app
+# Copy built static files to nginx
+COPY --from=builder /app/dist/spa /usr/share/nginx/html
 
-# Copy package files
-COPY package*.json ./
+# Copy nginx configuration for SPA routing
+RUN echo 'server { \
+    listen 80; \
+    server_name localhost; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
 
-# Install only production dependencies with legacy peer deps
-RUN npm ci --omit=dev --legacy-peer-deps && npm cache clean --force
+# Expose port 80
+EXPOSE 80
 
-# Copy built application from builder stage
-COPY --from=builder /app/dist ./dist
-
-# Expose port
-EXPOSE 3000
-
-# Set environment to production
-ENV NODE_ENV=production
-
-# Start the application
-CMD ["npm", "start"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
