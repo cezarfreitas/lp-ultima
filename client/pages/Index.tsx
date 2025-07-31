@@ -257,15 +257,10 @@ export default function Index() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {renderTextWithHighlights(
-                        formContent?.benefit1_title || "Preços Exclusivos",
-                      )}
+                      {renderTextWithHighlights(formContent?.benefit1_title || "")}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      {renderTextWithHighlights(
-                        formContent?.benefit1_description ||
-                          "Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.",
-                      )}
+                      {renderTextWithHighlights(formContent?.benefit1_description || "")}
                     </p>
                   </div>
                 </div>
