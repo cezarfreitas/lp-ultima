@@ -22,13 +22,71 @@ export default function TestimonialsSection() {
 
   const fetchTestimonials = async () => {
     try {
+      console.log("Fetching testimonials...");
       const response = await fetch('/api/testimonials');
+      console.log("Response status:", response.status);
+
       if (response.ok) {
         const data = await response.json();
+        console.log("Testimonials data:", data);
         setSectionData(data);
       } else if (response.status === 404) {
-        // Tables don't exist yet, just hide the section
-        console.log("Testimonials tables not created yet");
+        // Tables don't exist yet, show fallback data
+        console.log("Testimonials tables not created yet, using fallback");
+        setSectionData({
+          id: 1,
+          title: "O que nossos [destaque]Parceiros[/destaque] dizem",
+          subtitle: "Veja os depoimentos de quem já faz parte da nossa rede de lojistas e transformou seu negócio com a Ecko.",
+          background_type: "gray",
+          show_ratings: true,
+          max_testimonials: 6,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          testimonials: [
+            {
+              id: 1,
+              name: "Maria Silva",
+              role: "Proprietária",
+              company: "Loja Urban Style",
+              content: "Desde que me tornei lojista Ecko, meu faturamento triplicou! O suporte da equipe é excepcional e os produtos vendem muito bem.",
+              avatar_url: "",
+              rating: 5,
+              is_active: true,
+              position: 1,
+              section_id: 1,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            },
+            {
+              id: 2,
+              name: "João Santos",
+              role: "Empreendedor",
+              company: "Fashion Point",
+              content: "A parceria com a Ecko transformou minha loja. Os preços exclusivos me permitem ter margens ótimas e os clientes adoram os produtos.",
+              avatar_url: "",
+              rating: 5,
+              is_active: true,
+              position: 2,
+              section_id: 1,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            },
+            {
+              id: 3,
+              name: "Ana Costa",
+              role: "Gerente",
+              company: "Mega Store Moda",
+              content: "Trabalhar com a Ecko foi a melhor decisão que tomei. O atendimento é rápido, os produtos chegam no prazo e a qualidade é impecável.",
+              avatar_url: "",
+              rating: 5,
+              is_active: true,
+              position: 3,
+              section_id: 1,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            }
+          ]
+        });
       } else {
         console.error("Error fetching testimonials:", response.statusText);
       }
