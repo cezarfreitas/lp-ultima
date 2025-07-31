@@ -307,7 +307,7 @@ export default function Index() {
       </section>
 
       {/* Lead Capture Section */}
-      <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50">
+      <section id="form" className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Benefits/Reasons */}
