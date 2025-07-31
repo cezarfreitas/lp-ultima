@@ -51,11 +51,11 @@ export async function initializeDatabase() {
       )
     `);
 
-    // Insert default data if table is empty
-    const [rows] = await pool.execute('SELECT COUNT(*) as count FROM hero_section');
-    const count = (rows as any)[0].count;
-    
-    if (count === 0) {
+    // Insert default data if tables are empty
+    const [heroRows] = await pool.execute('SELECT COUNT(*) as count FROM hero_section');
+    const heroCount = (heroRows as any)[0].count;
+
+    if (heroCount === 0) {
       await pool.execute(`
         INSERT INTO hero_section (logo_text, logo_image, impact_title, impact_subtitle, description, button_text, background_image)
         VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -67,6 +67,27 @@ export async function initializeDatabase() {
         'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
         'Comece Agora',
         'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80'
+      ]);
+    }
+
+    const [designRows] = await pool.execute('SELECT COUNT(*) as count FROM design_settings');
+    const designCount = (designRows as any)[0].count;
+
+    if (designCount === 0) {
+      await pool.execute(`
+        INSERT INTO design_settings (primary_color, secondary_color, accent_color, background_color, text_color, font_family, font_size_base, font_weight_normal, font_weight_bold, border_radius)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        '#dc2626', // Red
+        '#6b7280', // Gray
+        '#000000', // Black
+        '#ffffff', // White
+        '#000000', // Black text
+        'Inter',
+        '16px',
+        '400',
+        '700',
+        '8px'
       ]);
     }
 
