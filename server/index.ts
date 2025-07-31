@@ -63,6 +63,7 @@ export function createServer() {
   app.post("/api/migrate-logo", migrateLogo);
   app.post("/api/migrate-design", migrateDesign);
   app.post("/api/migrate-leads", migrateLeads);
+  app.post("/api/migrate-new-tables", migrateNewTables);
   app.post("/api/remove-limits", removeLimits);
 
   // Upload route
