@@ -48,6 +48,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar depoimentos de clientes",
     },
     {
+      name: "FAQ",
+      href: "/admin/faq",
+      icon: "❓",
+      description: "Gerenciar perguntas frequentes",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
