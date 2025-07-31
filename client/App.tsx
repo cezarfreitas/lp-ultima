@@ -77,6 +77,7 @@ const App = () => (
           <Route path="/migrate-pixels" element={<MigratePixels />} />
           <Route path="/setup-complete" element={<SetupComplete />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
+          <Route path="/test-upload" element={<TestUpload />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
