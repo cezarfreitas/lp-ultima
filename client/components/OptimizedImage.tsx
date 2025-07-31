@@ -65,12 +65,17 @@ export default function OptimizedImage({
 
   const getOptimizedSrc = (baseSrc: string, targetWidth?: number) => {
     if (baseSrc.includes("unsplash.com")) {
-      const params = new URLSearchParams();
-      if (targetWidth) params.set("w", targetWidth.toString());
-      params.set("auto", "format");
-      params.set("fit", "crop");
-      params.set("q", "80");
-      return `${baseSrc}&${params.toString()}`;
+      try {
+        const params = new URLSearchParams();
+        if (targetWidth) params.set("w", targetWidth.toString());
+        params.set("auto", "format");
+        params.set("fit", "crop");
+        params.set("q", "80");
+        return `${baseSrc}&${params.toString()}`;
+      } catch (error) {
+        console.warn('Failed to optimize Unsplash URL:', baseSrc);
+        return baseSrc;
+      }
     }
     return baseSrc;
   };
