@@ -460,6 +460,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Showroom Section */}
+      <ShowroomSection />
+
       {/* Testimonials Section */}
       <TestimonialsSection />
 
