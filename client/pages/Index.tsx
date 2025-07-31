@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { HeroSectionData } from "@shared/hero";
 import { FormContent } from "@shared/form-content";
+import { ProductGallery } from "@shared/product-gallery";
 import LeadCaptureForm from "../components/LeadCaptureForm";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
   const [formContent, setFormContent] = useState<FormContent | null>(null);
+  const [productGallery, setProductGallery] = useState<ProductGallery | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
