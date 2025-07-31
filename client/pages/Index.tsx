@@ -3,6 +3,7 @@ import { HeroSectionData } from "@shared/hero";
 import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
 import LeadCaptureForm from "../components/LeadCaptureForm";
+import TestimonialsSection from "../components/TestimonialsSection";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
