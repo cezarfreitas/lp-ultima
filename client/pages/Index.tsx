@@ -133,7 +133,8 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen">
+    <APIStatus showNotice={true}>
+      <div className="min-h-screen">
       {/* Critical CSS */}
       <CriticalCSS />
 
@@ -526,6 +527,7 @@ export default function Index() {
           <Footer />
         </LazySection>
       </Suspense>
-    </div>
+      </div>
+    </APIStatus>
   );
 }
