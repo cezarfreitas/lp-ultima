@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Garantir visibilidade dos inputs */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+  color: rgb(31, 41, 55) !important; /* gray-800 */
+  background-color: white !important;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  color: rgb(31, 41, 55) !important; /* gray-800 */
+  background-color: white !important;
+}
+
 @layer base {
   /**
    * Tailwind CSS theme
