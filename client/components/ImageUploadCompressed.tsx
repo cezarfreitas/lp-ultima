@@ -128,13 +128,15 @@ export default function ImageUploadCompressed({
       </label>
 
       {/* URL Input */}
-      <input
-        type="text"
-        value={currentUrl}
-        onChange={(e) => onUrlChange(e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-3"
-        placeholder={placeholder}
-      />
+      {onUrlChange && (
+        <input
+          type="text"
+          value={currentUrl}
+          onChange={(e) => onUrlChange(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-3"
+          placeholder={placeholder}
+        />
+      )}
 
       {/* Upload Section */}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-indigo-400 transition-colors">
