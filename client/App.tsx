@@ -28,6 +28,7 @@ import MigrateAbout from "./pages/MigrateAbout";
 import MigrateFooter from "./pages/MigrateFooter";
 import AdminSEO from "./pages/AdminSEO";
 import MigrateSEO from "./pages/MigrateSEO";
+import MigratePixels from "./pages/MigratePixels";
 import AdminPixels from "./pages/AdminPixels";
 import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
@@ -70,6 +71,7 @@ const App = () => (
           <Route path="/migrate-about" element={<MigrateAbout />} />
           <Route path="/migrate-footer" element={<MigrateFooter />} />
           <Route path="/migrate-seo" element={<MigrateSEO />} />
+          <Route path="/migrate-pixels" element={<MigratePixels />} />
           <Route path="/setup-complete" element={<SetupComplete />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
