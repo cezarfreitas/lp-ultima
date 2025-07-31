@@ -26,6 +26,8 @@ import MigrateFAQ from "./pages/MigrateFAQ";
 import MigrateShowroom from "./pages/MigrateShowroom";
 import MigrateAbout from "./pages/MigrateAbout";
 import MigrateFooter from "./pages/MigrateFooter";
+import AdminSEO from "./pages/AdminSEO";
+import MigrateSEO from "./pages/MigrateSEO";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
 
@@ -52,6 +54,7 @@ const App = () => (
           <Route path="/admin/showroom" element={<AdminShowroom />} />
           <Route path="/admin/about" element={<AdminAbout />} />
           <Route path="/admin/footer" element={<AdminFooter />} />
+          <Route path="/admin/seo" element={<AdminSEO />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
@@ -63,6 +66,7 @@ const App = () => (
           <Route path="/migrate-showroom" element={<MigrateShowroom />} />
           <Route path="/migrate-about" element={<MigrateAbout />} />
           <Route path="/migrate-footer" element={<MigrateFooter />} />
+          <Route path="/migrate-seo" element={<MigrateSEO />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
