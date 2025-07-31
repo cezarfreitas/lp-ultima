@@ -148,6 +148,7 @@ export default function LeadCaptureForm() {
               name="has_cnpj"
               value="sim"
               checked={formData.has_cnpj === 'sim'}
+              defaultChecked={true}
               onChange={(e) => handleInputChange('has_cnpj', e.target.value)}
               className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300"
             />
