@@ -220,15 +220,22 @@ export default function AdminLeads() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="text-sm font-medium text-gray-900">{lead.name}</div>
-                        {lead.company && (
-                          <div className="text-sm text-gray-500">{lead.company}</div>
-                        )}
+                        <div className="text-sm text-gray-500">
+                          {lead.has_cnpj === 'sim' ? 'Lojista' : 'Consumidor'}
+                          {lead.store_type && (
+                            <span className="ml-2 text-xs bg-gray-100 px-2 py-1 rounded">
+                              {lead.store_type.replace('_', ' ')}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{lead.email}</div>
-                      {lead.phone && (
-                        <div className="text-sm text-gray-500">{lead.phone}</div>
+                      {lead.whatsapp && (
+                        <div className="text-sm text-gray-900">{lead.whatsapp}</div>
+                      )}
+                      {lead.cep && (
+                        <div className="text-sm text-gray-500">CEP: {lead.cep}</div>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -336,26 +343,33 @@ export default function AdminLeads() {
                     <label className="block text-sm font-medium text-gray-700">Nome</label>
                     <p className="mt-1 text-sm text-gray-900">{selectedLead.name}</p>
                   </div>
+                  {selectedLead.whatsapp && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">WhatsApp</label>
+                      <p className="mt-1 text-sm text-gray-900">{selectedLead.whatsapp}</p>
+                    </div>
+                  )}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedLead.email}</p>
+                    <label className="block text-sm font-medium text-gray-700">Possui CNPJ</label>
+                    <p className="mt-1 text-sm text-gray-900">
+                      {selectedLead.has_cnpj === 'sim' ? 'Sim, é lojista' : 'Não, é consumidor'}
+                    </p>
                   </div>
-                  {selectedLead.phone && (
+                  {selectedLead.store_type && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">Telefone</label>
-                      <p className="mt-1 text-sm text-gray-900">{selectedLead.phone}</p>
+                      <label className="block text-sm font-medium text-gray-700">Tipo de Loja</label>
+                      <p className="mt-1 text-sm text-gray-900">
+                        {selectedLead.store_type === 'fisica' && 'Física'}
+                        {selectedLead.store_type === 'online' && 'Online'}
+                        {selectedLead.store_type === 'fisica_online' && 'Física e Online'}
+                        {selectedLead.store_type === 'midias_sociais' && 'Mídias Sociais'}
+                      </p>
                     </div>
                   )}
-                  {selectedLead.company && (
+                  {selectedLead.cep && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">Empresa</label>
-                      <p className="mt-1 text-sm text-gray-900">{selectedLead.company}</p>
-                    </div>
-                  )}
-                  {selectedLead.message && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Mensagem</label>
-                      <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{selectedLead.message}</p>
+                      <label className="block text-sm font-medium text-gray-700">CEP</label>
+                      <p className="mt-1 text-sm text-gray-900">{selectedLead.cep}</p>
                     </div>
                   )}
                   <div>
