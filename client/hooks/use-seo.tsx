@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SEOData, DEFAULT_SEO_DATA } from "@shared/seo";
+import { silentFetchJson } from "../lib/silentFetch";
 
 export function useSEO() {
   const [seoData, setSeoData] = useState<SEOData>(DEFAULT_SEO_DATA);
