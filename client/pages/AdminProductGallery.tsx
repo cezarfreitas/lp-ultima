@@ -469,8 +469,8 @@ export default function AdminProductGallery() {
               <MultiImageUploadHybrid
                 onImagesUploaded={handleAddMultipleProducts}
                 maxFiles={12}
-                useMultiFormat={true}
-                preferredFormat="medium"
+                useMultiFormat={uploadSettings.useMultiFormat}
+                preferredFormat={uploadSettings.preferredFormat}
               />
             </div>
 
