@@ -68,6 +68,17 @@ function expressPlugin(): Plugin {
     configureServer(server) {
       const app = createServer();
 
+      // Fix MIME types for modules
+      server.middlewares.use((req, res, next) => {
+        if (req.url?.endsWith('.tsx') || req.url?.endsWith('.ts')) {
+          res.setHeader('Content-Type', 'application/javascript');
+        }
+        if (req.url?.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css');
+        }
+        next();
+      });
+
       // Add Express app as middleware to Vite dev server
       server.middlewares.use(app);
     },
