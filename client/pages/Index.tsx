@@ -243,11 +243,10 @@ export default function Index() {
           {/* Section Header */}
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Nossos {renderTextWithHighlights("[destaque]Produtos[/destaque]")}
+              {renderTextWithHighlights(productGallery?.title || "Nossos [destaque]Produtos[/destaque]")}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Descubra a coleção exclusiva Ecko com estilo urbano autêntico e
-              qualidade premium
+              {renderTextWithHighlights(productGallery?.subtitle || "Descubra a coleção exclusiva Ecko com estilo urbano autêntico e qualidade premium")}
             </p>
             <div className="flex justify-center mt-8">
               <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
@@ -408,7 +407,7 @@ export default function Index() {
               preços especiais
             </p>
             <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-lg">
-              Ver Catálogo Completo
+              Ver Cat��logo Completo
             </button>
           </div>
         </div>
