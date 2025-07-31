@@ -36,6 +36,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Editar textos da seção do formulário",
     },
     {
+      name: "Galeria Produtos",
+      href: "/admin/product-gallery",
+      icon: "🖼️",
+      description: "Gerenciar galeria de produtos",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
