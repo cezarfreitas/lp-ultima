@@ -24,6 +24,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Personalizar aparência",
     },
     {
+      name: "SEO",
+      href: "/admin/seo",
+      icon: "🚀",
+      description: "Otimização para mecanismos de busca",
+    },
+    {
       name: "Leads",
       href: "/admin/leads",
       icon: "👥",
