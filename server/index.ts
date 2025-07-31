@@ -9,7 +9,7 @@ import {
 } from "./routes/hero";
 import { initializeDB } from "./routes/db-init";
 import { uploadFile } from "./routes/upload";
-import { migrateLogo, migrateDesign } from "./routes/migrate";
+import { migrateLogo, migrateDesign, migrateLeads } from "./routes/migrate";
 import { removeLimits } from "./routes/remove-limits";
 import {
   getDesignSettings,
