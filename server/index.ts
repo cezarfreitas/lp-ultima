@@ -47,6 +47,16 @@ import {
   reorderTestimonials,
 } from "./routes/testimonials";
 import { migrateTestimonials } from "./routes/migrate-testimonials";
+import {
+  getFAQSection,
+  getAllFAQs,
+  updateFAQSection,
+  createFAQ,
+  updateFAQ,
+  deleteFAQ,
+  reorderFAQs,
+} from "./routes/faq";
+import { migrateFAQ } from "./routes/migrate-faq";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
