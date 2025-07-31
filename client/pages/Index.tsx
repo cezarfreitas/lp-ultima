@@ -93,13 +93,8 @@ export default function Index() {
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
               <span className="block mb-2 text-white drop-shadow-lg">
-                {data.impact_title}
+                {renderTextWithHighlights(data.impact_title)}
               </span>
-              {data.impact_subtitle && (
-                <span className="block bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent drop-shadow-sm text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-                  {data.impact_subtitle}
-                </span>
-              )}
             </h1>
 
             {/* Divisor decorativo */}
