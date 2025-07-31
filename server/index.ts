@@ -22,6 +22,9 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Database initialization route
+  app.post("/api/init-db", initializeDB);
+
   // Hero section routes
   app.get("/api/hero", getHeroSection);
   app.put("/api/hero", updateHeroSection);
