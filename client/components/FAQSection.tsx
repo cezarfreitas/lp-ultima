@@ -165,18 +165,18 @@ export default function FAQSection() {
 
   return (
     <section
-      className={`py-16 ${getBackgroundClasses(sectionData.background_type)}`}
+      className={`py-12 md:py-16 ${getBackgroundClasses(sectionData.background_type)}`}
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 px-4"
             dangerouslySetInnerHTML={{
               __html: renderTextWithHighlights(sectionData.title),
             }}
           />
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             {sectionData.subtitle}
           </p>
         </div>
