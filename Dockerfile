@@ -15,6 +15,9 @@ COPY . .
 # Build the client (static site)
 RUN npx vite build
 
+# Compile TypeScript server code to JavaScript
+RUN npx tsc server/node-build.ts --outDir dist-server --module commonjs --target es2020 --esModuleInterop --allowSyntheticDefaultImports --resolveJsonModule
+
 # Production stage - serve both static files and backend APIs
 FROM node:18-alpine AS production
 
@@ -27,7 +30,10 @@ RUN npm ci --only=production --legacy-peer-deps
 # Copy built static files
 COPY --from=builder /app/dist /app/dist
 
-# Copy server code and shared code
+# Copy compiled server code
+COPY --from=builder /app/dist-server /app/dist-server
+
+# Copy server source and shared code (needed for imports)
 COPY server /app/server
 COPY shared /app/shared
 
@@ -41,5 +47,5 @@ ENV PORT=80
 # Expose port 80
 EXPOSE 80
 
-# Start the Node.js server that serves both static files and APIs
-CMD ["node", "server/node-build.ts"]
+# Start the compiled Node.js server
+CMD ["node", "dist-server/node-build.js"]
