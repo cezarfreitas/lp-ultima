@@ -1,7 +1,7 @@
 import mysql from "mysql2/promise";
 import { config } from "../../shared/config.js";
 
-const dbConfig = config.DATABASE;
+export const dbConfig = config.DATABASE;
 
 export const pool = mysql.createPool(dbConfig);
 
