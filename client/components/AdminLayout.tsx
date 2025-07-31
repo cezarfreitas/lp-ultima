@@ -60,6 +60,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar showroom e experiências",
     },
     {
+      name: "Sobre a Ecko",
+      href: "/admin/about",
+      icon: "🏢",
+      description: "Gerenciar seção sobre a empresa",
+    },
+    {
       name: "Rodapé",
       href: "/admin/footer",
       icon: "🦶",
