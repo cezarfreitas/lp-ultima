@@ -150,7 +150,7 @@ export default function Index() {
           <div
             className="hero-bg"
             style={{
-              backgroundImage: `url('${getOptimizedImageUrl(data.background_image)}')`,
+              backgroundImage: `url('${getOptimizedImageUrl(data.background_image, 1600, 70)}')`,
             }}
           >
             {/* Dark Overlay with brand colors */}
