@@ -200,40 +200,7 @@ export default function LeadCaptureForm() {
         </div>
       </div>
 
-      {/* Consumer Message */}
-      {showConsumerMessage && formData.has_cnpj === "nao" && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
-          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg
-              className="w-8 h-8 text-yellow-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 18.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-          </div>
-          <h3 className="text-lg font-semibold text-yellow-800 mb-2">
-            Infelizmente este é um canal para lojistas
-          </h3>
-          <p className="text-yellow-700 mb-4">
-            Mas não fique triste! Posso te enviar um cupom de 10% de desconto na
-            loja Ecko oficial clicando no botão abaixo.
-          </p>
-          <button
-            type="button"
-            onClick={handleCouponClick}
-            className="bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02]"
-          >
-            Quero meu cupom de 10%
-          </button>
-        </div>
-      )}
+
 
       {/* Store Fields - Only show if has CNPJ */}
       {formData.has_cnpj === "sim" && (
