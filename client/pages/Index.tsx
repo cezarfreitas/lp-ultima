@@ -90,25 +90,27 @@ export default function Index() {
         {/* Content */}
         <div className="relative z-10 text-center max-w-5xl mx-auto px-6 md:px-8 lg:px-12">
           {/* Logo */}
-          <div className="mb-8 flex flex-col items-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg mb-3">
+          <div className="mb-12 flex flex-col items-center">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg mb-6">
               {data.logo_image ? (
                 <img
                   src={data.logo_image}
                   alt="Logo"
-                  className="w-16 h-16 object-contain rounded-full"
+                  className="w-20 h-20 object-contain rounded-full"
                 />
               ) : (
-                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20">
                   <span className="text-white font-bold text-xl">{data.logo_text}</span>
                 </div>
               )}
             </div>
 
-            {/* Logo Text Below Image */}
+            {/* Slogan/Tagline */}
             {data.logo_image && data.logo_text && (
-              <div className="text-white font-medium text-xs md:text-sm tracking-widest uppercase opacity-90 drop-shadow-lg text-center max-w-xs leading-relaxed">
-                {data.logo_text}
+              <div className="text-center mb-8">
+                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 drop-shadow-lg leading-relaxed max-w-md mx-auto">
+                  {data.logo_text}
+                </div>
               </div>
             )}
           </div>
