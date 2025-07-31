@@ -122,5 +122,17 @@ export function createServer() {
   app.delete("/api/product-gallery/products/:id", deleteProductItem);
   app.post("/api/product-gallery/reorder", reorderProducts);
 
+  // Testimonials routes
+  app.get("/api/testimonials", getTestimonialsSection);
+  app.get("/api/admin/testimonials", getAllTestimonials);
+  app.put("/api/testimonials/section", updateTestimonialsSection);
+  app.post("/api/testimonials", createTestimonial);
+  app.put("/api/testimonials/:id", updateTestimonial);
+  app.delete("/api/testimonials/:id", deleteTestimonial);
+  app.post("/api/testimonials/reorder", reorderTestimonials);
+
+  // Migration routes
+  app.post("/api/migrate-testimonials", migrateTestimonials);
+
   return app;
 }
