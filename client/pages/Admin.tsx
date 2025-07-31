@@ -189,19 +189,7 @@ export default function Admin() {
             </p>
           </div>
 
-          {/* Impact Subtitle */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Subtítulo (com gradiente)
-            </label>
-            <input
-              type="text"
-              value={formData.impact_subtitle || ''}
-              onChange={(e) => handleInputChange('impact_subtitle', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Futuro Digital"
-            />
-          </div>
+
 
           {/* Description */}
           <div>
