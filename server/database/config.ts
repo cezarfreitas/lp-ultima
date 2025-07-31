@@ -227,6 +227,38 @@ export async function initializeDatabase() {
       );
     }
 
+    const [formContentRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM form_content",
+    );
+    const formContentCount = (formContentRows as any)[0].count;
+
+    if (formContentCount === 0) {
+      await pool.execute(
+        `
+        INSERT INTO form_content (
+          main_title, main_subtitle, form_title, form_subtitle,
+          benefit1_title, benefit1_description, benefit2_title, benefit2_description,
+          benefit3_title, benefit3_description, benefit4_title, benefit4_description
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+        [
+          "Por que ser um",
+          "Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.",
+          "Seja um Lojista Oficial",
+          "Preencha o formulário e nossa equipe entrará em contato em até 24 horas.",
+          "Preços Exclusivos",
+          "Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.",
+          "Produtos Exclusivos",
+          "Tenha acesso primeiro às novas coleções e produtos limitados da marca Ecko.",
+          "Suporte Completo",
+          "Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.",
+          "Crescimento Rápido",
+          "Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.",
+        ],
+      );
+    }
+
     console.log("Database initialized successfully");
   } catch (error) {
     console.error("Error initializing database:", error);
