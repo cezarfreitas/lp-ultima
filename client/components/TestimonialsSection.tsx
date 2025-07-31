@@ -178,7 +178,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex md:grid overflow-x-auto md:overflow-visible space-x-6 md:space-x-0 md:grid-cols-2 lg:grid-cols-3 md:gap-8 pb-4 md:pb-0 snap-x snap-mandatory">
           {visibleTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
