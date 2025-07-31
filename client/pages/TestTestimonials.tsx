@@ -11,12 +11,12 @@ export default function TestTestimonials() {
 
   const testAPI = async () => {
     try {
-      const res = await fetch('/api/testimonials');
+      const res = await fetch("/api/testimonials");
       const text = await res.text();
-      
-      console.log('Response status:', res.status);
-      console.log('Response text:', text);
-      
+
+      console.log("Response status:", res.status);
+      console.log("Response text:", text);
+
       if (res.ok) {
         try {
           const data = JSON.parse(text);
@@ -38,14 +38,14 @@ export default function TestTestimonials() {
     <div className="min-h-screen bg-gray-100 py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6">Test API Depoimentos</h1>
-        
+
         <div className="space-y-4">
           <button
             onClick={testAPI}
             disabled={loading}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            {loading ? 'Testando...' : 'Testar API'}
+            {loading ? "Testando..." : "Testar API"}
           </button>
 
           {error && (
@@ -77,10 +77,7 @@ export default function TestTestimonials() {
             >
               Admin Depoimentos
             </a>
-            <a
-              href="/"
-              className="text-gray-600 hover:text-gray-800 underline"
-            >
+            <a href="/" className="text-gray-600 hover:text-gray-800 underline">
               Voltar Home
             </a>
           </div>

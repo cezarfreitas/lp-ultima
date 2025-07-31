@@ -43,7 +43,10 @@ const App = () => (
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
-          <Route path="/migrate-testimonials" element={<MigrateTestimonials />} />
+          <Route
+            path="/migrate-testimonials"
+            element={<MigrateTestimonials />}
+          />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

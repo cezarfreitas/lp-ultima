@@ -36,49 +36,55 @@ export const migrateFAQ: RequestHandler = async (req, res) => {
     `);
 
     // Insert default section if doesn't exist
-    const [sectionRows] = await pool.execute('SELECT COUNT(*) as count FROM faq_section');
+    const [sectionRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM faq_section",
+    );
     const sectionCount = (sectionRows as any[])[0].count;
 
     let sectionId;
     if (sectionCount === 0) {
-      const [sectionResult] = await pool.execute(`
+      const [sectionResult] = await pool.execute(
+        `
         INSERT INTO faq_section (title, subtitle, background_type, max_faqs)
         VALUES (?, ?, ?, ?)
-      `, [
-        'Perguntas [destaque]Frequentes[/destaque]',
-        'Tire suas dúvidas sobre como se tornar um lojista Ecko e começar a lucrar com nossa marca.',
-        'white',
-        8
-      ]);
+      `,
+        [
+          "Perguntas [destaque]Frequentes[/destaque]",
+          "Tire suas dúvidas sobre como se tornar um lojista Ecko e começar a lucrar com nossa marca.",
+          "white",
+          8,
+        ],
+      );
       sectionId = (sectionResult as any).insertId;
     } else {
-      const [sections] = await pool.execute('SELECT id FROM faq_section LIMIT 1');
+      const [sections] = await pool.execute(
+        "SELECT id FROM faq_section LIMIT 1",
+      );
       sectionId = (sections as any[])[0].id;
     }
 
     // Insert default FAQ items if table is empty
-    const [faqRows] = await pool.execute('SELECT COUNT(*) as count FROM faq_items');
+    const [faqRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM faq_items",
+    );
     const faqCount = (faqRows as any[])[0].count;
 
     if (faqCount === 0) {
       for (const faq of DEFAULT_FAQ_DATA) {
-        await pool.execute(`
+        await pool.execute(
+          `
           INSERT INTO faq_items (section_id, question, answer, is_active, position)
           VALUES (?, ?, ?, ?, ?)
-        `, [
-          sectionId,
-          faq.question,
-          faq.answer,
-          faq.is_active,
-          faq.position
-        ]);
+        `,
+          [sectionId, faq.question, faq.answer, faq.is_active, faq.position],
+        );
       }
     }
 
     res.json({
       message: "Tabelas de FAQ criadas com sucesso!",
       tables: ["faq_section", "faq_items"],
-      defaultData: `${DEFAULT_FAQ_DATA.length} perguntas padrão inseridas`
+      defaultData: `${DEFAULT_FAQ_DATA.length} perguntas padrão inseridas`,
     });
   } catch (error) {
     console.error("Migration error:", error);
