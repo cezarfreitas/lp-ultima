@@ -4,7 +4,9 @@ import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import ImageUploadCompressed from "../components/ImageUploadCompressed";
 import MultiImageUploadHybrid from "../components/MultiImageUploadHybrid";
-import UploadSettings, { UploadSettings as UploadSettingsType } from "../components/UploadSettings";
+import UploadSettings, {
+  UploadSettings as UploadSettingsType,
+} from "../components/UploadSettings";
 
 type Tab = "textos" | "fotos";
 
@@ -30,7 +32,7 @@ export default function AdminProductGallery() {
   );
   const [uploadSettings, setUploadSettings] = useState<UploadSettingsType>({
     useMultiFormat: false,
-    preferredFormat: 'medium',
+    preferredFormat: "medium",
     autoMigration: false,
   });
 
@@ -72,10 +74,17 @@ export default function AdminProductGallery() {
           });
         } catch (parseError) {
           console.error("Error parsing gallery response:", parseError);
-          setMessage({ type: "error", text: "Erro ao processar dados da galeria" });
+          setMessage({
+            type: "error",
+            text: "Erro ao processar dados da galeria",
+          });
         }
       } else {
-        console.error("Failed to fetch gallery:", response.status, response.statusText);
+        console.error(
+          "Failed to fetch gallery:",
+          response.status,
+          response.statusText,
+        );
         setMessage({ type: "error", text: "Erro ao carregar galeria" });
       }
     } catch (error) {
@@ -330,7 +339,10 @@ export default function AdminProductGallery() {
 
   const handleImageUpload = (urlOrFormats: string | any, isEdit = false) => {
     // Handle both old string format and new formats object
-    const url = typeof urlOrFormats === 'string' ? urlOrFormats : urlOrFormats?.medium || urlOrFormats?.large || '';
+    const url =
+      typeof urlOrFormats === "string"
+        ? urlOrFormats
+        : urlOrFormats?.medium || urlOrFormats?.large || "";
 
     if (isEdit && editingProduct) {
       setEditingProduct({ ...editingProduct, image_url: url });
