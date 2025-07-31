@@ -28,8 +28,9 @@ import MigrateAbout from "./pages/MigrateAbout";
 import MigrateFooter from "./pages/MigrateFooter";
 import AdminSEO from "./pages/AdminSEO";
 import MigrateSEO from "./pages/MigrateSEO";
+import MigratePixels from "./pages/MigratePixels";
+import AdminPixels from "./pages/AdminPixels";
 import SetupComplete from "./pages/SetupComplete";
-import AdminDashboard from "./pages/AdminDashboard";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
 
@@ -44,7 +45,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<AdminHeroTabbed />} />
+<<<<<<< HEAD
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+=======
+>>>>>>> 32629b8128c29e4f70d040a1e75794c718a7ac16
           <Route path="/admin/design" element={<AdminDesign />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
           <Route path="/admin/form-content" element={<AdminFormContent />} />
@@ -58,6 +62,7 @@ const App = () => (
           <Route path="/admin/about" element={<AdminAbout />} />
           <Route path="/admin/footer" element={<AdminFooter />} />
           <Route path="/admin/seo" element={<AdminSEO />} />
+          <Route path="/admin/pixels" element={<AdminPixels />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
@@ -70,6 +75,7 @@ const App = () => (
           <Route path="/migrate-about" element={<MigrateAbout />} />
           <Route path="/migrate-footer" element={<MigrateFooter />} />
           <Route path="/migrate-seo" element={<MigrateSEO />} />
+          <Route path="/migrate-pixels" element={<MigratePixels />} />
           <Route path="/setup-complete" element={<SetupComplete />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
@@ -80,4 +86,16 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Prevent multiple root creation in development
+const container = document.getElementById("root")!;
+if (!(container as any)._reactRootContainer) {
+  createRoot(container).render(<App />);
+} else {
+  // In development, React might have already created a root
+  const existingRoot = (container as any)._reactRootContainer;
+  if (existingRoot && typeof existingRoot.render === "function") {
+    existingRoot.render(<App />);
+  } else {
+    createRoot(container).render(<App />);
+  }
+}

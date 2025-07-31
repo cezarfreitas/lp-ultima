@@ -30,6 +30,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Otimização para mecanismos de busca",
     },
     {
+      name: "Pixels",
+      href: "/admin/pixels",
+      icon: "📊",
+      description: "Códigos de rastreamento e analytics",
+    },
+    {
       name: "Leads",
       href: "/admin/leads",
       icon: "👥",

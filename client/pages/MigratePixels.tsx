@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function MigrateSEO() {
+export default function MigratePixels() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -11,7 +11,7 @@ export default function MigrateSEO() {
     setError("");
 
     try {
-      const response = await fetch("/api/migrate-seo", {
+      const response = await fetch("/api/migrate-pixels", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function MigrateSEO() {
       const data = await response.json();
 
       if (data.success) {
-        setMessage("Migração de SEO executada com sucesso!");
+        setMessage("Migração de Pixels executada com sucesso!");
       } else {
         setError(data.error || "Erro desconhecido na migração");
       }
@@ -44,7 +44,7 @@ export default function MigrateSEO() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Migração de SEO
+          Migração de Pixels
         </h1>
 
         <div className="space-y-6">
@@ -54,16 +54,18 @@ export default function MigrateSEO() {
             </h2>
             <ul className="list-disc list-inside space-y-2 text-blue-800">
               <li>
-                Cria a tabela <code>seo_data</code> para gerenciar metadados SEO
+                Cria a tabela <code>pixels</code> para gerenciar códigos de
+                rastreamento
               </li>
               <li>
-                Insere dados padrão otimizados para "Seja um Lojista Oficial
-                Ecko"
+                Insere templates padrão para GA4, Meta Pixel, GTM e códigos
+                customizados
               </li>
               <li>
-                Configura meta tags para redes sociais (Open Graph e Twitter)
+                Configura versões simplificadas (apenas ID) e avançadas (com API
+                de conversões)
               </li>
-              <li>Define configurações de robots e estrutura de dados</li>
+              <li>Define posições de injeção (head, body_start, body_end)</li>
             </ul>
           </div>
 
@@ -81,9 +83,9 @@ export default function MigrateSEO() {
             <button
               onClick={runMigration}
               disabled={isLoading}
-              className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex-1 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {isLoading ? "Executando..." : "Executar Migração de SEO"}
+              {isLoading ? "Executando..." : "Executar Migração de Pixels"}
             </button>
 
             <button

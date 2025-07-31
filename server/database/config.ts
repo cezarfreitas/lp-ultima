@@ -250,6 +250,127 @@ export async function initializeDatabase() {
       );
     }
 
+    // Create SEO table
+    await pool.execute(`
+      CREATE TABLE IF NOT EXISTS seo_data (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(150) NOT NULL,
+        description TEXT NOT NULL,
+        keywords TEXT NOT NULL,
+        canonical_url VARCHAR(500),
+        og_title VARCHAR(100) NOT NULL,
+        og_description TEXT NOT NULL,
+        og_image VARCHAR(500),
+        og_type VARCHAR(50) NOT NULL,
+        twitter_card VARCHAR(50) NOT NULL,
+        twitter_title VARCHAR(100) NOT NULL,
+        twitter_description TEXT NOT NULL,
+        twitter_image VARCHAR(500),
+        robots VARCHAR(100) NOT NULL,
+        author VARCHAR(100) NOT NULL,
+        language VARCHAR(10) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create pixels table
+    await pool.execute(`
+      CREATE TABLE IF NOT EXISTS pixels (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        type ENUM('google_analytics', 'meta_pixel', 'google_tag_manager', 'custom_header', 'custom_body', 'ga4_simple', 'meta_simple', 'meta_conversions') NOT NULL,
+        code TEXT NOT NULL,
+        enabled BOOLEAN DEFAULT FALSE,
+        position ENUM('head', 'body_start', 'body_end') DEFAULT 'head',
+        description TEXT,
+        pixel_id VARCHAR(255),
+        access_token TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_enabled (enabled),
+        INDEX idx_position (position),
+        INDEX idx_type (type),
+        INDEX idx_pixel_id (pixel_id)
+      )
+    `);
+
+    // Insert default SEO data if table is empty
+    const [seoRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM seo_data",
+    );
+    const seoCount = (seoRows as any)[0].count;
+
+    if (seoCount === 0) {
+      await pool.execute(
+        `INSERT INTO seo_data (
+          title, description, keywords, canonical_url, og_title, og_description,
+          og_image, og_type, twitter_card, twitter_title, twitter_description,
+          twitter_image, robots, author, language
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          "Seja um Lojista Oficial Ecko - Parceria Exclusiva | Ecko Brasil",
+          "🏪 Torne-se um lojista oficial Ecko! Acesso a produtos exclusivos, preços especiais e suporte completo. Junte-se à maior rede de streetwear do Brasil. Cadastre-se agora!",
+          "lojista ecko, franquia ecko, parceria ecko, revenda ecko, streetwear brasil, roupas urbanas, moda jovem, distribuidor ecko, negócio próprio, empreendedorismo, marca famosa",
+          "https://sejaum.lojista.ecko.com.br",
+          "Seja um Lojista Oficial Ecko - Oportunidade Única de Negócio",
+          "💰 Descubra como se tornar um lojista oficial Ecko. Produtos exclusivos, margem atrativa e suporte completo para seu negócio crescer no mercado de streetwear. Cadastre-se gratuitamente!",
+          "https://sejaum.lojista.ecko.com.br/images/og-lojista-ecko.jpg",
+          "website",
+          "summary_large_image",
+          "Seja um Lojista Oficial Ecko - Parceria Exclusiva",
+          "🚀 Torne-se parceiro oficial Ecko. Acesso a produtos exclusivos, preços especiais e suporte completo para seu negócio decolar!",
+          "https://sejaum.lojista.ecko.com.br/images/twitter-lojista-ecko.jpg",
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          "Ecko Brasil",
+          "pt-BR",
+        ],
+      );
+    }
+
+    // Insert default pixel templates if table is empty
+    const [pixelRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM pixels",
+    );
+    const pixelCount = (pixelRows as any)[0].count;
+
+    if (pixelCount === 0) {
+      await pool.execute(
+        `INSERT INTO pixels (name, type, code, enabled, position, description, pixel_id, access_token) VALUES
+         (?, ?, ?, ?, ?, ?, ?, ?),
+         (?, ?, ?, ?, ?, ?, ?, ?),
+         (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          "Google Analytics GA4 - Simples",
+          "ga4_simple",
+          "",
+          false,
+          "head",
+          "Versão simplificada do GA4 - apenas insira seu ID",
+          null,
+          null,
+
+          "Meta Pixel - Simples",
+          "meta_simple",
+          "",
+          false,
+          "head",
+          "Versão simplificada do Meta Pixel - apenas insira seu ID",
+          null,
+          null,
+
+          "Meta Conversions API",
+          "meta_conversions",
+          "",
+          false,
+          "head",
+          "API de conversões da Meta para rastreamento server-side",
+          null,
+          null,
+        ],
+      );
+    }
+
     console.log("Database initialized successfully");
   } catch (error) {
     console.error("Error initializing database:", error);

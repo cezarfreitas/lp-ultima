@@ -89,6 +89,16 @@ import {
 import { migrateAbout } from "./routes/migrate-about";
 import { getSEO, updateSEO } from "./routes/seo";
 import { migrateSEO } from "./routes/migrate-seo";
+import {
+  getAllPixels,
+  getEnabledPixels,
+  createPixel,
+  updatePixel,
+  deletePixel,
+  togglePixel,
+} from "./routes/pixels";
+import { migratePixels } from "./routes/migrate-pixels";
+import { sendMetaConversion } from "./routes/meta-conversion";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
@@ -213,6 +223,17 @@ export function createServer() {
   app.get("/api/seo", getSEO);
   app.put("/api/seo", updateSEO);
 
+  // Pixels routes
+  app.get("/api/pixels", getAllPixels);
+  app.get("/api/pixels/enabled", getEnabledPixels);
+  app.post("/api/pixels", createPixel);
+  app.put("/api/pixels/:id", updatePixel);
+  app.delete("/api/pixels/:id", deletePixel);
+  app.put("/api/pixels/:id/toggle", togglePixel);
+
+  // Meta Conversions API
+  app.post("/api/meta-conversion", sendMetaConversion);
+
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
   app.post("/api/migrate-faq", migrateFAQ);
@@ -220,6 +241,7 @@ export function createServer() {
   app.post("/api/migrate-footer", migrateFooter);
   app.post("/api/migrate-about", migrateAbout);
   app.post("/api/migrate-seo", migrateSEO);
+  app.post("/api/migrate-pixels", migratePixels);
 
   return app;
 }

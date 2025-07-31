@@ -3,7 +3,7 @@ import { HeroSectionData, HeroUpdateRequest } from "@shared/hero";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import AdminTabs from "../components/AdminTabs";
-import ImageUploadCompressed from "../components/ImageUploadCompressed";
+import ImageUpload from "../components/ImageUpload";
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

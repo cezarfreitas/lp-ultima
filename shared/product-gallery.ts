@@ -72,7 +72,7 @@ export const DEFAULT_GALLERY_DATA = {
     },
     {
       image_url:
-        "https://images.unsplash.com/photo-1516762689617-e1cfddf819d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt_text: "Produto Ecko",
       position: 5,
     },

@@ -2,7 +2,19 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/**/*.{ts,tsx}"],
+  content: ["./client/**/*.{ts,tsx}", "./shared/**/*.{ts,tsx}", "./index.html"],
+  // Enable JIT mode for faster builds and smaller CSS
+  mode: "jit",
+  // Safelist critical classes that might be dynamically generated
+  safelist: [
+    "hero-section",
+    "hero-bg",
+    "hero-overlay",
+    "hero-content",
+    "hero-title",
+    "hero-btn",
+    "loading-spinner",
+  ],
   prefix: "",
   theme: {
     container: {

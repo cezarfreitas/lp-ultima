@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import { SEOData, DEFAULT_SEO_DATA } from "@shared/seo";
+import { silentFetchJson } from "../lib/silentFetch";
 
 export function useSEO() {
   const [seoData, setSeoData] = useState<SEOData>(DEFAULT_SEO_DATA);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSEOData();
+    // Add a small delay to avoid immediate fetch errors on initial load
+    const timer = setTimeout(() => {
+      fetchSEOData();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const fetchSEOData = async () => {
     try {
-      const response = await fetch("/api/seo");
-      if (response.ok) {
-        const data = await response.json();
+      const data = await silentFetchJson<SEOData>("/api/seo");
+
+      if (data) {
         setSeoData(data);
         updatePageSEO(data);
+      } else {
+        // API not available, use default data
+        updatePageSEO(DEFAULT_SEO_DATA);
       }
-    } catch (error) {
-      console.error("Error fetching SEO data:", error);
-      updatePageSEO(DEFAULT_SEO_DATA);
     } finally {
       setLoading(false);
     }
@@ -45,7 +51,7 @@ export function useSEO() {
     updateMetaTag("property", "og:description", data.og_description);
     updateMetaTag("property", "og:type", data.og_type);
     updateMetaTag("property", "og:locale", data.language);
-    
+
     if (data.og_image) {
       updateMetaTag("property", "og:image", data.og_image);
     }
@@ -76,7 +82,7 @@ export function useSEO() {
 
     const selector = `meta[${attribute}="${name}"]`;
     let meta = document.head.querySelector(selector) as HTMLMetaElement;
-    
+
     if (!meta) {
       meta = document.createElement("meta");
       meta.setAttribute(attribute, name);
@@ -90,8 +96,10 @@ export function useSEO() {
   const updateLinkTag = (rel: string, href: string) => {
     if (!href) return;
 
-    let link = document.head.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement;
-    
+    let link = document.head.querySelector(
+      `link[rel="${rel}"]`,
+    ) as HTMLLinkElement;
+
     if (!link) {
       link = document.createElement("link");
       link.setAttribute("rel", rel);
@@ -104,7 +112,9 @@ export function useSEO() {
 
   const updateStructuredData = (data: SEOData) => {
     // Remove existing structured data
-    const existingScript = document.head.querySelector('script[type="application/ld+json"]');
+    const existingScript = document.head.querySelector(
+      'script[type="application/ld+json"]',
+    );
     if (existingScript) {
       existingScript.remove();
     }
@@ -113,35 +123,35 @@ export function useSEO() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Ecko Brasil",
-      "description": data.description,
-      "url": data.canonical_url || "https://sejaum.lojista.ecko.com.br",
-      "logo": data.og_image || "https://sejaum.lojista.ecko.com.br/logo.png",
-      "sameAs": [
+      name: "Ecko Brasil",
+      description: data.description,
+      url: data.canonical_url || "https://sejaum.lojista.ecko.com.br",
+      logo: data.og_image || "https://sejaum.lojista.ecko.com.br/logo.png",
+      sameAs: [
         "https://www.instagram.com/eckobrasil",
-        "https://www.facebook.com/eckobrasil"
+        "https://www.facebook.com/eckobrasil",
       ],
-      "contactPoint": {
+      contactPoint: {
         "@type": "ContactPoint",
-        "contactType": "Parcerias Comerciais",
-        "description": "Torne-se um lojista oficial Ecko"
+        contactType: "Parcerias Comerciais",
+        description: "Torne-se um lojista oficial Ecko",
       },
-      "offers": {
+      offers: {
         "@type": "Offer",
-        "name": "Seja um Lojista Oficial Ecko",
-        "description": "Oportunidade de parceria comercial com a marca Ecko",
-        "category": "Franquia/Parceria Comercial",
-        "businessFunction": "http://purl.org/goodrelations/v1#Sell",
-        "eligibleRegion": {
+        name: "Seja um Lojista Oficial Ecko",
+        description: "Oportunidade de parceria comercial com a marca Ecko",
+        category: "Franquia/Parceria Comercial",
+        businessFunction: "http://purl.org/goodrelations/v1#Sell",
+        eligibleRegion: {
           "@type": "Country",
-          "name": "Brasil"
-        }
+          name: "Brasil",
+        },
       },
-      "potentialAction": {
+      potentialAction: {
         "@type": "Action",
-        "name": "Candidatar-se para ser Lojista Ecko",
-        "description": "Envie seus dados para se tornar um parceiro oficial"
-      }
+        name: "Candidatar-se para ser Lojista Ecko",
+        description: "Envie seus dados para se tornar um parceiro oficial",
+      },
     };
 
     const script = document.createElement("script");
@@ -156,6 +166,6 @@ export function useSEO() {
     updatePageSEO: (data: SEOData) => {
       setSeoData(data);
       updatePageSEO(data);
-    }
+    },
   };
 }
