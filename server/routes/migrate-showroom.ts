@@ -12,7 +12,6 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
         subtitle TEXT,
         background_type ENUM('white', 'gray', 'gradient', 'dark') DEFAULT 'dark',
         layout_type ENUM('grid', 'masonry', 'carousel') DEFAULT 'masonry',
-        show_categories BOOLEAN DEFAULT TRUE,
         max_items INT DEFAULT 12,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -28,7 +27,6 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
         description TEXT,
         media_url VARCHAR(500) NOT NULL,
         media_type ENUM('image', 'video') DEFAULT 'image',
-        category ENUM('ambiente', 'lookbook', 'lifestyle', 'produtos') NOT NULL,
         is_featured BOOLEAN DEFAULT FALSE,
         is_active BOOLEAN DEFAULT TRUE,
         position INT NOT NULL DEFAULT 1,
@@ -36,7 +34,6 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (section_id) REFERENCES showroom_section(id) ON DELETE CASCADE,
         INDEX idx_section_id (section_id),
-        INDEX idx_category (category),
         INDEX idx_is_featured (is_featured),
         INDEX idx_is_active (is_active),
         INDEX idx_position (position)
@@ -50,14 +47,13 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
     let sectionId;
     if (sectionCount === 0) {
       const [sectionResult] = await pool.execute(`
-        INSERT INTO showroom_section (title, subtitle, background_type, layout_type, show_categories, max_items)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO showroom_section (title, subtitle, background_type, layout_type, max_items)
+        VALUES (?, ?, ?, ?, ?)
       `, [
         'Nosso [destaque]Showroom[/destaque]',
-        'Explore ambientes, looks e experiências que capturam a essência da marca Ecko em diferentes contextos e estilos.',
+        'Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.',
         'dark',
         'masonry',
-        true,
         12
       ]);
       sectionId = (sectionResult as any).insertId;
@@ -73,15 +69,14 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
     if (showroomCount === 0) {
       for (const item of DEFAULT_SHOWROOM_DATA) {
         await pool.execute(`
-          INSERT INTO showroom_items (section_id, title, description, media_url, media_type, category, is_featured, is_active, position)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO showroom_items (section_id, title, description, media_url, media_type, is_featured, is_active, position)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `, [
           sectionId,
           item.title,
           item.description,
           item.media_url,
           item.media_type,
-          item.category,
           item.is_featured,
           item.is_active,
           item.position
