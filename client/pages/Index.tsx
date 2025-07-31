@@ -89,10 +89,10 @@ export default function Index() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-red-900">
         <div className="text-center">
-          <div className="animate-spin h-12 w-12 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando...</p>
+          <div className="animate-spin h-12 w-12 border-4 border-red-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-200">Carregando...</p>
         </div>
       </div>
     );
@@ -130,7 +130,7 @@ export default function Index() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-6 md:px-8 lg:px-16 py-8">
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-8">
           {/* Logo */}
           <div className="mb-12 flex flex-col items-center">
             {data.logo_image ? (
@@ -151,8 +151,8 @@ export default function Index() {
 
             {/* Slogan/Tagline */}
             {data.logo_text && (
-              <div className="text-center mb-8">
-                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-2xl mx-auto">
+              <div className="text-center mb-6 md:mb-8">
+                <div className="text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-2xl mx-auto px-4">
                   {data.logo_text}
                 </div>
               </div>
@@ -160,22 +160,22 @@ export default function Index() {
           </div>
 
           {/* Texto de Impacto */}
-          <div className="mb-12">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-8 leading-[1.1] tracking-tight uppercase text-center max-w-4xl mx-auto">
+          <div className="mb-8 md:mb-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 md:mb-8 leading-[1.1] tracking-tight uppercase text-center max-w-4xl mx-auto px-4">
               <span className="block text-white drop-shadow-2xl">
                 {renderTextWithHighlights(data.impact_title)}
               </span>
             </h1>
 
             {/* Divisor decorativo */}
-            <div className="flex justify-center mb-10">
-              <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
+            <div className="flex justify-center mb-6 md:mb-10">
+              <div className="h-1 w-12 md:w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
             </div>
           </div>
 
           {/* Texto Descritivo */}
-          <div className="mb-12 max-w-2xl mx-auto">
-            <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed tracking-wide font-normal text-center">
+          <div className="mb-8 md:mb-12 max-w-2xl mx-auto px-4">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed tracking-wide font-normal text-center">
               <span className="drop-shadow-lg opacity-95">
                 {renderTextWithHighlights(data.description)}
               </span>
@@ -183,8 +183,8 @@ export default function Index() {
           </div>
 
           {/* Botão */}
-          <div className="mt-10 mb-20">
-            <button className="group relative inline-flex items-center justify-center px-12 py-4 md:px-16 md:py-5 text-base md:text-lg lg:text-xl font-bold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl border-2 border-red-500/40 shadow-xl tracking-wide uppercase">
+          <div className="mt-6 md:mt-10 mb-12 md:mb-20">
+            <button className="group relative inline-flex items-center justify-center px-8 py-3 sm:px-12 sm:py-4 md:px-16 md:py-5 text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl border-2 border-red-500/40 shadow-xl tracking-wide uppercase">
               <span className="relative z-10 drop-shadow-lg">
                 {data.button_text}
               </span>
