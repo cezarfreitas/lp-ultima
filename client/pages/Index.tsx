@@ -206,6 +206,112 @@ export default function Index() {
           <div className="absolute bottom-1/3 left-12 w-5 h-5 border border-white/20 rounded-full animate-pulse delay-600"></div>
         </div>
       </section>
+
+      {/* Lead Capture Section */}
+      <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Benefits/Reasons */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  Por que ser um
+                  <span className="block text-red-600">Lojista Ecko?</span>
+                </h2>
+                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                  Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Benefit 1 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Preços Exclusivos
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Acesso a preços diferenciados e margens competitivas que garantem sua lucratividade.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Benefit 2 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Produtos Exclusivos
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Tenha acesso primeiro às novas coleções e produtos limitados da marca Ecko.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Benefit 3 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Suporte Completo
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Nossa equipe oferece treinamento, marketing e suporte técnico para o sucesso do seu negócio.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Benefit 4 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Crescimento Rápido
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Aproveite a força da marca Ecko para acelerar o crescimento do seu negócio.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Form */}
+            <div className="lg:pl-8">
+              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                    Seja um Lojista Oficial
+                  </h3>
+                  <p className="text-gray-600">
+                    Preencha o formulário e nossa equipe entrará em contato em até 24 horas.
+                  </p>
+                </div>
+
+                <LeadCaptureForm />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
