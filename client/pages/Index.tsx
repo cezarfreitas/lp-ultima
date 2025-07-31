@@ -6,6 +6,7 @@ import LeadCaptureForm from "../components/LeadCaptureForm";
 import TestimonialsSection from "../components/TestimonialsSection";
 import ShowroomSection from "../components/ShowroomSection";
 import FAQSection from "../components/FAQSection";
+import AboutSection from "../components/AboutSection";
 import Footer from "../components/Footer";
 
 export default function Index() {
@@ -469,6 +470,9 @@ export default function Index() {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* About Section */}
+      <AboutSection />
 
       {/* Footer */}
       <Footer />
