@@ -12,9 +12,10 @@ interface ImageUploadCompressedProps {
 }
 
 export default function ImageUploadCompressed({
-  label,
+  label = "Imagem",
   currentUrl = "",
   onUrlChange,
+  onUpload,
   placeholder = "https://exemplo.com/imagem.jpg",
   previewHeight = "h-48",
   maxWidth = 1200,
