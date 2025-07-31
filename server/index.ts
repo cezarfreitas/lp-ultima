@@ -135,8 +135,20 @@ export function createServer() {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-  // Serve uploaded files statically
-  app.use("/uploads", express.static(paths.uploadsDir()));
+  // Serve uploaded files statically with caching
+  app.use("/uploads", express.static(paths.uploadsDir(), {
+    maxAge: '7d', // Cache for 7 days
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, path) => {
+      // Add cache control headers
+      res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
+      // Add compression hint
+      if (path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.html')) {
+        res.setHeader('Vary', 'Accept-Encoding');
+      }
+    }
+  }));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
