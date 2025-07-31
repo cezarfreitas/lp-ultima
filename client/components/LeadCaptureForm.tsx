@@ -55,10 +55,8 @@ export default function LeadCaptureForm() {
           }),
         });
 
-        // Redirect to Ecko official store
-        window.open("https://ecko.com.br", "_blank");
-
-        // Reset form and show success
+        // Reset form and show success for consumer
+        setIsConsumerSubmission(true);
         setSubmitted(true);
         setFormData({
           name: "",
