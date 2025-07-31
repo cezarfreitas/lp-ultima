@@ -130,10 +130,10 @@ export default function Index() {
 
           {/* Indicador de Scroll */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="flex flex-col items-center text-white/70">
-              <span className="text-sm mb-2">Role para baixo</span>
-              <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-                <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce"></div>
+            <div className="flex flex-col items-center text-gray-300/80">
+              <span className="text-xs md:text-sm mb-3 font-light tracking-wider drop-shadow-lg">Role para baixo</span>
+              <div className="w-6 h-10 border-2 border-red-500/60 rounded-full flex justify-center backdrop-blur-sm bg-white/5">
+                <div className="w-1 h-3 bg-red-500 rounded-full mt-2 animate-bounce shadow-lg"></div>
               </div>
             </div>
           </div>
