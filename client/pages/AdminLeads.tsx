@@ -43,7 +43,7 @@ export default function AdminLeads() {
   const fetchLeads = async () => {
     try {
       const response = await fetch(
-        `/api/leads?status=${selectedStatus}&page=${page}&limit=20`,
+        `/api/leads?status=${selectedStatus}&type=${selectedType}&page=${page}&limit=20`,
       );
       if (response.ok) {
         const data = await response.json();
