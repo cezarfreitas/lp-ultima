@@ -67,7 +67,7 @@ export default function Index() {
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           {/* Logo */}
           <div className="mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg">
               {data.logo_image ? (
                 <img
                   src={data.logo_image}
@@ -75,7 +75,7 @@ export default function Index() {
                   className="w-16 h-16 object-contain rounded-full"
                 />
               ) : (
-                <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20">
                   <span className="text-white font-bold text-xl">{data.logo_text}</span>
                 </div>
               )}
