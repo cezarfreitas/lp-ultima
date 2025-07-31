@@ -21,6 +21,7 @@ export async function initializeDatabase() {
       CREATE TABLE IF NOT EXISTS hero_section (
         id INT PRIMARY KEY AUTO_INCREMENT,
         logo_text VARCHAR(10) DEFAULT 'L',
+        logo_image VARCHAR(500) DEFAULT '',
         impact_title VARCHAR(255) NOT NULL DEFAULT 'Seja bem-vindo ao',
         impact_subtitle VARCHAR(255) NOT NULL DEFAULT 'Futuro Digital',
         description VARCHAR(1000) NOT NULL DEFAULT 'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
