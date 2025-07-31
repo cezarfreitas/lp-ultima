@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { HeroSectionData } from "@shared/hero";
+import { DesignSettings } from "@shared/design";
 
 export default function Index() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
+  const [designData, setDesignData] = useState<DesignSettings | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchHeroData();
+    fetchDesignData();
   }, []);
 
   // Function to render text with highlights
