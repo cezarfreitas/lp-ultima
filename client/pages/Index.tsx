@@ -116,16 +116,16 @@ export default function Index() {
           </div>
 
           {/* Texto de Impacto */}
-          <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight uppercase">
-              <span className="block mb-2 text-white drop-shadow-lg">
+          <div className="mb-12">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-8 leading-[1.1] tracking-tight uppercase text-center max-w-4xl mx-auto">
+              <span className="block text-white drop-shadow-2xl">
                 {renderTextWithHighlights(data.impact_title)}
               </span>
             </h1>
 
             {/* Divisor decorativo */}
-            <div className="flex justify-center mt-6 mb-8">
-              <div className="h-1 w-20 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
+            <div className="flex justify-center mb-10">
+              <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-red-700 rounded-full shadow-lg"></div>
             </div>
           </div>
 
