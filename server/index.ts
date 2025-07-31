@@ -4,7 +4,9 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { getHeroSection, updateHeroSection, createHeroSection } from "./routes/hero";
 import { initializeDB } from "./routes/db-init";
+import { uploadFile } from "./routes/upload";
 import { initializeDatabase } from "./database/config";
+import path from "path";
 
 export function createServer() {
   const app = express();
