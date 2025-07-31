@@ -38,10 +38,11 @@ export async function initializeDatabase() {
     
     if (count === 0) {
       await pool.execute(`
-        INSERT INTO hero_section (logo_text, impact_title, impact_subtitle, description, button_text, background_image)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO hero_section (logo_text, logo_image, impact_title, impact_subtitle, description, button_text, background_image)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `, [
         'L',
+        '',
         'Seja bem-vindo ao',
         'Futuro Digital',
         'Transforme suas ideias em realidade com nossa plataforma inovadora. Conecte-se, crie e conquiste novos horizontes.',
