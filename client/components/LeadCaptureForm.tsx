@@ -238,23 +238,21 @@ export default function LeadCaptureForm() {
         </div>
       )}
 
-      {/* Submit Button - Only show if has CNPJ */}
-      {formData.has_cnpj === 'sim' && (
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
-        >
-          {submitting ? (
-            <div className="flex items-center justify-center">
-              <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-              Enviando...
-            </div>
-          ) : (
-            'Quero ser Lojista Ecko'
-          )}
-        </button>
-      )}
+      {/* Submit Button */}
+      <button
+        type="submit"
+        disabled={submitting || formData.has_cnpj !== 'sim'}
+        className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
+      >
+        {submitting ? (
+          <div className="flex items-center justify-center">
+            <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+            Enviando...
+          </div>
+        ) : (
+          'Quero ser Lojista Ecko'
+        )}
+      </button>
 
       {/* Privacy Notice - Only show if has CNPJ */}
       {formData.has_cnpj === 'sim' && (
