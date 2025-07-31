@@ -59,8 +59,8 @@ export default function Index() {
             backgroundRepeat: "no-repeat",
           }}
         >
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          {/* Dark Overlay with brand colors */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-gray-900/60"></div>
         </div>
 
         {/* Content */}
