@@ -130,19 +130,16 @@ export default function Index() {
       <PixelInjector />
 
       {/* Hero Section with Background Image */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="hero-section">
         {/* Background Image */}
         <div
-          className="absolute inset-0 z-0"
+          className="hero-bg"
           style={{
-            backgroundImage: `url('${data.background_image}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
+            backgroundImage: `url('${data.background_image}&w=1920&auto=format&fit=crop&q=80')`,
           }}
         >
           {/* Dark Overlay with brand colors */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-gray-900/60"></div>
+          <div className="hero-overlay"></div>
         </div>
 
         {/* Content */}
