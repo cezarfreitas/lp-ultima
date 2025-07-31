@@ -253,10 +253,27 @@ export default function AdminProductGallery() {
         await fetchGallery();
         setMessage({ type: "success", text: "Produto deletado com sucesso!" });
       } else {
-        const errorData = await response.json();
+        // Check if response has content before trying to parse JSON
+        let errorMessage = "Erro ao deletar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            // If not JSON, get text content
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao deletar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
