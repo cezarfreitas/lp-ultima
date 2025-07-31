@@ -91,24 +91,24 @@ export default function Index() {
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6 md:px-8 lg:px-16 py-8">
           {/* Logo */}
           <div className="mb-12 flex flex-col items-center">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full border border-red-500/30 shadow-lg mb-6">
-              {data.logo_image ? (
+            {data.logo_image ? (
+              <div className="mb-6">
                 <img
                   src={data.logo_image}
                   alt="Logo"
-                  className="w-20 h-20 object-contain rounded-full"
+                  className="h-20 md:h-24 lg:h-28 w-auto object-contain"
                 />
-              ) : (
-                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20">
-                  <span className="text-white font-bold text-xl">{data.logo_text}</span>
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20 mb-6">
+                <span className="text-white font-bold text-xl">{data.logo_text}</span>
+              </div>
+            )}
 
             {/* Slogan/Tagline */}
-            {data.logo_image && data.logo_text && (
+            {data.logo_text && (
               <div className="text-center mb-8">
-                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 drop-shadow-lg leading-relaxed max-w-md mx-auto">
+                <div className="text-white font-semibold text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-md mx-auto">
                   {data.logo_text}
                 </div>
               </div>
