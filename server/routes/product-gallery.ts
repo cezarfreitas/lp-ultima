@@ -11,7 +11,13 @@ const ProductGalleryUpdateSchema = z.object({
 });
 
 const ProductItemCreateSchema = z.object({
-  image_url: z.string().url("URL da imagem inválida"),
+  image_url: z.string().min(1, "URL da imagem é obrigatória").refine(
+    (url) => {
+      // Accept relative URLs (starting with /) or absolute URLs
+      return url.startsWith('/') || z.string().url().safeParse(url).success;
+    },
+    { message: "URL da imagem inválida" }
+  ),
   alt_text: z.string().optional(),
   position: z.number().int().min(1).optional(),
 });
