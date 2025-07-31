@@ -58,5 +58,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     process.exit(res.statusCode === 200 ? 0 : 1) \
   }).on('error', () => process.exit(1))"
 
-# Start the application
-CMD ["node", "server/node-build.ts"]
+# Start the application using tsx to run TypeScript
+CMD ["npx", "tsx", "server/node-build.ts"]
