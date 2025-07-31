@@ -70,13 +70,28 @@ export default function Admin() {
         body: JSON.stringify(formData),
       });
 
-      const responseData = await response.json();
+      // Check if response has content to read
+      const contentType = response.headers.get('content-type');
 
       if (response.ok) {
-        setHeroData(responseData);
+        if (contentType && contentType.includes('application/json')) {
+          const responseData = await response.json();
+          setHeroData(responseData);
+        }
         setMessage({type: 'success', text: 'Dados salvos com sucesso!'});
       } else {
-        setMessage({type: 'error', text: responseData.error || 'Erro ao salvar dados'});
+        let errorMessage = 'Erro ao salvar dados';
+
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch {
+            // If JSON parsing fails, use default message
+          }
+        }
+
+        setMessage({type: 'error', text: errorMessage});
       }
     } catch (error) {
       console.error("Error updating hero data:", error);
