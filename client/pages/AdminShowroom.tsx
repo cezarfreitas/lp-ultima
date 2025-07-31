@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ShowroomSection, ShowroomItem, CATEGORY_LABELS } from "@shared/showroom";
+import { ShowroomSection, ShowroomItem } from "@shared/showroom";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import ImageUploadCompressed from "../components/ImageUploadCompressed";
@@ -16,7 +16,6 @@ export default function AdminShowroom() {
     subtitle: '',
     background_type: 'dark' as 'white' | 'gray' | 'gradient' | 'dark',
     layout_type: 'masonry' as 'grid' | 'masonry' | 'carousel',
-    show_categories: true,
     max_items: 12,
   });
   const [loading, setLoading] = useState(true);
@@ -27,12 +26,10 @@ export default function AdminShowroom() {
     description: '',
     media_url: '',
     media_type: 'image' as 'image' | 'video',
-    category: 'ambiente' as 'ambiente' | 'lookbook' | 'lifestyle' | 'produtos',
     is_featured: false,
     is_active: true
   });
   const [editingItem, setEditingItem] = useState<ShowroomItem | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
     const authenticated = localStorage.getItem("admin_authenticated") === "true";
@@ -68,7 +65,6 @@ export default function AdminShowroom() {
           subtitle: data.subtitle || '',
           background_type: data.background_type || 'dark',
           layout_type: data.layout_type || 'masonry',
-          show_categories: data.show_categories ?? true,
           max_items: data.max_items || 12,
         });
       }
@@ -138,7 +134,6 @@ export default function AdminShowroom() {
           description: '',
           media_url: '',
           media_type: 'image',
-          category: 'ambiente',
           is_featured: false,
           is_active: true
         });
@@ -167,7 +162,6 @@ export default function AdminShowroom() {
           description: editingItem.description,
           media_url: editingItem.media_url,
           media_type: editingItem.media_type,
-          category: editingItem.category,
           is_featured: editingItem.is_featured,
           is_active: editingItem.is_active,
         }),
@@ -208,9 +202,7 @@ export default function AdminShowroom() {
     }
   };
 
-  const filteredItems = selectedCategory === 'all' 
-    ? items 
-    : items.filter(item => item.category === selectedCategory);
+  const filteredItems = items;
 
   if (!isAuthenticated) {
     return <AdminAuth onAuthenticated={handleAuthenticated} />;
@@ -236,7 +228,7 @@ export default function AdminShowroom() {
               Showroom
             </h2>
             <p className="mt-1 text-sm text-gray-500">
-              Gerencie ambientes, looks e experiências da marca
+              Gerencie conteúdo visual e experiências da marca
             </p>
           </div>
         </div>
@@ -298,7 +290,7 @@ export default function AdminShowroom() {
                     rows={2}
                     value={formData.subtitle}
                     onChange={(e) => handleInputChange('subtitle', e.target.value)}
-                    placeholder="Explore ambientes, looks e experiências..."
+                    placeholder="Explore experiências visuais..."
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
@@ -347,20 +339,6 @@ export default function AdminShowroom() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
-
-                <div>
-                  <label className="flex items-center mt-6">
-                    <input
-                      type="checkbox"
-                      checked={formData.show_categories}
-                      onChange={(e) => handleInputChange('show_categories', e.target.checked)}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">
-                      Mostrar filtros de categoria
-                    </span>
-                  </label>
-                </div>
               </div>
 
               <div className="mt-6">
@@ -400,17 +378,15 @@ export default function AdminShowroom() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Categoria
+                    Tipo de Mídia
                   </label>
                   <select
-                    value={newItem.category}
-                    onChange={(e) => setNewItem({ ...newItem, category: e.target.value as any })}
+                    value={newItem.media_type}
+                    onChange={(e) => setNewItem({ ...newItem, media_type: e.target.value as any })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
-                    <option value="ambiente">Ambientes</option>
-                    <option value="lookbook">Lookbooks</option>
-                    <option value="lifestyle">Lifestyle</option>
-                    <option value="produtos">Produtos</option>
+                    <option value="image">Imagem</option>
+                    <option value="video">Vídeo</option>
                   </select>
                 </div>
 
@@ -425,20 +401,6 @@ export default function AdminShowroom() {
                     placeholder="Descrição do item do showroom..."
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tipo de Mídia
-                  </label>
-                  <select
-                    value={newItem.media_type}
-                    onChange={(e) => setNewItem({ ...newItem, media_type: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  >
-                    <option value="image">Imagem</option>
-                    <option value="video">Vídeo</option>
-                  </select>
                 </div>
 
                 <div>
@@ -486,26 +448,6 @@ export default function AdminShowroom() {
                 >
                   Adicionar Item
                 </button>
-              </div>
-            </div>
-
-            {/* Filter */}
-            <div className="bg-white shadow rounded-lg p-4">
-              <div className="flex items-center space-x-4">
-                <label className="text-sm font-medium text-gray-700">
-                  Filtrar por categoria:
-                </label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="all">Todas</option>
-                  <option value="ambiente">Ambientes</option>
-                  <option value="lookbook">Lookbooks</option>
-                  <option value="lifestyle">Lifestyle</option>
-                  <option value="produtos">Produtos</option>
-                </select>
               </div>
             </div>
 
@@ -569,7 +511,7 @@ export default function AdminShowroom() {
                         </div>
                       </div>
                       <p className="text-xs text-gray-600 mb-2">
-                        {CATEGORY_LABELS[item.category]} • Posição: {item.position}
+                        Posição: {item.position}
                       </p>
                       {item.description && (
                         <p className="text-xs text-gray-500 line-clamp-2">
@@ -586,10 +528,7 @@ export default function AdminShowroom() {
                   <div className="text-gray-400 text-6xl mb-4">🖼️</div>
                   <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum item</h3>
                   <p className="text-gray-500">
-                    {selectedCategory === 'all' 
-                      ? 'Comece adicionando itens ao showroom.' 
-                      : `Nenhum item na categoria "${CATEGORY_LABELS[selectedCategory as keyof typeof CATEGORY_LABELS]}".`
-                    }
+                    Comece adicionando itens ao showroom.
                   </p>
                 </div>
               )}
@@ -615,16 +554,14 @@ export default function AdminShowroom() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Mídia</label>
                   <select
-                    value={editingItem.category}
-                    onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value as any })}
+                    value={editingItem.media_type}
+                    onChange={(e) => setEditingItem({ ...editingItem, media_type: e.target.value as any })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
-                    <option value="ambiente">Ambientes</option>
-                    <option value="lookbook">Lookbooks</option>
-                    <option value="lifestyle">Lifestyle</option>
-                    <option value="produtos">Produtos</option>
+                    <option value="image">Imagem</option>
+                    <option value="video">Vídeo</option>
                   </select>
                 </div>
 
@@ -636,18 +573,6 @@ export default function AdminShowroom() {
                     onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Mídia</label>
-                  <select
-                    value={editingItem.media_type}
-                    onChange={(e) => setEditingItem({ ...editingItem, media_type: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    <option value="image">Imagem</option>
-                    <option value="video">Vídeo</option>
-                  </select>
                 </div>
 
                 <div className="md:col-span-2">
