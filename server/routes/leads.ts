@@ -321,6 +321,17 @@ export const getLeadsStats: RequestHandler = async (req, res) => {
       FROM leads
       GROUP BY status
     `);
+    const [typeRows] = await pool.execute(`
+      SELECT
+        CASE
+          WHEN has_cnpj = 'sim' THEN 'lojista'
+          WHEN has_cnpj = 'nao' THEN 'consumidor'
+          ELSE 'outro'
+        END as type,
+        COUNT(*) as count
+      FROM leads
+      GROUP BY has_cnpj
+    `);
     const [recentRows] = await pool.execute(`
       SELECT COUNT(*) as recent
       FROM leads
@@ -333,11 +344,16 @@ export const getLeadsStats: RequestHandler = async (req, res) => {
       acc[row.status] = row.count;
       return acc;
     }, {});
+    const byType = (typeRows as any[]).reduce((acc, row) => {
+      acc[row.type] = row.count;
+      return acc;
+    }, {});
 
     res.json({
       total,
       recent,
       byStatus,
+      byType,
     });
   } catch (error) {
     console.error("Error fetching leads stats:", error);
