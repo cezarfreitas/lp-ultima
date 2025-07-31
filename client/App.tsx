@@ -30,7 +30,6 @@ import AdminSEO from "./pages/AdminSEO";
 import MigrateSEO from "./pages/MigrateSEO";
 import AdminPixels from "./pages/AdminPixels";
 import SetupComplete from "./pages/SetupComplete";
-import AdminDashboard from "./pages/AdminDashboard";
 import TestTestimonials from "./pages/TestTestimonials";
 import NotFound from "./pages/NotFound";
 
