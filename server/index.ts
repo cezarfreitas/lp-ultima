@@ -57,6 +57,17 @@ import {
   reorderFAQs,
 } from "./routes/faq";
 import { migrateFAQ } from "./routes/migrate-faq";
+import {
+  getShowroomSection,
+  getAllShowroomItems,
+  updateShowroomSection,
+  createShowroomItem,
+  updateShowroomItem,
+  deleteShowroomItem,
+  reorderShowroomItems,
+  getShowroomByCategory,
+} from "./routes/showroom";
+import { migrateShowroom } from "./routes/migrate-showroom";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
 import path from "path";
