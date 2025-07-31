@@ -97,7 +97,9 @@ export default function Index() {
 
   const fetchProductGallery = async () => {
     try {
-      const data = await silentFetchJson<ProductGallery>("/api/product-gallery");
+      const data = await silentFetchJson<ProductGallery>(
+        "/api/product-gallery",
+      );
       if (data) {
         setProductGallery(data);
       }
