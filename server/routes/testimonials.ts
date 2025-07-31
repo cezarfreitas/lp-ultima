@@ -51,7 +51,7 @@ export const getTestimonialsSection: RequestHandler = async (req, res) => {
     // Get section settings
     const [sectionRows] = await pool.execute('SELECT * FROM testimonials_section LIMIT 1');
     const section = (sectionRows as any[])[0];
-    
+
     if (!section) {
       return res.status(404).json({ error: 'Seção de depoimentos não encontrada' });
     }
@@ -66,10 +66,19 @@ export const getTestimonialsSection: RequestHandler = async (req, res) => {
       ...section,
       testimonials: testimonialRows
     };
-    
+
     res.json(sectionWithTestimonials);
   } catch (error) {
     console.error('Error fetching testimonials section:', error);
+
+    // Check if it's a table doesn't exist error
+    if (error instanceof Error && error.message.includes("doesn't exist")) {
+      return res.status(404).json({
+        error: 'Tabelas de depoimentos não foram criadas ainda',
+        needsMigration: true
+      });
+    }
+
     res.status(500).json({ error: 'Erro interno do servidor' });
   }
 };
