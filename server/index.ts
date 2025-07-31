@@ -2,9 +2,14 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import { getHeroSection, updateHeroSection, createHeroSection } from "./routes/hero";
+import { initializeDatabase } from "./database/config";
 
 export function createServer() {
   const app = express();
+
+  // Initialize database
+  initializeDatabase().catch(console.error);
 
   // Middleware
   app.use(cors());
@@ -18,6 +23,11 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Hero section routes
+  app.get("/api/hero", getHeroSection);
+  app.put("/api/hero", updateHeroSection);
+  app.post("/api/hero", createHeroSection);
 
   return app;
 }
