@@ -152,21 +152,21 @@ export default function AdminProductGallery() {
     }
   };
 
-  const handleAddMultipleProducts = async (urls: string[]) => {
-    if (urls.length === 0) return;
+  const handleAddMultipleProducts = async (uploadedImages: any[]) => {
+    if (uploadedImages.length === 0) return;
 
     setMessage(null);
 
     try {
-      // Add all products in parallel
-      const promises = urls.map((url) =>
+      // Add all products in parallel using medium format URLs
+      const promises = uploadedImages.map((imageData) =>
         fetch("/api/product-gallery/products", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            image_url: url,
+            image_url: imageData.formats?.medium || imageData.url || imageData,
             alt_text: "Produto Ecko",
           }),
         }),
@@ -177,7 +177,7 @@ export default function AdminProductGallery() {
 
       await fetchGallery();
 
-      if (successCount === urls.length) {
+      if (successCount === uploadedImages.length) {
         setMessage({
           type: "success",
           text: `${successCount} produtos adicionados com sucesso!`,
@@ -185,7 +185,7 @@ export default function AdminProductGallery() {
       } else {
         setMessage({
           type: "error",
-          text: `${successCount}/${urls.length} produtos adicionados. Alguns falharam.`,
+          text: `${successCount}/${uploadedImages.length} produtos adicionados. Alguns falharam.`,
         });
       }
     } catch (error) {
@@ -259,7 +259,10 @@ export default function AdminProductGallery() {
     }
   };
 
-  const handleImageUpload = (url: string, isEdit = false) => {
+  const handleImageUpload = (urlOrFormats: string | any, isEdit = false) => {
+    // Handle both old string format and new formats object
+    const url = typeof urlOrFormats === 'string' ? urlOrFormats : urlOrFormats?.medium || urlOrFormats?.large || '';
+
     if (isEdit && editingProduct) {
       setEditingProduct({ ...editingProduct, image_url: url });
     } else {
@@ -510,6 +513,10 @@ export default function AdminProductGallery() {
                     onUrlChange={(url) =>
                       setNewProduct({ ...newProduct, image_url: url })
                     }
+                    onUpload={(formats) => {
+                      const url = formats?.medium || formats?.large || '';
+                      setNewProduct({ ...newProduct, image_url: url });
+                    }}
                   />
                 </div>
               </div>
