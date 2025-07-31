@@ -3,23 +3,23 @@
  * Returns null if the request fails for any reason
  */
 export async function silentFetch(
-  url: string, 
-  options: RequestInit = {}, 
-  timeout = 2000
+  url: string,
+  options: RequestInit = {},
+  timeout = 2000,
 ): Promise<Response | null> {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
-    
+
     const response = await fetch(url, {
       ...options,
       signal: controller.signal,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options.headers,
       },
     });
-    
+
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
@@ -32,16 +32,16 @@ export async function silentFetch(
  * Performs a silent fetch and returns JSON data or null
  */
 export async function silentFetchJson<T>(
-  url: string, 
-  options: RequestInit = {}, 
-  timeout = 2000
+  url: string,
+  options: RequestInit = {},
+  timeout = 2000,
 ): Promise<T | null> {
   const response = await silentFetch(url, options, timeout);
-  
+
   if (!response || !response.ok) {
     return null;
   }
-  
+
   try {
     return await response.json();
   } catch (error) {
