@@ -3,34 +3,38 @@ import { FooterSection, FooterLink } from "@shared/footer";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 
-type Tab = 'configuracoes' | 'links';
+type Tab = "configuracoes" | "links";
 
 export default function AdminFooter() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [activeTab, setActiveTab] = useState<Tab>('configuracoes');
+  const [activeTab, setActiveTab] = useState<Tab>("configuracoes");
   const [section, setSection] = useState<FooterSection | null>(null);
   const [links, setLinks] = useState<FooterLink[]>([]);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    instagram_url: '',
-    facebook_url: '',
-    whatsapp_url: '',
+    title: "",
+    description: "",
+    instagram_url: "",
+    facebook_url: "",
+    whatsapp_url: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const [newLink, setNewLink] = useState({
-    title: '',
-    href: '',
-    is_active: true
+    title: "",
+    href: "",
+    is_active: true,
   });
   const [editingLink, setEditingLink] = useState<FooterLink | null>(null);
 
   useEffect(() => {
-    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    const authenticated =
+      localStorage.getItem("admin_authenticated") === "true";
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
       fetchFooter();
     } else {
@@ -51,31 +55,31 @@ export default function AdminFooter() {
 
   const fetchFooter = async () => {
     try {
-      const response = await fetch('/api/admin/footer');
+      const response = await fetch("/api/admin/footer");
       if (response.ok) {
         const data = await response.json();
         setSection(data);
         setLinks(data.links || []);
         setFormData({
-          title: data.title || '',
-          description: data.description || '',
-          instagram_url: data.instagram_url || '',
-          facebook_url: data.facebook_url || '',
-          whatsapp_url: data.whatsapp_url || '',
+          title: data.title || "",
+          description: data.description || "",
+          instagram_url: data.instagram_url || "",
+          facebook_url: data.facebook_url || "",
+          whatsapp_url: data.whatsapp_url || "",
         });
       }
     } catch (error) {
       console.error("Error fetching footer:", error);
-      setMessage({ type: 'error', text: 'Erro ao carregar footer' });
+      setMessage({ type: "error", text: "Erro ao carregar footer" });
     } finally {
       setLoading(false);
     }
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -84,25 +88,31 @@ export default function AdminFooter() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/footer/section', {
-        method: 'PUT',
+      const response = await fetch("/api/footer/section", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const updatedData = await response.json();
-        setSection(prev => prev ? { ...prev, ...updatedData } : null);
-        setMessage({ type: 'success', text: 'Configurações salvas com sucesso!' });
+        setSection((prev) => (prev ? { ...prev, ...updatedData } : null));
+        setMessage({
+          type: "success",
+          text: "Configurações salvas com sucesso!",
+        });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao salvar configurações' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao salvar configurações",
+        });
       }
     } catch (error) {
-      console.error('Error saving settings:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error saving settings:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setSaving(false);
     }
@@ -110,15 +120,15 @@ export default function AdminFooter() {
 
   const handleAddLink = async () => {
     if (!newLink.title || !newLink.href) {
-      setMessage({ type: 'error', text: 'Título e URL são obrigatórios' });
+      setMessage({ type: "error", text: "Título e URL são obrigatórios" });
       return;
     }
 
     try {
-      const response = await fetch('/api/footer/links', {
-        method: 'POST',
+      const response = await fetch("/api/footer/links", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newLink),
       });
@@ -126,18 +136,21 @@ export default function AdminFooter() {
       if (response.ok) {
         await fetchFooter();
         setNewLink({
-          title: '',
-          href: '',
-          is_active: true
+          title: "",
+          href: "",
+          is_active: true,
         });
-        setMessage({ type: 'success', text: 'Link adicionado com sucesso!' });
+        setMessage({ type: "success", text: "Link adicionado com sucesso!" });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao adicionar link' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao adicionar link",
+        });
       }
     } catch (error) {
-      console.error('Error adding link:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error adding link:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     }
   };
 
@@ -146,9 +159,9 @@ export default function AdminFooter() {
 
     try {
       const response = await fetch(`/api/footer/links/${editingLink.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title: editingLink.title,
@@ -160,35 +173,41 @@ export default function AdminFooter() {
       if (response.ok) {
         await fetchFooter();
         setEditingLink(null);
-        setMessage({ type: 'success', text: 'Link atualizado com sucesso!' });
+        setMessage({ type: "success", text: "Link atualizado com sucesso!" });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao atualizar link' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao atualizar link",
+        });
       }
     } catch (error) {
-      console.error('Error updating link:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error updating link:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     }
   };
 
   const handleDeleteLink = async (linkId: number) => {
-    if (!confirm('Tem certeza que deseja deletar este link?')) return;
+    if (!confirm("Tem certeza que deseja deletar este link?")) return;
 
     try {
       const response = await fetch(`/api/footer/links/${linkId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
         await fetchFooter();
-        setMessage({ type: 'success', text: 'Link deletado com sucesso!' });
+        setMessage({ type: "success", text: "Link deletado com sucesso!" });
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Erro ao deletar link' });
+        setMessage({
+          type: "error",
+          text: errorData.error || "Erro ao deletar link",
+        });
       }
     } catch (error) {
-      console.error('Error deleting link:', error);
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor' });
+      console.error("Error deleting link:", error);
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     }
   };
 
@@ -225,21 +244,21 @@ export default function AdminFooter() {
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8">
             <button
-              onClick={() => setActiveTab('configuracoes')}
+              onClick={() => setActiveTab("configuracoes")}
               className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'configuracoes'
-                  ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                activeTab === "configuracoes"
+                  ? "border-indigo-500 text-indigo-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
               ⚙️ Configurações
             </button>
             <button
-              onClick={() => setActiveTab('links')}
+              onClick={() => setActiveTab("links")}
               className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'links'
-                  ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                activeTab === "links"
+                  ? "border-indigo-500 text-indigo-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
               🔗 Links ({links.length})
@@ -248,14 +267,14 @@ export default function AdminFooter() {
         </div>
 
         {/* Tab Content */}
-        {activeTab === 'configuracoes' && (
+        {activeTab === "configuracoes" && (
           <div className="space-y-6">
             {/* Section Settings */}
             <div className="bg-white shadow rounded-lg p-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                 Configurações do Rodapé
               </h3>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -264,7 +283,7 @@ export default function AdminFooter() {
                   <input
                     type="text"
                     value={formData.title}
-                    onChange={(e) => handleInputChange('title', e.target.value)}
+                    onChange={(e) => handleInputChange("title", e.target.value)}
                     placeholder="Ecko"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
@@ -277,7 +296,9 @@ export default function AdminFooter() {
                   <textarea
                     rows={4}
                     value={formData.description}
-                    onChange={(e) => handleInputChange('description', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("description", e.target.value)
+                    }
                     placeholder="Transforme sua paixão pela moda urbana..."
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
@@ -291,7 +312,9 @@ export default function AdminFooter() {
                     <input
                       type="url"
                       value={formData.instagram_url}
-                      onChange={(e) => handleInputChange('instagram_url', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("instagram_url", e.target.value)
+                      }
                       placeholder="https://instagram.com/ecko"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
@@ -304,7 +327,9 @@ export default function AdminFooter() {
                     <input
                       type="url"
                       value={formData.facebook_url}
-                      onChange={(e) => handleInputChange('facebook_url', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("facebook_url", e.target.value)
+                      }
                       placeholder="https://facebook.com/ecko"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
@@ -317,7 +342,9 @@ export default function AdminFooter() {
                     <input
                       type="url"
                       value={formData.whatsapp_url}
-                      onChange={(e) => handleInputChange('whatsapp_url', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("whatsapp_url", e.target.value)
+                      }
                       placeholder="https://wa.me/5511999999999"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
@@ -331,21 +358,21 @@ export default function AdminFooter() {
                   disabled={saving}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {saving ? 'Salvando...' : 'Salvar Configurações'}
+                  {saving ? "Salvando..." : "Salvar Configurações"}
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {activeTab === 'links' && (
+        {activeTab === "links" && (
           <div className="space-y-6">
             {/* Add New Link */}
             <div className="bg-white shadow rounded-lg p-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                 Adicionar Novo Link
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -354,7 +381,9 @@ export default function AdminFooter() {
                   <input
                     type="text"
                     value={newLink.title}
-                    onChange={(e) => setNewLink({ ...newLink, title: e.target.value })}
+                    onChange={(e) =>
+                      setNewLink({ ...newLink, title: e.target.value })
+                    }
                     placeholder="Nossos Produtos"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
@@ -367,7 +396,9 @@ export default function AdminFooter() {
                   <input
                     type="text"
                     value={newLink.href}
-                    onChange={(e) => setNewLink({ ...newLink, href: e.target.value })}
+                    onChange={(e) =>
+                      setNewLink({ ...newLink, href: e.target.value })
+                    }
                     placeholder="#produtos"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
@@ -378,7 +409,9 @@ export default function AdminFooter() {
                     <input
                       type="checkbox"
                       checked={newLink.is_active}
-                      onChange={(e) => setNewLink({ ...newLink, is_active: e.target.checked })}
+                      onChange={(e) =>
+                        setNewLink({ ...newLink, is_active: e.target.checked })
+                      }
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
                     <span className="ml-2 text-sm text-gray-700">
@@ -403,19 +436,26 @@ export default function AdminFooter() {
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                 Links Cadastrados ({links.length})
               </h3>
-              
+
               <div className="space-y-4">
                 {links.map((link) => (
-                  <div key={link.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                  <div
+                    key={link.id}
+                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+                  >
                     <div className="flex-1">
                       <div className="flex items-center space-x-3">
-                        <h4 className="font-medium text-gray-900">{link.title}</h4>
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          link.is_active 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {link.is_active ? 'Ativo' : 'Inativo'}
+                        <h4 className="font-medium text-gray-900">
+                          {link.title}
+                        </h4>
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            link.is_active
+                              ? "bg-green-100 text-green-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {link.is_active ? "Ativo" : "Inativo"}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500 mt-1">
@@ -443,7 +483,9 @@ export default function AdminFooter() {
               {links.length === 0 && (
                 <div className="text-center py-12">
                   <div className="text-gray-400 text-6xl mb-4">🔗</div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum link</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Nenhum link
+                  </h3>
                   <p className="text-gray-500">
                     Comece adicionando links ao rodapé.
                   </p>
@@ -458,24 +500,32 @@ export default function AdminFooter() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h3 className="text-lg font-medium mb-4">Editar Link</h3>
-              
+
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Título
+                  </label>
                   <input
                     type="text"
                     value={editingLink.title}
-                    onChange={(e) => setEditingLink({ ...editingLink, title: e.target.value })}
+                    onChange={(e) =>
+                      setEditingLink({ ...editingLink, title: e.target.value })
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    URL
+                  </label>
                   <input
                     type="text"
                     value={editingLink.href}
-                    onChange={(e) => setEditingLink({ ...editingLink, href: e.target.value })}
+                    onChange={(e) =>
+                      setEditingLink({ ...editingLink, href: e.target.value })
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
@@ -485,10 +535,17 @@ export default function AdminFooter() {
                     <input
                       type="checkbox"
                       checked={editingLink.is_active}
-                      onChange={(e) => setEditingLink({ ...editingLink, is_active: e.target.checked })}
+                      onChange={(e) =>
+                        setEditingLink({
+                          ...editingLink,
+                          is_active: e.target.checked,
+                        })
+                      }
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
-                    <span className="ml-2 text-sm text-gray-700">Link ativo</span>
+                    <span className="ml-2 text-sm text-gray-700">
+                      Link ativo
+                    </span>
                   </label>
                 </div>
               </div>
@@ -513,11 +570,13 @@ export default function AdminFooter() {
 
         {/* System Messages */}
         {message && (
-          <div className={`p-4 rounded-md ${
-            message.type === 'success' 
-              ? 'bg-green-50 border border-green-200 text-green-700' 
-              : 'bg-red-50 border border-red-200 text-red-700'
-          }`}>
+          <div
+            className={`p-4 rounded-md ${
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-700"
+                : "bg-red-50 border border-red-200 text-red-700"
+            }`}
+          >
             {message.text}
           </div>
         )}

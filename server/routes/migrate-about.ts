@@ -42,55 +42,67 @@ export const migrateAbout: RequestHandler = async (req, res) => {
     `);
 
     // Insert default section if doesn't exist
-    const [sectionRows] = await pool.execute('SELECT COUNT(*) as count FROM about_section');
+    const [sectionRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM about_section",
+    );
     const sectionCount = (sectionRows as any[])[0].count;
 
     let sectionId;
     if (sectionCount === 0) {
-      const [sectionResult] = await pool.execute(`
+      const [sectionResult] = await pool.execute(
+        `
         INSERT INTO about_section (title, subtitle, description, background_type, image_url, button_text, button_url, show_stats)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `, [
-        DEFAULT_ABOUT_DATA.title,
-        DEFAULT_ABOUT_DATA.subtitle,
-        DEFAULT_ABOUT_DATA.description,
-        DEFAULT_ABOUT_DATA.background_type,
-        DEFAULT_ABOUT_DATA.image_url,
-        DEFAULT_ABOUT_DATA.button_text,
-        DEFAULT_ABOUT_DATA.button_url,
-        DEFAULT_ABOUT_DATA.show_stats
-      ]);
+      `,
+        [
+          DEFAULT_ABOUT_DATA.title,
+          DEFAULT_ABOUT_DATA.subtitle,
+          DEFAULT_ABOUT_DATA.description,
+          DEFAULT_ABOUT_DATA.background_type,
+          DEFAULT_ABOUT_DATA.image_url,
+          DEFAULT_ABOUT_DATA.button_text,
+          DEFAULT_ABOUT_DATA.button_url,
+          DEFAULT_ABOUT_DATA.show_stats,
+        ],
+      );
       sectionId = (sectionResult as any).insertId;
     } else {
-      const [sections] = await pool.execute('SELECT id FROM about_section LIMIT 1');
+      const [sections] = await pool.execute(
+        "SELECT id FROM about_section LIMIT 1",
+      );
       sectionId = (sections as any[])[0].id;
     }
 
     // Insert default stats if table is empty
-    const [statsRows] = await pool.execute('SELECT COUNT(*) as count FROM about_stats');
+    const [statsRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM about_stats",
+    );
     const statsCount = (statsRows as any[])[0].count;
 
     if (statsCount === 0) {
       for (const stat of DEFAULT_ABOUT_DATA.stats) {
-        await pool.execute(`
+        await pool.execute(
+          `
           INSERT INTO about_stats (section_id, title, value, description, icon, is_active, position)
           VALUES (?, ?, ?, ?, ?, ?, ?)
-        `, [
-          sectionId,
-          stat.title,
-          stat.value,
-          stat.description,
-          stat.icon,
-          stat.is_active,
-          stat.position
-        ]);
+        `,
+          [
+            sectionId,
+            stat.title,
+            stat.value,
+            stat.description,
+            stat.icon,
+            stat.is_active,
+            stat.position,
+          ],
+        );
       }
     }
 
     res.json({
       message: "Tabelas de About criadas com sucesso!",
       tables: ["about_section", "about_stats"],
-      defaultData: `${DEFAULT_ABOUT_DATA.stats.length} estatísticas padrão inseridas`
+      defaultData: `${DEFAULT_ABOUT_DATA.stats.length} estatísticas padrão inseridas`,
     });
   } catch (error) {
     console.error("Migration error:", error);

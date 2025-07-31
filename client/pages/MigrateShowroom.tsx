@@ -11,10 +11,10 @@ export default function MigrateShowroom() {
     setResult(null);
 
     try {
-      const response = await fetch('/api/migrate-showroom', {
-        method: 'POST',
+      const response = await fetch("/api/migrate-showroom", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -23,10 +23,10 @@ export default function MigrateShowroom() {
       if (response.ok) {
         setResult(data);
       } else {
-        setError(data.error || 'Erro na migração');
+        setError(data.error || "Erro na migração");
       }
     } catch (err) {
-      setError('Erro ao conectar com o servidor');
+      setError("Erro ao conectar com o servidor");
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ export default function MigrateShowroom() {
             disabled={loading}
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Executando...' : 'Executar Migração'}
+            {loading ? "Executando..." : "Executar Migração"}
           </button>
 
           {result && (

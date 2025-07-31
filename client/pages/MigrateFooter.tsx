@@ -11,10 +11,10 @@ export default function MigrateFooter() {
     setResult(null);
 
     try {
-      const response = await fetch('/api/migrate-footer', {
-        method: 'POST',
+      const response = await fetch("/api/migrate-footer", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -23,11 +23,11 @@ export default function MigrateFooter() {
       if (response.ok) {
         setResult(data);
       } else {
-        setError(data.error || 'Erro desconhecido');
+        setError(data.error || "Erro desconhecido");
       }
     } catch (err) {
-      setError('Erro ao conectar com o servidor');
-      console.error('Migration error:', err);
+      setError("Erro ao conectar com o servidor");
+      console.error("Migration error:", err);
     } finally {
       setLoading(false);
     }
@@ -40,10 +40,10 @@ export default function MigrateFooter() {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Migração de Footer
           </h1>
-          
+
           <p className="text-gray-600 mb-6">
-            Esta migração criará as tabelas necessárias para o sistema de footer e 
-            adicionará dados padrão se as tabelas estiverem vazias.
+            Esta migração criará as tabelas necessárias para o sistema de footer
+            e adicionará dados padrão se as tabelas estiverem vazias.
           </p>
 
           <div className="space-y-4">
@@ -51,8 +51,18 @@ export default function MigrateFooter() {
               Tabelas que serão criadas:
             </h2>
             <ul className="list-disc list-inside text-gray-600 space-y-1">
-              <li><code className="bg-gray-100 px-2 py-1 rounded text-sm">footer_section</code> - Configurações do rodapé</li>
-              <li><code className="bg-gray-100 px-2 py-1 rounded text-sm">footer_links</code> - Links do rodapé</li>
+              <li>
+                <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                  footer_section
+                </code>{" "}
+                - Configurações do rodapé
+              </li>
+              <li>
+                <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                  footer_links
+                </code>{" "}
+                - Links do rodapé
+              </li>
             </ul>
           </div>
 
@@ -62,7 +72,7 @@ export default function MigrateFooter() {
               disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-2 rounded-md font-medium transition-colors"
             >
-              {loading ? 'Executando migração...' : 'Executar Migração'}
+              {loading ? "Executando migração..." : "Executar Migração"}
             </button>
           </div>
 
@@ -75,7 +85,9 @@ export default function MigrateFooter() {
 
           {error && (
             <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
-              <h3 className="text-sm font-medium text-red-800 mb-2">Erro na Migração</h3>
+              <h3 className="text-sm font-medium text-red-800 mb-2">
+                Erro na Migração
+              </h3>
               <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
@@ -92,14 +104,17 @@ export default function MigrateFooter() {
                     <p className="font-medium">Tabelas criadas:</p>
                     <ul className="list-disc list-inside mt-1">
                       {result.tables.map((table: string) => (
-                        <li key={table} className="font-mono">{table}</li>
+                        <li key={table} className="font-mono">
+                          {table}
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
                 {result.defaultData && (
                   <p className="mt-2">
-                    <span className="font-medium">Dados padrão:</span> {result.defaultData}
+                    <span className="font-medium">Dados padrão:</span>{" "}
+                    {result.defaultData}
                   </p>
                 )}
               </div>

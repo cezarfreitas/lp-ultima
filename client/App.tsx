@@ -55,7 +55,10 @@ const App = () => (
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
-          <Route path="/migrate-testimonials" element={<MigrateTestimonials />} />
+          <Route
+            path="/migrate-testimonials"
+            element={<MigrateTestimonials />}
+          />
           <Route path="/migrate-faq" element={<MigrateFAQ />} />
           <Route path="/migrate-showroom" element={<MigrateShowroom />} />
           <Route path="/migrate-about" element={<MigrateAbout />} />

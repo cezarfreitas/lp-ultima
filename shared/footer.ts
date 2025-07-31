@@ -44,7 +44,8 @@ export interface FooterLinkUpdateRequest {
 
 export const DEFAULT_FOOTER_DATA = {
   title: "Ecko",
-  description: "Transforme sua paixão pela moda urbana em um negócio lucrativo. Seja um lojista oficial Ecko e tenha acesso a preços e produtos exclusivos.",
+  description:
+    "Transforme sua paixão pela moda urbana em um negócio lucrativo. Seja um lojista oficial Ecko e tenha acesso a preços e produtos exclusivos.",
   instagram_url: "#",
   facebook_url: "#",
   whatsapp_url: "#",
@@ -53,31 +54,31 @@ export const DEFAULT_FOOTER_DATA = {
       title: "Nossos Produtos",
       href: "#produtos",
       is_active: true,
-      position: 1
+      position: 1,
     },
     {
       title: "Vantagens",
       href: "#vantagens",
       is_active: true,
-      position: 2
+      position: 2,
     },
     {
       title: "Depoimentos",
       href: "#testimonials",
       is_active: true,
-      position: 3
+      position: 3,
     },
     {
       title: "FAQ",
       href: "#faq",
       is_active: true,
-      position: 4
+      position: 4,
     },
     {
       title: "Showroom",
       href: "#showroom",
       is_active: true,
-      position: 5
-    }
-  ]
+      position: 5,
+    },
+  ],
 };

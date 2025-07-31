@@ -37,50 +37,56 @@ export const migrateFooter: RequestHandler = async (req, res) => {
     `);
 
     // Insert default section if doesn't exist
-    const [sectionRows] = await pool.execute('SELECT COUNT(*) as count FROM footer_section');
+    const [sectionRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM footer_section",
+    );
     const sectionCount = (sectionRows as any[])[0].count;
 
     let sectionId;
     if (sectionCount === 0) {
-      const [sectionResult] = await pool.execute(`
+      const [sectionResult] = await pool.execute(
+        `
         INSERT INTO footer_section (title, description, instagram_url, facebook_url, whatsapp_url)
         VALUES (?, ?, ?, ?, ?)
-      `, [
-        DEFAULT_FOOTER_DATA.title,
-        DEFAULT_FOOTER_DATA.description,
-        DEFAULT_FOOTER_DATA.instagram_url,
-        DEFAULT_FOOTER_DATA.facebook_url,
-        DEFAULT_FOOTER_DATA.whatsapp_url
-      ]);
+      `,
+        [
+          DEFAULT_FOOTER_DATA.title,
+          DEFAULT_FOOTER_DATA.description,
+          DEFAULT_FOOTER_DATA.instagram_url,
+          DEFAULT_FOOTER_DATA.facebook_url,
+          DEFAULT_FOOTER_DATA.whatsapp_url,
+        ],
+      );
       sectionId = (sectionResult as any).insertId;
     } else {
-      const [sections] = await pool.execute('SELECT id FROM footer_section LIMIT 1');
+      const [sections] = await pool.execute(
+        "SELECT id FROM footer_section LIMIT 1",
+      );
       sectionId = (sections as any[])[0].id;
     }
 
     // Insert default footer links if table is empty
-    const [linksRows] = await pool.execute('SELECT COUNT(*) as count FROM footer_links');
+    const [linksRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM footer_links",
+    );
     const linksCount = (linksRows as any[])[0].count;
 
     if (linksCount === 0) {
       for (const link of DEFAULT_FOOTER_DATA.links) {
-        await pool.execute(`
+        await pool.execute(
+          `
           INSERT INTO footer_links (section_id, title, href, is_active, position)
           VALUES (?, ?, ?, ?, ?)
-        `, [
-          sectionId,
-          link.title,
-          link.href,
-          link.is_active,
-          link.position
-        ]);
+        `,
+          [sectionId, link.title, link.href, link.is_active, link.position],
+        );
       }
     }
 
     res.json({
       message: "Tabelas de footer criadas com sucesso!",
       tables: ["footer_section", "footer_links"],
-      defaultData: `${DEFAULT_FOOTER_DATA.links.length} links padrão inseridos`
+      defaultData: `${DEFAULT_FOOTER_DATA.links.length} links padrão inseridos`,
     });
   } catch (error) {
     console.error("Migration error:", error);

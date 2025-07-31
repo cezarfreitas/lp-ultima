@@ -41,53 +41,65 @@ export const migrateShowroom: RequestHandler = async (req, res) => {
     `);
 
     // Insert default section if doesn't exist
-    const [sectionRows] = await pool.execute('SELECT COUNT(*) as count FROM showroom_section');
+    const [sectionRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM showroom_section",
+    );
     const sectionCount = (sectionRows as any[])[0].count;
 
     let sectionId;
     if (sectionCount === 0) {
-      const [sectionResult] = await pool.execute(`
+      const [sectionResult] = await pool.execute(
+        `
         INSERT INTO showroom_section (title, subtitle, background_type, layout_type, max_items)
         VALUES (?, ?, ?, ?, ?)
-      `, [
-        'Nosso [destaque]Showroom[/destaque]',
-        'Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.',
-        'dark',
-        'masonry',
-        12
-      ]);
+      `,
+        [
+          "Nosso [destaque]Showroom[/destaque]",
+          "Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.",
+          "dark",
+          "masonry",
+          12,
+        ],
+      );
       sectionId = (sectionResult as any).insertId;
     } else {
-      const [sections] = await pool.execute('SELECT id FROM showroom_section LIMIT 1');
+      const [sections] = await pool.execute(
+        "SELECT id FROM showroom_section LIMIT 1",
+      );
       sectionId = (sections as any[])[0].id;
     }
 
     // Insert default showroom items if table is empty
-    const [showroomRows] = await pool.execute('SELECT COUNT(*) as count FROM showroom_items');
+    const [showroomRows] = await pool.execute(
+      "SELECT COUNT(*) as count FROM showroom_items",
+    );
     const showroomCount = (showroomRows as any[])[0].count;
 
     if (showroomCount === 0) {
       for (const item of DEFAULT_SHOWROOM_DATA) {
-        await pool.execute(`
+        await pool.execute(
+          `
           INSERT INTO showroom_items (section_id, title, description, media_url, media_type, is_featured, is_active, position)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `, [
-          sectionId,
-          item.title,
-          item.description,
-          item.media_url,
-          item.media_type,
-          item.is_featured,
-          item.is_active,
-          item.position
-        ]);
+        `,
+          [
+            sectionId,
+            item.title,
+            item.description,
+            item.media_url,
+            item.media_type,
+            item.is_featured,
+            item.is_active,
+            item.position,
+          ],
+        );
       }
     }
 
     res.json({
       message: "Tabelas de showroom criadas com sucesso!",
       tables: ["showroom_section", "showroom_items"],
-      defaultData: `${DEFAULT_SHOWROOM_DATA.length} itens padrão inseridos`
+      defaultData: `${DEFAULT_SHOWROOM_DATA.length} itens padrão inseridos`,
     });
   } catch (error) {
     console.error("Migration error:", error);
