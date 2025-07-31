@@ -144,6 +144,9 @@ export function createServer() {
   app.post("/api/upload-multi", uploadMultiFormat);
   app.get("/api/image-formats/:filename", getImageFormats);
 
+  // Debug route
+  app.get("/api/debug/image-urls", getDebugImageUrls);
+
   // Hero section routes
   app.get("/api/hero", getHeroSection);
   app.put("/api/hero", updateHeroSection);
