@@ -29,6 +29,10 @@ import {
   getWebhookSettings,
   updateWebhookSettings,
 } from "./routes/webhooks";
+import {
+  getFormContent,
+  updateFormContent,
+} from "./routes/form-content";
 import { initializeDatabase } from "./database/config";
 import path from "path";
 
