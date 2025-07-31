@@ -195,15 +195,9 @@ export default function Index() {
 
           {/* Botão */}
           <div className="mt-6 md:mt-10 mb-12 md:mb-20">
-            <button className="group relative inline-flex items-center justify-center px-8 py-3 sm:px-12 sm:py-4 md:px-16 md:py-5 text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white bg-gradient-to-r from-red-600 to-red-800 rounded-full hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl border-2 border-red-500/40 shadow-xl tracking-wide uppercase">
-              <span className="relative z-10 drop-shadow-lg">
-                {data.button_text}
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-0 group-hover:opacity-25 transition-opacity duration-300"></div>
-
-              {/* Enhanced glow effect */}
-              <div className="absolute inset-0 bg-red-500/30 rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-60"></div>
-            </button>
+            <a href="#form" className="hero-btn">
+              {data.button_text}
+            </a>
           </div>
         </div>
 
