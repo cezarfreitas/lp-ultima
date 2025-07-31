@@ -107,7 +107,7 @@ export default function Index() {
           <div className="mb-10 max-w-3xl mx-auto">
             <p className="text-lg md:text-xl lg:text-2xl text-gray-100 leading-relaxed tracking-wide font-light">
               <span className="drop-shadow-md">
-                {data.description}
+                {renderTextWithHighlights(data.description)}
               </span>
             </p>
           </div>
