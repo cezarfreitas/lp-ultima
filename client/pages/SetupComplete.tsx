@@ -117,7 +117,8 @@ export default function SetupComplete() {
               <li>Migração dos Testimonials</li>
               <li>Migração da seção About</li>
               <li>Migração do Footer</li>
-              <li><strong>Migração do SEO (NOVO)</strong> - Otimizado para "Seja um Lojista Oficial Ecko"</li>
+              <li><strong>Migração do SEO</strong> - Otimizado para "Seja um Lojista Oficial Ecko"</li>
+              <li><strong>Migração dos Pixels (NOVO)</strong> - Sistema de rastreamento GA4, Meta Pixel, GTM</li>
             </ul>
           </div>
 
