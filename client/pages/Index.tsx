@@ -174,10 +174,8 @@ export default function Index() {
 
           {/* Texto de Impacto */}
           <div className="mb-8 md:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 md:mb-8 leading-[1.1] tracking-tight uppercase text-center max-w-4xl mx-auto px-4">
-              <span className="block text-white drop-shadow-2xl">
-                {renderTextWithHighlights(data.impact_title)}
-              </span>
+            <h1 className="hero-title">
+              {renderTextWithHighlights(data.impact_title)}
             </h1>
 
             {/* Divisor decorativo */}
