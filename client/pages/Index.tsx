@@ -230,11 +230,11 @@ export default function Index() {
             <div className="space-y-8">
               <div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  {formContent?.main_title || 'Por que ser um'}
+                  {renderTextWithHighlights(formContent?.main_title || 'Por que ser um')}
                   <span className="block text-red-600">Lojista Ecko?</span>
                 </h2>
                 <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                  {formContent?.main_subtitle || 'Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.'}
+                  {renderTextWithHighlights(formContent?.main_subtitle || 'Junte-se à nossa rede de parceiros e transforme sua paixão pela moda urbana em um negócio lucrativo.')}
                 </p>
               </div>
 
