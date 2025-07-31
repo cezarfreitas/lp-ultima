@@ -65,7 +65,6 @@ import {
   updateShowroomItem,
   deleteShowroomItem,
   reorderShowroomItems,
-  getShowroomByCategory,
 } from "./routes/showroom";
 import { migrateShowroom } from "./routes/migrate-showroom";
 import { initializeDatabase } from "./database/config";
@@ -169,7 +168,6 @@ export function createServer() {
   app.put("/api/showroom/:id", updateShowroomItem);
   app.delete("/api/showroom/:id", deleteShowroomItem);
   app.post("/api/showroom/reorder", reorderShowroomItems);
-  app.get("/api/showroom/category/:category", getShowroomByCategory);
 
   // Migration routes
   app.post("/api/migrate-testimonials", migrateTestimonials);
