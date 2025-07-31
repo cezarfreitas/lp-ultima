@@ -17,6 +17,7 @@ import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminSettings from "./pages/AdminSettings";
 import InitDB from "./pages/InitDB";
 import Migrate from "./pages/Migrate";
+import MigrateTestimonials from "./pages/MigrateTestimonials";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
