@@ -4,11 +4,17 @@ interface ImageUploadCompressedProps {
   label?: string;
   currentUrl?: string;
   onUrlChange?: (url: string) => void;
-  onUpload?: (url: string) => void;
+  onUpload?: (formats: ImageFormats) => void;
   placeholder?: string;
   previewHeight?: string;
-  maxWidth?: number;
-  quality?: number;
+  preferredFormat?: 'thumbnail' | 'small' | 'medium' | 'large';
+}
+
+interface ImageFormats {
+  thumbnail: string;
+  small: string;
+  medium: string;
+  large: string;
 }
 
 export default function ImageUploadCompressed({
@@ -18,64 +24,14 @@ export default function ImageUploadCompressed({
   onUpload,
   placeholder = "https://exemplo.com/imagem.jpg",
   previewHeight = "h-48",
-  maxWidth = 1200,
-  quality = 0.8,
+  preferredFormat = 'medium',
 }: ImageUploadCompressedProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [compressionInfo, setCompressionInfo] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Function to compress image
-  const compressImage = (file: File): Promise<File> => {
-    return new Promise((resolve) => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d")!;
-      const img = new Image();
 
-      img.onload = () => {
-        // Calculate new dimensions
-        let { width, height } = img;
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width;
-          width = maxWidth;
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        // Draw and compress
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              const compressedFile = new File([blob], file.name, {
-                type: "image/jpeg",
-                lastModified: Date.now(),
-              });
-
-              const originalSize = (file.size / 1024).toFixed(1);
-              const compressedSize = (compressedFile.size / 1024).toFixed(1);
-              const reduction = (
-                ((file.size - compressedFile.size) / file.size) *
-                100
-              ).toFixed(1);
-
-              setCompressionInfo(
-                `Comprimida: ${originalSize}KB → ${compressedSize}KB (${reduction}% menor)`,
-              );
-              resolve(compressedFile);
-            }
-          },
-          "image/jpeg",
-          quality,
-        );
-      };
-
-      img.src = URL.createObjectURL(file);
-    });
-  };
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -85,16 +41,13 @@ export default function ImageUploadCompressed({
 
     setUploading(true);
     setUploadError(null);
-    setCompressionInfo("Comprimindo imagem...");
+    setCompressionInfo("Processando imagem em múltiplos formatos...");
 
     try {
-      // Compress image before upload
-      const compressedFile = await compressImage(file);
-
       const formData = new FormData();
-      formData.append("file", compressedFile);
+      formData.append("file", file);
 
-      const response = await fetch("/api/upload", {
+      const response = await fetch("/api/upload/multi-format", {
         method: "POST",
         body: formData,
       });
@@ -102,8 +55,18 @@ export default function ImageUploadCompressed({
       const data = await response.json();
 
       if (response.ok) {
-        if (onUrlChange) onUrlChange(data.url);
-        if (onUpload) onUpload(data.url);
+        const formats: ImageFormats = data.formats;
+
+        // Update URL for backwards compatibility
+        if (onUrlChange) onUrlChange(formats[preferredFormat]);
+
+        // Pass all formats to callback
+        if (onUpload) onUpload(formats);
+
+        // Update compression info
+        setCompressionInfo(
+          `Gerados 4 formatos • Economia: ${data.compression.total_savings_percent}% • ${data.compression.space_saved} economizados`
+        );
       } else {
         setUploadError(data.error || "Erro no upload");
         setCompressionInfo("");
@@ -164,7 +127,7 @@ export default function ImageUploadCompressed({
           </button>
 
           <div className="text-xs text-gray-500">
-            PNG, JPG até 5MB • Compressão automática
+            PNG, JPG até 10MB • 4 formatos automáticos (thumbnail, small, medium, large)
           </div>
 
           {/* Compression info */}
