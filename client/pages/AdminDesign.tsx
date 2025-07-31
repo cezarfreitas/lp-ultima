@@ -331,7 +331,6 @@ export default function AdminDesign() {
               <p
                 style={{
                   color: formData.text_color || "#000000",
-                  fontWeight: formData.font_weight_normal || "400",
                 }}
                 className="mb-4"
               >
