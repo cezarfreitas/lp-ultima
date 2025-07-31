@@ -56,10 +56,10 @@ export async function initializeDatabase() {
       CREATE TABLE IF NOT EXISTS leads (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        phone VARCHAR(50),
-        company VARCHAR(255),
-        message TEXT,
+        whatsapp VARCHAR(50),
+        has_cnpj ENUM('sim', 'nao') NOT NULL,
+        store_type ENUM('fisica', 'online', 'fisica_online', 'midias_sociais'),
+        cep VARCHAR(10),
         source VARCHAR(100) DEFAULT 'website',
         status ENUM('new', 'contacted', 'qualified', 'converted', 'lost') DEFAULT 'new',
         webhook_sent BOOLEAN DEFAULT FALSE,
@@ -68,11 +68,62 @@ export async function initializeDatabase() {
         user_agent TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        INDEX idx_email (email),
+        INDEX idx_has_cnpj (has_cnpj),
         INDEX idx_status (status),
         INDEX idx_created_at (created_at)
       )
     `);
+
+    // Check if leads table exists and has old structure, then migrate
+    try {
+      const [columns] = await pool.execute(`
+        SELECT COLUMN_NAME
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'leads'
+      `, [dbConfig.database]);
+
+      const columnNames = (columns as any[]).map(col => col.COLUMN_NAME);
+
+      // If old columns exist, migrate them
+      if (columnNames.includes('email')) {
+        console.log('Migrating leads table to new structure...');
+
+        // Drop old structure and recreate
+        await pool.execute('DROP TABLE IF EXISTS leads_backup');
+        await pool.execute(`
+          CREATE TABLE leads_backup AS SELECT * FROM leads
+        `);
+
+        await pool.execute('DROP TABLE leads');
+
+        // Recreate with new structure
+        await pool.execute(`
+          CREATE TABLE leads (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            name VARCHAR(255) NOT NULL,
+            whatsapp VARCHAR(50),
+            has_cnpj ENUM('sim', 'nao') NOT NULL,
+            store_type ENUM('fisica', 'online', 'fisica_online', 'midias_sociais'),
+            cep VARCHAR(10),
+            source VARCHAR(100) DEFAULT 'website',
+            status ENUM('new', 'contacted', 'qualified', 'converted', 'lost') DEFAULT 'new',
+            webhook_sent BOOLEAN DEFAULT FALSE,
+            webhook_attempts INT DEFAULT 0,
+            ip_address VARCHAR(45),
+            user_agent TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX idx_has_cnpj (has_cnpj),
+            INDEX idx_status (status),
+            INDEX idx_created_at (created_at)
+          )
+        `);
+
+        console.log('Leads table migrated successfully');
+      }
+    } catch (error) {
+      console.log('No existing leads table to migrate or migration not needed');
+    }
 
     // Insert default data if tables are empty
     const [heroRows] = await pool.execute(
