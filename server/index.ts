@@ -152,6 +152,7 @@ export function createServer() {
   app.get("/api/debug/image-urls", getDebugImageUrls);
   app.post("/api/migrate-urls", migrateUrls);
   app.post("/api/fix-gallery", fixGalleryUrls);
+  app.post("/api/process-existing-images", processExistingImages);
 
   // Hero section routes
   app.get("/api/hero", getHeroSection);
