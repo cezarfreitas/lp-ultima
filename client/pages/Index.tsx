@@ -139,14 +139,7 @@ export default function Index() {
 
   const fetchProductGallery = async (retryCount = 0) => {
     try {
-      // Check API health before attempting fetch
-      if (retryCount === 0) {
-        const isHealthy = await checkApiHealth();
-        if (!isHealthy && getApiHealthStatus() === "unhealthy") {
-          console.log("API unhealthy, skipping product gallery fetch");
-          return;
-        }
-      }
+      // Circuit breaker and silentFetch will handle API health
 
       const data = await silentFetchJson<ProductGallery>(
         getApiUrl("api/product-gallery"),
