@@ -32,11 +32,27 @@ export default function Index() {
 
   useEffect(() => {
     // Add delay to avoid immediate fetch errors on initial load
-    const timer = setTimeout(() => {
-      fetchHeroData();
-      fetchFormContent();
-      fetchProductGallery();
-    }, 500);
+    const timer = setTimeout(async () => {
+      // Check API health first
+      const isHealthy = await checkApiHealth();
+
+      if (isHealthy) {
+        fetchHeroData();
+        fetchFormContent();
+        fetchProductGallery();
+      } else {
+        // API is not responding, set loading to false and continue with default data
+        console.log('API not available, using default data');
+        setLoading(false);
+
+        // Try again later
+        setTimeout(() => {
+          fetchHeroData();
+          fetchFormContent();
+          fetchProductGallery();
+        }, 10000); // Try again in 10 seconds
+      }
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
