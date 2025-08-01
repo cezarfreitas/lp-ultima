@@ -76,7 +76,11 @@ export default function Index() {
 
   const fetchHeroData = async () => {
     try {
-      const data = await silentFetchJson<HeroSectionData>(getApiUrl("api/hero"), {}, 15000);
+      const data = await silentFetchJson<HeroSectionData>(
+        getApiUrl("api/hero"),
+        {},
+        15000,
+      );
       if (data) {
         setHeroData(data);
       }
@@ -89,7 +93,11 @@ export default function Index() {
 
   const fetchFormContent = async () => {
     try {
-      const data = await silentFetchJson<FormContent>(getApiUrl("api/form-content"), {}, 15000);
+      const data = await silentFetchJson<FormContent>(
+        getApiUrl("api/form-content"),
+        {},
+        15000,
+      );
       if (data) {
         setFormContent(data);
       }
@@ -103,15 +111,18 @@ export default function Index() {
       const data = await silentFetchJson<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
-        15000 // 15 second timeout
+        15000, // 15 second timeout
       );
       if (data) {
         setProductGallery(data);
       } else if (retryCount < 2) {
         // Retry up to 2 times with exponential backoff
-        setTimeout(() => {
-          fetchProductGallery(retryCount + 1);
-        }, Math.pow(2, retryCount) * 1000);
+        setTimeout(
+          () => {
+            fetchProductGallery(retryCount + 1);
+          },
+          Math.pow(2, retryCount) * 1000,
+        );
       }
     } catch (error) {
       // silentFetch handles errors silently

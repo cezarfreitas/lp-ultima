@@ -23,14 +23,15 @@ export default function ProcessImages() {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Process Existing Images</h1>
-      
+
       <div className="mb-4 p-4 bg-blue-50 rounded">
         <p className="text-blue-800">
-          Isso irá processar todas as imagens existentes em /uploads/ e criar versões otimizadas 
-          em 4 formatos (thumbnail, small, medium, large) com crop quadrado ideal para a galeria.
+          Isso irá processar todas as imagens existentes em /uploads/ e criar
+          versões otimizadas em 4 formatos (thumbnail, small, medium, large) com
+          crop quadrado ideal para a galeria.
         </p>
       </div>
-      
+
       <button
         onClick={handleProcess}
         disabled={loading}

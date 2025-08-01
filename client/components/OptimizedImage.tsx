@@ -125,10 +125,16 @@ export default function OptimizedImage({
 
   const getOptimizedSrc = (baseSrc: string, targetWidth?: number) => {
     // Handle our multi-format uploads
-    if (baseSrc.includes("/uploads/") && !baseSrc.includes("/uploads/thumbnail/") && !baseSrc.includes("/uploads/small/") && !baseSrc.includes("/uploads/medium/") && !baseSrc.includes("/uploads/large/")) {
+    if (
+      baseSrc.includes("/uploads/") &&
+      !baseSrc.includes("/uploads/thumbnail/") &&
+      !baseSrc.includes("/uploads/small/") &&
+      !baseSrc.includes("/uploads/medium/") &&
+      !baseSrc.includes("/uploads/large/")
+    ) {
       // Convert old single format to new multi-format
       const filename = baseSrc.replace("/uploads/", "");
-      const baseName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+      const baseName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, "");
 
       // Choose format based on target width - prefer small for gallery
       let format = "small"; // default for gallery items
@@ -163,7 +169,9 @@ export default function OptimizedImage({
 
       // If current format is not optimal, switch to optimal
       if (currentFormat !== optimalFormat) {
-        return baseSrc.replace(`/uploads/${currentFormat}/`, `/uploads/${optimalFormat}/`).replace(`-${currentFormat}.webp`, `-${optimalFormat}.webp`);
+        return baseSrc
+          .replace(`/uploads/${currentFormat}/`, `/uploads/${optimalFormat}/`)
+          .replace(`-${currentFormat}.webp`, `-${optimalFormat}.webp`);
       }
 
       return baseSrc;
@@ -229,7 +237,10 @@ export default function OptimizedImage({
           onError={(e) => {
             // Fallback to original image if optimized version fails
             if (e.currentTarget.src !== fallbackSrc) {
-              console.log("Optimized image failed, falling back to original:", optimizedSrc);
+              console.log(
+                "Optimized image failed, falling back to original:",
+                optimizedSrc,
+              );
               e.currentTarget.src = fallbackSrc;
             } else {
               console.error("Both optimized and fallback images failed:", src);

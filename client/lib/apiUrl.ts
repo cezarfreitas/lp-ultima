@@ -3,18 +3,18 @@
  */
 export function getApiUrl(endpoint: string): string {
   // Remove leading slash if present
-  const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
-  
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+
   // In development, use relative URLs
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     return `/${cleanEndpoint}`;
   }
-  
+
   // In production, construct full URL using current origin
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return `${window.location.origin}/${cleanEndpoint}`;
   }
-  
+
   // Fallback for SSR or when window is not available
   return `/${cleanEndpoint}`;
 }

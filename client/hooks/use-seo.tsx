@@ -18,16 +18,23 @@ export function useSEO() {
 
   const fetchSEOData = async (retryCount = 0) => {
     try {
-      const data = await silentFetchJson<SEOData>(getApiUrl("api/seo"), {}, 15000);
+      const data = await silentFetchJson<SEOData>(
+        getApiUrl("api/seo"),
+        {},
+        15000,
+      );
 
       if (data) {
         setSeoData(data);
         updatePageSEO(data);
       } else if (retryCount < 2) {
         // Retry up to 2 times with exponential backoff
-        setTimeout(() => {
-          fetchSEOData(retryCount + 1);
-        }, Math.pow(2, retryCount) * 1000);
+        setTimeout(
+          () => {
+            fetchSEOData(retryCount + 1);
+          },
+          Math.pow(2, retryCount) * 1000,
+        );
         return;
       } else {
         // API not available after retries, use default data

@@ -7,10 +7,10 @@ import fs from "fs";
 export const processExistingImages: RequestHandler = async (req, res) => {
   try {
     const uploadsDir = path.join(process.cwd(), "uploads");
-    
+
     // Create subdirectories if they don't exist
     const sizeDirectories = ["thumbnail", "small", "medium", "large"];
-    sizeDirectories.forEach(dir => {
+    sizeDirectories.forEach((dir) => {
       const dirPath = path.join(uploadsDir, dir);
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });
@@ -26,9 +26,15 @@ export const processExistingImages: RequestHandler = async (req, res) => {
     };
 
     // Get all image files in the main uploads directory
-    const files = fs.readdirSync(uploadsDir).filter(file => {
+    const files = fs.readdirSync(uploadsDir).filter((file) => {
       const ext = path.extname(file).toLowerCase();
-      return ['.jpg', '.jpeg', '.png', '.webp'].includes(ext) && !file.includes('-thumbnail') && !file.includes('-small') && !file.includes('-medium') && !file.includes('-large');
+      return (
+        [".jpg", ".jpeg", ".png", ".webp"].includes(ext) &&
+        !file.includes("-thumbnail") &&
+        !file.includes("-small") &&
+        !file.includes("-medium") &&
+        !file.includes("-large")
+      );
     });
 
     const results = [];
@@ -38,14 +44,14 @@ export const processExistingImages: RequestHandler = async (req, res) => {
       try {
         const inputPath = path.join(uploadsDir, file);
         const baseName = path.parse(file).name;
-        
+
         console.log(`Processing: ${file}`);
 
         // Process each size
         for (const [sizeName, config] of Object.entries(sizeConfigs)) {
           const outputFilename = `${baseName}-${sizeName}.webp`;
           const outputPath = path.join(uploadsDir, sizeName, outputFilename);
-          
+
           // Skip if already exists
           if (fs.existsSync(outputPath)) {
             console.log(`Skipping existing: ${outputFilename}`);
@@ -54,29 +60,28 @@ export const processExistingImages: RequestHandler = async (req, res) => {
 
           await sharp(inputPath)
             .resize(config.width, config.height, {
-              fit: 'cover', // Use cover for square cropping
-              position: 'center'
+              fit: "cover", // Use cover for square cropping
+              position: "center",
             })
-            .webp({ 
+            .webp({
               quality: config.quality,
-              effort: 6
+              effort: 6,
             })
             .toFile(outputPath);
-          
+
           console.log(`Created: ${outputFilename}`);
         }
 
         results.push({
           original: file,
           processed: true,
-          formats: Object.keys(sizeConfigs)
+          formats: Object.keys(sizeConfigs),
         });
-
       } catch (error) {
         console.error(`Error processing ${file}:`, error);
         errors.push({
           file,
-          error: error.message
+          error: error.message,
         });
       }
     }
@@ -87,9 +92,8 @@ export const processExistingImages: RequestHandler = async (req, res) => {
       processed: results.length,
       errors: errors.length,
       results,
-      errors
+      errors,
     });
-
   } catch (error) {
     console.error("Error processing images:", error);
     res.status(500).json({ error: "Erro interno do servidor" });

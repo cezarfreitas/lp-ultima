@@ -24,8 +24,8 @@ export async function silentFetch(
     return response;
   } catch (error) {
     // Log error in development, silent in production
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('Fetch failed for:', url, error);
+    if (process.env.NODE_ENV === "development") {
+      console.warn("Fetch failed for:", url, error);
     }
     return null;
   }
