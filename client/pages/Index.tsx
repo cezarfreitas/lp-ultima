@@ -28,6 +28,10 @@ export default function Index() {
   const [productGallery, setProductGallery] = useState<ProductGallery | null>(
     null,
   );
+
+  // Use API health monitoring
+  const { isHealthy, isChecking, forceCheck } = useApiHealth();
+
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
