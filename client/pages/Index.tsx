@@ -3,7 +3,6 @@ import { HeroSectionData } from "@shared/hero";
 import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
 import { silentFetchJson } from "../lib/silentFetch";
-import { simpleFetchJson } from "../lib/silentFetch.debug";
 import { getApiUrl } from "../lib/apiUrl";
 // import { useApiHealth } from "../hooks/use-api-health"; // Removed for performance
 import LeadCaptureForm from "../components/LeadCaptureForm";
