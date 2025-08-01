@@ -73,7 +73,7 @@ export default function APIFallbackDetector({
           </div>
         </div>
       )}
-      
+
       {fallback || children}
     </div>
   );

@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
-import { checkApiHealth, getApiHealthStatus } from '../lib/apiHealth';
-import { circuitBreaker } from '../lib/circuitBreaker';
+import { useState, useEffect, useCallback } from "react";
+import { checkApiHealth, getApiHealthStatus } from "../lib/apiHealth";
+import { circuitBreaker } from "../lib/circuitBreaker";
 
 interface UseApiHealthReturn {
   isHealthy: boolean | null;
@@ -17,7 +17,7 @@ export function useApiHealth(autoCheck = true): UseApiHealthReturn {
 
   const performHealthCheck = useCallback(async () => {
     if (isChecking) return; // Avoid multiple concurrent checks
-    
+
     setIsChecking(true);
     try {
       const healthy = await checkApiHealth();
@@ -36,13 +36,18 @@ export function useApiHealth(autoCheck = true): UseApiHealthReturn {
   }, [performHealthCheck]);
 
   const getCircuitStats = useCallback(() => {
-    const endpoints = ['api/hero', 'api/form-content', 'api/product-gallery', 'api/showroom'];
+    const endpoints = [
+      "api/hero",
+      "api/form-content",
+      "api/product-gallery",
+      "api/showroom",
+    ];
     const stats: Record<string, any> = {};
-    
-    endpoints.forEach(endpoint => {
+
+    endpoints.forEach((endpoint) => {
       stats[endpoint] = circuitBreaker.getStats(endpoint);
     });
-    
+
     return stats;
   }, []);
 
@@ -55,10 +60,9 @@ export function useApiHealth(autoCheck = true): UseApiHealthReturn {
     // Set up periodic health checks
     const interval = setInterval(() => {
       // Only check if we haven't checked recently or if API was unhealthy
-      const shouldCheck = !lastCheck || 
-                         (Date.now() - lastCheck.getTime() > 30000) || 
-                         !isHealthy;
-      
+      const shouldCheck =
+        !lastCheck || Date.now() - lastCheck.getTime() > 30000 || !isHealthy;
+
       if (shouldCheck) {
         performHealthCheck();
       }
@@ -79,7 +83,7 @@ export function useApiHealth(autoCheck = true): UseApiHealthReturn {
 // Hook for components that need to react to API health changes
 export function useApiHealthEffect(
   callback: (isHealthy: boolean) => void,
-  deps: any[] = []
+  deps: any[] = [],
 ) {
   const { isHealthy } = useApiHealth();
 

@@ -145,7 +145,7 @@ export default function ShowroomSection() {
           title: "Nosso [destaque]Showroom[/destaque]",
           subtitle:
             "Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.",
-          items: []
+          items: [],
         });
       } else {
         console.error("Error fetching showroom:", response.statusText);

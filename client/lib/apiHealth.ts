@@ -19,10 +19,7 @@ export async function checkApiHealth(): Promise<boolean> {
   }
 
   // For unhealthy status, check more frequently (every 10 seconds)
-  if (
-    now - lastHealthCheck < 10000 &&
-    apiHealthStatus === "unhealthy"
-  ) {
+  if (now - lastHealthCheck < 10000 && apiHealthStatus === "unhealthy") {
     return false;
   }
 
