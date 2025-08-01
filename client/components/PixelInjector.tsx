@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { silentFetchJson } from "../lib/silentFetch";
 import { getApiUrl } from "../lib/apiUrl";
+import { checkApiHealth } from "../lib/apiHealth";
 
 interface PixelData {
   id: number;
