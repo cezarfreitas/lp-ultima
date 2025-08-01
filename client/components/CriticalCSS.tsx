@@ -6,16 +6,11 @@ export default function CriticalCSS() {
         /* Critical CSS for initial render - Above the fold only */
         body {
           margin: 0;
-          font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+          font-family: system-ui, -apple-system, sans-serif; /* Use system fonts for speed */
           line-height: 1.5;
           font-weight: 400;
-          color-scheme: light;
-          color: rgba(255, 255, 255, 0.87);
-          background-color: #242424;
-          font-synthesis: none;
-          text-rendering: optimizeLegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
+          color: #1f2937;
+          background-color: #ffffff;
           -webkit-text-size-adjust: 100%;
         }
 
