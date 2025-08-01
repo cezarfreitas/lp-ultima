@@ -96,7 +96,7 @@ export default function Index() {
   const fetchHeroData = async (retryCount = 0) => {
     console.log('fetchHeroData called, retry:', retryCount);
     try {
-      const data = await silentFetchJson<HeroSectionData>(
+      const data = await simpleFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
         20000,
@@ -119,7 +119,7 @@ export default function Index() {
   const fetchFormContent = async (retryCount = 0) => {
     console.log('fetchFormContent called, retry:', retryCount);
     try {
-      const data = await silentFetchJson<FormContent>(
+      const data = await simpleFetchJson<FormContent>(
         getApiUrl("api/form-content"),
         {},
         20000,
@@ -143,7 +143,7 @@ export default function Index() {
     try {
       // Circuit breaker and silentFetch will handle API health
 
-      const data = await silentFetchJson<ProductGallery>(
+      const data = await simpleFetchJson<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
         20000, // 20 second timeout for product gallery
