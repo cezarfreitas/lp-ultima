@@ -5,7 +5,7 @@
 export async function silentFetch(
   url: string,
   options: RequestInit = {},
-  timeout = 10000, // Increased timeout for production
+  timeout = 15000, // Further increased timeout for production
 ): Promise<Response | null> {
   try {
     const controller = new AbortController();
@@ -23,10 +23,20 @@ export async function silentFetch(
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
-    // Log error in development, silent in production
-    if (process.env.NODE_ENV === "development") {
+    // More detailed error handling
+    const isDev = process.env.NODE_ENV === "development";
+    const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+
+    if (isDev || isLocalhost) {
       console.warn("Fetch failed for:", url, error);
     }
+
+    // In production, if it's a network error, wait a bit before returning null
+    if (!isDev && !isLocalhost && error.name === 'AbortError') {
+      // Wait a small amount for potential network recovery
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
     return null;
   }
 }
