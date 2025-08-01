@@ -145,41 +145,22 @@ export default function OptimizedImage({
     );
   }
 
+  // Simplified for debugging - show image directly
   return (
-    <div className={`relative overflow-hidden ${className}`} ref={imgRef}>
-      {/* Placeholder */}
-      {placeholder === "blur" && !isLoaded && (
-        <img
-          src={blurDataURL}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm scale-110"
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Main Image */}
-      {isInView && (
-        <img
-          src={getOptimizedSrc(src, width)}
-          srcSet={generateSrcSet(src, width)}
-          sizes={sizes}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={() => setIsLoaded(true)}
-          onError={() => setError(true)}
-        />
-      )}
-
-      {/* Loading placeholder */}
-      {!isInView && !priority && (
-        <div className="w-full h-full bg-gray-200 animate-pulse" />
-      )}
-    </div>
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      width={width}
+      height={height}
+      onError={(e) => {
+        console.error("Image failed to load:", src);
+        setError(true);
+      }}
+      onLoad={() => {
+        console.log("Image loaded successfully:", src);
+        setIsLoaded(true);
+      }}
+    />
   );
 }
