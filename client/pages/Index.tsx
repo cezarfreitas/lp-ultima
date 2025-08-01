@@ -164,10 +164,10 @@ export default function Index() {
           <div className="hero-content">
             {/* Logo */}
             <div className="mb-12 flex flex-col items-center">
-              {data.logo_image ? (
+              {data?.logo_image ? (
                 <div className="mb-6">
                   <img
-                    src={data.logo_image}
+                    src={data?.logo_image}
                     alt="Logo"
                     className="h-20 md:h-24 lg:h-28 w-auto object-contain"
                   />
@@ -175,16 +175,16 @@ export default function Index() {
               ) : (
                 <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center border border-white/20 mb-6">
                   <span className="text-white font-bold text-xl">
-                    {data.logo_text}
+                    {data?.logo_text}
                   </span>
                 </div>
               )}
 
               {/* Slogan/Tagline */}
-              {data.logo_text && (
+              {data?.logo_text && (
                 <div className="text-center mb-6 md:mb-8">
                   <div className="text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg tracking-wider uppercase opacity-95 leading-relaxed max-w-2xl mx-auto px-4">
-                    {data.logo_text}
+                    {data?.logo_text}
                   </div>
                 </div>
               )}
