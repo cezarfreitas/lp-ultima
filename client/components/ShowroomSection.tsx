@@ -37,7 +37,7 @@ export default function ShowroomSection() {
         const data = await response.json();
         console.log("Showroom data:", data);
         setSectionData(data);
-      } else if (response.status === 404) {
+      } else if (response && response.status === 404) {
         // Tables don't exist yet, show fallback data
         console.log("Showroom tables not created yet, using fallback");
         setSectionData({
