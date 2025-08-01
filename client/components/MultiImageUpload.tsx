@@ -31,8 +31,6 @@ export default function MultiImageUpload({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-
-
   const handleFileSelection = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -87,29 +85,11 @@ export default function MultiImageUpload({
           ),
         );
 
-<<<<<<< HEAD
-        // Compress image
-        const compressedFile = await compressImage(imageData.file);
-
-        setImages((prev) =>
-          prev.map((img) =>
-            img.id === imageData.id
-              ? { ...img, compressedSize: compressedFile.size, progress: 50 }
-              : img,
-          ),
-        );
-
-=======
->>>>>>> 0ac7e190463366ef15efe1e7bc34bef9e03b01ff
         // Upload to server with multi-format processing
         const formData = new FormData();
         formData.append("file", imageData.file);
 
-<<<<<<< HEAD
         const response = await fetch("/api/upload-multi", {
-=======
-        const response = await fetch("/api/upload/multi-format", {
->>>>>>> 0ac7e190463366ef15efe1e7bc34bef9e03b01ff
           method: "POST",
           body: formData,
         });
@@ -119,9 +99,14 @@ export default function MultiImageUpload({
         if (response.ok) {
           const updatedImage: UploadedImage = {
             ...imageData,
-            formats: data.formats,
-            totalOptimizedSize: data.sizes.total_optimized.bytes,
-            savingsPercent: data.compression.total_savings_percent,
+            formats: data.formats || {
+              thumbnail: data.url,
+              small: data.url,
+              medium: data.url,
+              large: data.url,
+            },
+            totalOptimizedSize: data.compressedSize || data.sizes?.total_optimized?.bytes || 0,
+            savingsPercent: parseFloat(data.compressionRatio?.replace('%', '') || '0'),
             progress: 100,
           };
 
@@ -161,11 +146,6 @@ export default function MultiImageUpload({
 
   const formatFileSize = (bytes: number) => {
     return (bytes / 1024).toFixed(1) + "KB";
-  };
-
-  const getCompressionPercentage = (original: number, compressed: number) => {
-    if (compressed === 0) return 0;
-    return (((original - compressed) / original) * 100).toFixed(1);
   };
 
   return (
