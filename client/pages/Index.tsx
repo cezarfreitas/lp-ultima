@@ -5,7 +5,7 @@ import { ProductGallery } from "@shared/product-gallery";
 import { silentFetchJson } from "../lib/silentFetch";
 import { simpleFetchJson } from "../lib/silentFetch.debug";
 import { getApiUrl } from "../lib/apiUrl";
-import { useApiHealth } from "../hooks/use-api-health";
+// import { useApiHealth } from "../hooks/use-api-health"; // Removed for performance
 import LeadCaptureForm from "../components/LeadCaptureForm";
 import SEOHead from "../components/SEOHead";
 import PixelInjector from "../components/PixelInjector";
