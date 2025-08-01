@@ -79,7 +79,7 @@ export default function Index() {
       const data = await silentFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
-        2000,
+        1200, // Faster timeout for hero
       );
       if (data) {
         setHeroData(data);
@@ -94,7 +94,7 @@ export default function Index() {
       const data = await silentFetchJson<FormContent>(
         getApiUrl("api/form-content"),
         {},
-        2000,
+        1200, // Faster timeout for form
       );
       if (data) {
         setFormContent(data);
