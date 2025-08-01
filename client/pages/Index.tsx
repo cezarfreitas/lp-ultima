@@ -193,7 +193,7 @@ export default function Index() {
             {/* Texto de Impacto */}
             <div className="mb-8 md:mb-12">
               <h1 className="hero-title">
-                {renderTextWithHighlights(data.impact_title)}
+                {renderTextWithHighlights(data?.impact_title || '')}
               </h1>
 
               {/* Divisor decorativo */}
@@ -206,7 +206,7 @@ export default function Index() {
             <div className="mb-8 md:mb-12 max-w-2xl mx-auto px-4">
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed tracking-wide font-normal text-center">
                 <span className="drop-shadow-lg opacity-95">
-                  {renderTextWithHighlights(data.description)}
+                  {renderTextWithHighlights(data?.description || '')}
                 </span>
               </p>
             </div>
@@ -214,7 +214,7 @@ export default function Index() {
             {/* Botão */}
             <div className="mt-6 md:mt-10 mb-12 md:mb-20">
               <a href="#form" className="hero-btn">
-                {data.button_text}
+                {data?.button_text || 'Aguarde...'}
               </a>
             </div>
           </div>
