@@ -41,9 +41,8 @@ export default function Index() {
         fetchFormContent();
         fetchProductGallery();
       } else {
-        // API is not responding, set loading to false and continue with default data
+        // API is not responding, continue with default data
         console.log('API not available, using default data');
-        setLoading(false);
 
         // Try again later
         setTimeout(() => {
