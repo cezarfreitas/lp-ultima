@@ -10,23 +10,35 @@ const HEALTH_CHECK_INTERVAL = 30000; // 30 seconds
 export async function checkApiHealth(): Promise<boolean> {
   const now = Date.now();
 
-  // Use cached result if recent
+  // Use cached result if recent and healthy
   if (
     now - lastHealthCheck < HEALTH_CHECK_INTERVAL &&
-    apiHealthStatus !== "unknown"
+    apiHealthStatus === "healthy"
   ) {
-    return apiHealthStatus === "healthy";
+    return true;
+  }
+
+  // For unhealthy status, check more frequently (every 10 seconds)
+  if (
+    now - lastHealthCheck < 10000 &&
+    apiHealthStatus === "unhealthy"
+  ) {
+    return false;
   }
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // Quick health check
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // Slightly longer timeout
 
-    const response = await fetch(getApiUrl("api/ping"), {
+    // Use native fetch to avoid FullStory interference
+    const nativeFetch = window.fetch?.bind(window) || fetch;
+
+    const response = await nativeFetch(getApiUrl("api/ping"), {
       method: "GET",
       signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
       },
     });
 
@@ -37,11 +49,45 @@ export async function checkApiHealth(): Promise<boolean> {
       lastHealthCheck = now;
       return true;
     } else {
+      // Try alternative health check endpoint
+      try {
+        const altController = new AbortController();
+        const altTimeoutId = setTimeout(() => altController.abort(), 5000);
+
+        const altResponse = await nativeFetch(getApiUrl("api/debug"), {
+          method: "GET",
+          signal: altController.signal,
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+          },
+        });
+
+        clearTimeout(altTimeoutId);
+
+        if (altResponse.ok) {
+          apiHealthStatus = "healthy";
+          lastHealthCheck = now;
+          return true;
+        }
+      } catch (altError) {
+        // Alternative endpoint also failed
+      }
+
       apiHealthStatus = "unhealthy";
       lastHealthCheck = now;
       return false;
     }
   } catch (error) {
+    // Log error in development
+    const isDev = process.env.NODE_ENV === "development";
+    const isLocalhost =
+      typeof window !== "undefined" && window.location.hostname === "localhost";
+
+    if (isDev || isLocalhost) {
+      console.warn("API health check failed:", error.message);
+    }
+
     apiHealthStatus = "unhealthy";
     lastHealthCheck = now;
     return false;
