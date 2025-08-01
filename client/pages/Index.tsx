@@ -29,9 +29,14 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchHeroData();
-    fetchFormContent();
-    fetchProductGallery();
+    // Add delay to avoid immediate fetch errors on initial load
+    const timer = setTimeout(() => {
+      fetchHeroData();
+      fetchFormContent();
+      fetchProductGallery();
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Function to optimize image URLs (only for Unsplash)
