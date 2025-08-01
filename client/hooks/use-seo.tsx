@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SEOData, DEFAULT_SEO_DATA } from "@shared/seo";
-import { silentFetchJson } from "../lib/silentFetch";
+import { robustFetchJson } from "../lib/robustFetch";
 import { getApiUrl } from "../lib/apiUrl";
 
 export function useSEO() {
