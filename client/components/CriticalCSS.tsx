@@ -137,7 +137,11 @@ export default function CriticalCSS() {
         }
 
         /* Reduce layout shifts - Add more common classes */
-        .aspect-square { aspect-ratio: 1; }
+        .aspect-square {
+          aspect-ratio: 1;
+          width: 100%;
+          height: auto;
+        }
         .aspect-video { aspect-ratio: 16/9; }
         .min-h-screen { min-height: 100vh; }
         .min-h-96 { min-height: 24rem; }
