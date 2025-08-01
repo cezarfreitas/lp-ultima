@@ -28,7 +28,9 @@ export default function ShowroomSection() {
   const fetchShowroom = async () => {
     try {
       console.log("Fetching showroom...");
-      const response = await fetch("/api/showroom");
+      const { silentFetch } = await import("../lib/silentFetch");
+      const { getApiUrl } = await import("../lib/apiUrl");
+      const response = await silentFetch(getApiUrl("api/showroom"));
       console.log("Showroom Response status:", response.status);
 
       if (response.ok) {
