@@ -167,6 +167,11 @@ export default function Index() {
   // Use hero data directly without fallback
   const data = heroData;
 
+  // Debug logs
+  console.log('Hero data:', heroData);
+  console.log('Form content:', formContent);
+  console.log('API health:', { isHealthy, isChecking });
+
   return (
     <APIStatus showNotice={true}>
       <div className="min-h-screen">
