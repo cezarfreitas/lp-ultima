@@ -5,7 +5,7 @@
 export async function silentFetch(
   url: string,
   options: RequestInit = {},
-  timeout = 2000,
+  timeout = 10000, // Increased timeout for production
 ): Promise<Response | null> {
   try {
     const controller = new AbortController();
@@ -23,7 +23,10 @@ export async function silentFetch(
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
-    // Silently handle all fetch errors
+    // Log error in development, silent in production
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Fetch failed for:', url, error);
+    }
     return null;
   }
 }
