@@ -1,4 +1,4 @@
-import { apiCache } from './apiCache';
+import { apiCache } from "./apiCache";
 
 /**
  * Cache Manager - Utilities to manage and clear all types of cache
@@ -12,10 +12,10 @@ export class CacheManager {
     return new Promise((resolve) => {
       try {
         apiCache.clear();
-        console.log('✅ API cache cleared');
+        console.log("✅ API cache cleared");
         resolve();
       } catch (error) {
-        console.error('❌ Failed to clear API cache:', error);
+        console.error("❌ Failed to clear API cache:", error);
         resolve();
       }
     });
@@ -25,18 +25,18 @@ export class CacheManager {
    * Clear Service Worker caches
    */
   static async clearServiceWorkerCache(): Promise<void> {
-    if ('caches' in window) {
+    if ("caches" in window) {
       try {
         const cacheNames = await caches.keys();
         await Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
+          cacheNames.map((cacheName) => caches.delete(cacheName)),
         );
-        console.log('✅ Service Worker caches cleared:', cacheNames);
+        console.log("✅ Service Worker caches cleared:", cacheNames);
       } catch (error) {
-        console.error('❌ Failed to clear Service Worker cache:', error);
+        console.error("❌ Failed to clear Service Worker cache:", error);
       }
     } else {
-      console.log('⚠️ Service Worker not supported');
+      console.log("⚠️ Service Worker not supported");
     }
   }
 
@@ -46,17 +46,17 @@ export class CacheManager {
   static clearBrowserCache(): void {
     try {
       // Clear sessionStorage
-      if ('sessionStorage' in window) {
+      if ("sessionStorage" in window) {
         sessionStorage.clear();
-        console.log('✅ Session storage cleared');
+        console.log("✅ Session storage cleared");
       }
-      
+
       // Force hard reload to clear browser cache
-      if ('location' in window) {
+      if ("location" in window) {
         window.location.reload(true as any); // Force reload from server
       }
     } catch (error) {
-      console.error('❌ Failed to clear browser cache:', error);
+      console.error("❌ Failed to clear browser cache:", error);
     }
   }
 
@@ -64,17 +64,17 @@ export class CacheManager {
    * Clear all caches at once
    */
   static async clearAllCaches(): Promise<void> {
-    console.log('🧹 Clearing all caches...');
-    
+    console.log("🧹 Clearing all caches...");
+
     // Clear API cache
     await this.clearApiCache();
-    
+
     // Clear Service Worker cache
     await this.clearServiceWorkerCache();
-    
+
     // Wait a bit for operations to complete
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     // Clear browser cache (this will reload the page)
     this.clearBrowserCache();
   }
@@ -86,31 +86,31 @@ export class CacheManager {
     const stats = {
       api: apiCache.getStats(),
       serviceWorker: {
-        supported: 'caches' in window,
-        caches: []
+        supported: "caches" in window,
+        caches: [],
       },
       localStorage: {
-        supported: 'localStorage' in window,
-        size: 0
+        supported: "localStorage" in window,
+        size: 0,
       },
       sessionStorage: {
-        supported: 'sessionStorage' in window,
-        size: 0
-      }
+        supported: "sessionStorage" in window,
+        size: 0,
+      },
     };
 
     // Get Service Worker cache info
-    if ('caches' in window) {
+    if ("caches" in window) {
       try {
         const cacheNames = await caches.keys();
         stats.serviceWorker.caches = cacheNames;
       } catch (error) {
-        console.error('Failed to get SW cache info:', error);
+        console.error("Failed to get SW cache info:", error);
       }
     }
 
     // Get localStorage size
-    if ('localStorage' in window) {
+    if ("localStorage" in window) {
       try {
         let size = 0;
         for (let key in localStorage) {
@@ -120,12 +120,12 @@ export class CacheManager {
         }
         stats.localStorage.size = size;
       } catch (error) {
-        console.error('Failed to get localStorage size:', error);
+        console.error("Failed to get localStorage size:", error);
       }
     }
 
     // Get sessionStorage size
-    if ('sessionStorage' in window) {
+    if ("sessionStorage" in window) {
       try {
         let size = 0;
         for (let key in sessionStorage) {
@@ -135,7 +135,7 @@ export class CacheManager {
         }
         stats.sessionStorage.size = size;
       } catch (error) {
-        console.error('Failed to get sessionStorage size:', error);
+        console.error("Failed to get sessionStorage size:", error);
       }
     }
 
@@ -146,13 +146,13 @@ export class CacheManager {
    * Clear only old/expired cache entries
    */
   static async clearExpiredCache(): Promise<void> {
-    console.log('🧹 Clearing expired caches...');
-    
+    console.log("🧹 Clearing expired caches...");
+
     // API cache automatically cleans expired entries when accessed
     // Force a cleanup by trying to get a non-existent key
-    apiCache.get('__cleanup_trigger__');
-    
-    console.log('✅ Expired caches cleared');
+    apiCache.get("__cleanup_trigger__");
+
+    console.log("✅ Expired caches cleared");
   }
 }
 
@@ -167,7 +167,8 @@ export const clearAllCaches = () => CacheManager.clearAllCaches();
 export const clearApiCache = () => CacheManager.clearApiCache();
 
 // Clear only Service Worker cache
-export const clearServiceWorkerCache = () => CacheManager.clearServiceWorkerCache();
+export const clearServiceWorkerCache = () =>
+  CacheManager.clearServiceWorkerCache();
 
 // Clear only browser cache
 export const clearBrowserCache = () => CacheManager.clearBrowserCache();
@@ -179,19 +180,19 @@ export const getCacheStats = () => CacheManager.getCacheStats();
 export const clearExpiredCache = () => CacheManager.clearExpiredCache();
 
 // Make functions globally available in development
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).clearAllCaches = clearAllCaches;
   (window as any).clearApiCache = clearApiCache;
   (window as any).clearServiceWorkerCache = clearServiceWorkerCache;
   (window as any).clearBrowserCache = clearBrowserCache;
   (window as any).getCacheStats = getCacheStats;
   (window as any).clearExpiredCache = clearExpiredCache;
-  
-  console.log('🔧 Cache management functions available globally:');
-  console.log('- clearAllCaches()');
-  console.log('- clearApiCache()');
-  console.log('- clearServiceWorkerCache()');
-  console.log('- clearBrowserCache()');
-  console.log('- getCacheStats()');
-  console.log('- clearExpiredCache()');
+
+  console.log("🔧 Cache management functions available globally:");
+  console.log("- clearAllCaches()");
+  console.log("- clearApiCache()");
+  console.log("- clearServiceWorkerCache()");
+  console.log("- clearBrowserCache()");
+  console.log("- getCacheStats()");
+  console.log("- clearExpiredCache()");
 }
