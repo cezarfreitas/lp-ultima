@@ -130,8 +130,16 @@ export default function Index() {
     }
   };
 
-  // Only use real hero data - no fallback content
-  const data = heroData;
+  // Use hero data with safe defaults to prevent null errors
+  const data = heroData || {
+    logo_text: "",
+    logo_image: "",
+    impact_title: "",
+    impact_subtitle: "",
+    description: "",
+    button_text: "",
+    background_image: "",
+  };
 
   return (
     <APIStatus showNotice={true}>
