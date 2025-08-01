@@ -13,16 +13,12 @@ export default function AdminCache() {
     setIsAuthenticated(authenticated);
   }, []);
 
+  const handleAuthenticated = () => {
+    setIsAuthenticated(true);
+  };
+
   if (!isAuthenticated) {
-    return (
-      <AdminLayout
-        title="Cache - Admin"
-        onLogout={() => {}}
-        onAuthSuccess={() => setIsAuthenticated(true)}
-      >
-        <div>Autenticando...</div>
-      </AdminLayout>
-    );
+    return <AdminAuth onAuthenticated={handleAuthenticated} />;
   }
 
   const handleLogout = () => {
