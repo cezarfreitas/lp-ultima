@@ -32,6 +32,7 @@ import AdminSEO from "./pages/AdminSEO";
 import MigrateSEO from "./pages/MigrateSEO";
 import MigratePixels from "./pages/MigratePixels";
 import AdminPixels from "./pages/AdminPixels";
+import AdminCache from "./pages/AdminCache";
 import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
 import TestUpload from "./pages/TestUpload";
