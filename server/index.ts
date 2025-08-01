@@ -14,6 +14,7 @@ import {
   getImageFormats,
 } from "./routes/upload-multi-format";
 import { getDebugImageUrls } from "./routes/debug";
+import { migrateUrls } from "./routes/migrate-urls";
 import { migrateLogo, migrateDesign, migrateLeads } from "./routes/migrate";
 import { migrateNewTables } from "./routes/migrate-new-tables";
 import { migrateProductGallery } from "./routes/migrate-product-gallery";
