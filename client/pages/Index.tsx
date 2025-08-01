@@ -109,20 +109,30 @@ export default function Index() {
 
   const fetchProductGallery = async (retryCount = 0) => {
     try {
+      // Check API health before attempting fetch
+      if (retryCount === 0) {
+        const isHealthy = await checkApiHealth();
+        if (!isHealthy && getApiHealthStatus() === 'unhealthy') {
+          console.log('API unhealthy, skipping product gallery fetch');
+          return;
+        }
+      }
+
       const data = await silentFetchJson<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
-        15000, // 15 second timeout
+        20000, // 20 second timeout for product gallery
       );
+
       if (data) {
         setProductGallery(data);
-      } else if (retryCount < 2) {
-        // Retry up to 2 times with exponential backoff
+      } else if (retryCount < 1) {
+        // Reduced retries - only retry once
         setTimeout(
           () => {
             fetchProductGallery(retryCount + 1);
           },
-          Math.pow(2, retryCount) * 1000,
+          5000, // 5 second delay
         );
       }
     } catch (error) {
