@@ -145,9 +145,9 @@ export default function OptimizedImage({
         else format = "large";
       }
 
-      // Check if multi-format exists, fallback to original if not
-      const multiFormatUrl = `/uploads/${format}/${baseName}-${format}.webp`;
-      return multiFormatUrl;
+      // For now, return original until multi-format is processed
+      // TODO: Check if multi-format exists and fallback
+      return baseSrc;
     }
 
     // Handle existing multi-format URLs - optimize based on target width
