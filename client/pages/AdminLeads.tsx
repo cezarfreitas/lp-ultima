@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Lead, LEAD_STATUSES } from "@shared/leads";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
-import LeadsChart from "../components/LeadsChart";
+import { lazy, Suspense } from "react";
+
+const LeadsChart = lazy(() => import("../components/LeadsChart"));
 
 export default function AdminLeads() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
