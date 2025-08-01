@@ -133,13 +133,16 @@ export default function Index() {
     }
   };
 
-  // Use hero data directly without fallback
-  const data = heroData;
-
-  // Debug logs
-  console.log('Hero data:', heroData);
-  console.log('Form content:', formContent);
-  console.log('API health:', { isHealthy, isChecking });
+  // Use hero data with minimal fallback for immediate display
+  const data = heroData || {
+    logo_text: "Ecko",
+    logo_image: "",
+    impact_title: "Carregando...",
+    impact_subtitle: "",
+    description: "Por favor aguarde enquanto carregamos o conteúdo.",
+    button_text: "Aguarde",
+    background_image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+  };
 
   return (
     <APIStatus showNotice={true}>
