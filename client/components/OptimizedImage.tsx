@@ -102,46 +102,9 @@ export default function OptimizedImage({
   };
 
   const getOptimizedSrc = (baseSrc: string, targetWidth?: number) => {
-    // Handle our multi-format uploads
-    if (baseSrc.includes("/uploads/") && !baseSrc.includes("/uploads/thumb/") && !baseSrc.includes("/uploads/small/") && !baseSrc.includes("/uploads/medium/") && !baseSrc.includes("/uploads/large/")) {
-      // Convert old single format to new multi-format
-      const filename = baseSrc.replace("/uploads/", "");
-      const baseName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, '');
-
-      // Choose format based on target width
-      let format = "medium"; // default
-      if (targetWidth) {
-        if (targetWidth <= 150) format = "thumb";
-        else if (targetWidth <= 400) format = "small";
-        else if (targetWidth <= 800) format = "medium";
-        else format = "large";
-      }
-
-      return `/uploads/${format}/${baseName}-${format}.webp`;
-    }
-
-    // Handle existing multi-format URLs - optimize based on target width
+    // For now, just return the original source to fix display issues
+    // TODO: Implement proper multi-format optimization later
     if (baseSrc.includes("/uploads/")) {
-      let currentFormat = "medium";
-      if (baseSrc.includes("/uploads/thumb/")) currentFormat = "thumb";
-      else if (baseSrc.includes("/uploads/small/")) currentFormat = "small";
-      else if (baseSrc.includes("/uploads/medium/")) currentFormat = "medium";
-      else if (baseSrc.includes("/uploads/large/")) currentFormat = "large";
-
-      // Determine optimal format based on target width
-      let optimalFormat = "medium";
-      if (targetWidth) {
-        if (targetWidth <= 150) optimalFormat = "thumb";
-        else if (targetWidth <= 400) optimalFormat = "small";
-        else if (targetWidth <= 800) optimalFormat = "medium";
-        else optimalFormat = "large";
-      }
-
-      // If current format is not optimal, switch to optimal
-      if (currentFormat !== optimalFormat) {
-        return baseSrc.replace(`/uploads/${currentFormat}/`, `/uploads/${optimalFormat}/`).replace(`-${currentFormat}.webp`, `-${optimalFormat}.webp`);
-      }
-
       return baseSrc;
     }
 
