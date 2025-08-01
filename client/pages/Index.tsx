@@ -169,7 +169,8 @@ export default function Index() {
         <PixelInjector />
 
         {/* Hero Section with Background Image */}
-        <section className="hero-section">
+        {data && (
+          <section className="hero-section">
           {/* Background Image */}
           <div
             className="hero-bg"
@@ -286,7 +287,8 @@ export default function Index() {
             <div className="absolute top-1/3 right-8 w-4 h-4 border border-red-500/25 rotate-45 animate-pulse delay-800"></div>
             <div className="absolute bottom-1/3 left-12 w-5 h-5 border border-white/20 rounded-full animate-pulse delay-600"></div>
           </div>
-        </section>
+          </section>
+        )}
 
         {/* Product Gallery Section */}
         <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-white">
