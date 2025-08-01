@@ -154,7 +154,7 @@ export default function Index() {
         <PixelInjector />
 
         {/* Hero Section with Background Image - Always renders to prevent layout shift */}
-        <HeroPlaceholder hasData={!!data}>
+        <HeroPlaceholder hasData={!!heroData}>
           {/* Background Image */}
           <div
             className="hero-bg"
