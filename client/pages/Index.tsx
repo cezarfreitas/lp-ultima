@@ -512,12 +512,12 @@ export default function Index() {
         </section>
 
         {/* Showroom Section */}
-        <LazySection>
+        <LazySection rootMargin="200px 0px" delay={500}>
           <ShowroomSection />
         </LazySection>
 
         {/* Testimonials Section */}
-        <LazySection>
+        <LazySection rootMargin="200px 0px" delay={750}>
           <TestimonialsSection />
         </LazySection>
 
