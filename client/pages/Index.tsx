@@ -35,30 +35,31 @@ export default function Index() {
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
-    // Add delay to avoid immediate fetch errors on initial load
-    const timer = setTimeout(async () => {
-      // Check API health first
-      const isHealthy = await checkApiHealth();
+    // Wait for initial API health check
+    if (isHealthy === null || isChecking) {
+      return; // Still checking API health
+    }
 
+    // Add small delay to avoid immediate fetch errors on initial load
+    const timer = setTimeout(() => {
       if (isHealthy) {
+        // API is healthy, fetch all data
         fetchHeroData();
         fetchFormContent();
         fetchProductGallery();
       } else {
-        // API is not responding, continue with default data
-        console.log("API not available, using default data");
+        // API is unhealthy, still try to fetch but with longer delays
+        console.log("API unhealthy, attempting graceful data loading");
 
-        // Try again later
-        setTimeout(() => {
-          fetchHeroData();
-          fetchFormContent();
-          fetchProductGallery();
-        }, 10000); // Try again in 10 seconds
+        // Stagger the requests to reduce server load
+        setTimeout(() => fetchHeroData(), 1000);
+        setTimeout(() => fetchFormContent(), 2000);
+        setTimeout(() => fetchProductGallery(), 3000);
       }
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isHealthy, isChecking]);
 
   // Function to optimize image URLs (only for Unsplash)
   const getOptimizedImageUrl = (url: string, width = 1920, quality = 75) => {
