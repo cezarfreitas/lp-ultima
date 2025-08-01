@@ -90,33 +90,45 @@ export default function Index() {
     });
   };
 
-  const fetchHeroData = async () => {
+  const fetchHeroData = async (retryCount = 0) => {
     try {
       const data = await silentFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
-        15000,
+        20000,
       );
       if (data) {
         setHeroData(data);
+      } else if (retryCount < 2) {
+        // Retry up to 2 times with exponential backoff
+        setTimeout(() => fetchHeroData(retryCount + 1), (retryCount + 1) * 2000);
       }
     } catch (error) {
       // silentFetch handles errors silently
+      if (retryCount < 2) {
+        setTimeout(() => fetchHeroData(retryCount + 1), (retryCount + 1) * 2000);
+      }
     }
   };
 
-  const fetchFormContent = async () => {
+  const fetchFormContent = async (retryCount = 0) => {
     try {
       const data = await silentFetchJson<FormContent>(
         getApiUrl("api/form-content"),
         {},
-        15000,
+        20000,
       );
       if (data) {
         setFormContent(data);
+      } else if (retryCount < 2) {
+        // Retry up to 2 times with exponential backoff
+        setTimeout(() => fetchFormContent(retryCount + 1), (retryCount + 1) * 2000);
       }
     } catch (error) {
       // silentFetch handles errors silently
+      if (retryCount < 2) {
+        setTimeout(() => fetchFormContent(retryCount + 1), (retryCount + 1) * 2000);
+      }
     }
   };
 
