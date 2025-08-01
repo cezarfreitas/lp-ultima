@@ -7,7 +7,7 @@ interface ImageUploadCompressedProps {
   onUpload?: (formats: ImageFormats) => void;
   placeholder?: string;
   previewHeight?: string;
-  preferredFormat?: 'thumbnail' | 'small' | 'medium' | 'large';
+  preferredFormat?: "thumbnail" | "small" | "medium" | "large";
 }
 
 interface ImageFormats {
@@ -24,14 +24,12 @@ export default function ImageUploadCompressed({
   onUpload,
   placeholder = "https://exemplo.com/imagem.jpg",
   previewHeight = "h-48",
-  preferredFormat = 'medium',
+  preferredFormat = "medium",
 }: ImageUploadCompressedProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [compressionInfo, setCompressionInfo] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
