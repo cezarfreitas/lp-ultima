@@ -153,7 +153,7 @@ export default function Index() {
     }
   };
 
-  // Removed loading screen - page loads immediately with fallback data
+
 
   // Default fallback data if database is not available
   const data = heroData || {
