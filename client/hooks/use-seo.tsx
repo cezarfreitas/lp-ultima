@@ -24,13 +24,8 @@ export function useSEO() {
         setSeoData(data);
         updatePageSEO(data);
       } else if (retryCount < 2) {
-        // Retry up to 2 times with exponential backoff
-        setTimeout(
-          () => {
-            fetchSEOData(retryCount + 1);
-          },
-          Math.pow(2, retryCount) * 1000,
-        );
+        // Immediate retry without backoff
+        fetchSEOData(retryCount + 1);
         return;
       } else {
         // API not available after retries, use default data
