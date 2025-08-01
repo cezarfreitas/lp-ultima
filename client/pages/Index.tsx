@@ -89,7 +89,7 @@ export default function Index() {
 
   const fetchFormContent = async () => {
     try {
-      const data = await silentFetchJson<FormContent>("/api/form-content", {}, 15000);
+      const data = await silentFetchJson<FormContent>(getApiUrl("api/form-content"), {}, 15000);
       if (data) {
         setFormContent(data);
       }
