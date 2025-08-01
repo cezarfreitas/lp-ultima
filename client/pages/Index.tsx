@@ -38,33 +38,25 @@ export default function Index() {
   useEffect(() => {
     console.log('useEffect triggered:', { isHealthy, isChecking });
 
-    // Wait for initial API health check
-    if (isHealthy === null || isChecking) {
-      console.log('Waiting for API health check...');
-      return; // Still checking API health
-    }
-
-    // Add small delay to avoid immediate fetch errors on initial load
+    // Simplified: always try to fetch after a short delay
     const timer = setTimeout(() => {
-      if (isHealthy) {
-        // API is healthy, fetch all data
-        console.log('API healthy, fetching all data');
-        fetchHeroData();
-        fetchFormContent();
-        fetchProductGallery();
-      } else {
-        // API is unhealthy, still try to fetch but with longer delays
-        console.log("API unhealthy, attempting graceful data loading");
-
-        // Stagger the requests to reduce server load
-        setTimeout(() => fetchHeroData(), 1000);
-        setTimeout(() => fetchFormContent(), 2000);
-        setTimeout(() => fetchProductGallery(), 3000);
-      }
-    }, 500);
+      console.log('Triggering data fetch...');
+      fetchHeroData();
+      fetchFormContent();
+      fetchProductGallery();
+    }, 1000);
 
     return () => clearTimeout(timer);
-  }, [isHealthy, isChecking]);
+  }, []); // Only run once on mount
+
+  // Also try when API health becomes available
+  useEffect(() => {
+    if (isHealthy === true && !heroData && !formContent) {
+      console.log('API became healthy, retry fetching missing data');
+      fetchHeroData();
+      fetchFormContent();
+    }
+  }, [isHealthy]);
 
   // Function to optimize image URLs (only for Unsplash)
   const getOptimizedImageUrl = (url: string, width = 1920, quality = 75) => {
