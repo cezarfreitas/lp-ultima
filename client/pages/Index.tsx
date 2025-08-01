@@ -108,7 +108,7 @@ export default function Index() {
     try {
       // Circuit breaker and silentFetch will handle API health
 
-      const data = await simpleFetchJson<ProductGallery>(
+      const data = await silentFetchJson<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
         20000, // 20 second timeout for product gallery
