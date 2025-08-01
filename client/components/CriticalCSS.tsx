@@ -4,6 +4,13 @@ export default function CriticalCSS() {
       dangerouslySetInnerHTML={{
         __html: `
         /* Critical CSS for initial render - Above the fold only */
+
+        /* Preload critical images */
+        .hero-bg::before {
+          content: '';
+          display: none;
+          background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80');
+        }
         body {
           margin: 0;
           font-family: system-ui, -apple-system, sans-serif; /* Use system fonts for speed */
