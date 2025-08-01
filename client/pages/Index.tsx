@@ -76,7 +76,7 @@ export default function Index() {
 
   const fetchHeroData = async () => {
     try {
-      const data = await simpleFetchJson<HeroSectionData>(
+      const data = await silentFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
         5000,
@@ -91,7 +91,7 @@ export default function Index() {
 
   const fetchFormContent = async () => {
     try {
-      const data = await simpleFetchJson<FormContent>(
+      const data = await silentFetchJson<FormContent>(
         getApiUrl("api/form-content"),
         {},
         5000,
