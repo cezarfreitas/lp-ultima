@@ -1,4 +1,4 @@
-import { protectedFetch } from "./circuitBreaker";
+import { protectedFetch } from './circuitBreaker';
 
 /**
  * Performs a fetch request with timeout and silent error handling
@@ -8,7 +8,7 @@ import { protectedFetch } from "./circuitBreaker";
 export async function silentFetch(
   url: string,
   options: RequestInit = {},
-  timeout = 20000, // Increased timeout further
+  timeout = 5000, // Optimized timeout for better UX
 ): Promise<Response | null> {
   // Use circuit breaker to protect against repeated failures
   return await protectedFetch(url, async () => {
@@ -18,7 +18,7 @@ export async function silentFetch(
     try {
       // Use native fetch if FullStory is interfering
       const nativeFetch = window.fetch?.bind(window) || fetch;
-
+      
       const response = await nativeFetch(url, {
         ...options,
         signal: controller.signal,
@@ -33,19 +33,18 @@ export async function silentFetch(
       return response;
     } catch (error) {
       clearTimeout(timeoutId);
-
+      
       // More detailed error handling
       const isDev = process.env.NODE_ENV === "development";
       const isLocalhost =
-        typeof window !== "undefined" &&
-        window.location.hostname === "localhost";
+        typeof window !== "undefined" && window.location.hostname === "localhost";
 
       // Log more details in development
       if (isDev || isLocalhost) {
         console.warn(`Fetch failed for: ${url}`, {
           error: error.message,
           name: error.name,
-          stack: error.stack?.slice(0, 200),
+          stack: error.stack?.slice(0, 200)
         });
       }
 
@@ -53,11 +52,11 @@ export async function silentFetch(
       if (error.name === "TypeError" && error.message.includes("fetch")) {
         // Wait and retry once for fetch interference issues
         await new Promise((resolve) => setTimeout(resolve, 500));
-
+        
         try {
           const controller2 = new AbortController();
           const timeoutId2 = setTimeout(() => controller2.abort(), timeout / 2);
-
+          
           const retryResponse = await fetch(url, {
             ...options,
             signal: controller2.signal,
@@ -67,7 +66,7 @@ export async function silentFetch(
               ...options.headers,
             },
           });
-
+          
           clearTimeout(timeoutId2);
           return retryResponse;
         } catch (retryError) {
@@ -87,7 +86,7 @@ export async function silentFetch(
 export async function silentFetchJson<T>(
   url: string,
   options: RequestInit = {},
-  timeout = 20000, // Increased timeout further
+  timeout = 5000, // Optimized timeout for better UX
 ): Promise<T | null> {
   const response = await silentFetch(url, options, timeout);
 
@@ -100,7 +99,7 @@ export async function silentFetchJson<T>(
     const isDev = process.env.NODE_ENV === "development";
     const isLocalhost =
       typeof window !== "undefined" && window.location.hostname === "localhost";
-
+    
     if (isDev || isLocalhost) {
       console.warn(`HTTP ${response.status} for: ${url}`);
     }
@@ -113,7 +112,7 @@ export async function silentFetchJson<T>(
     const isDev = process.env.NODE_ENV === "development";
     const isLocalhost =
       typeof window !== "undefined" && window.location.hostname === "localhost";
-
+    
     if (isDev || isLocalhost) {
       console.warn(`JSON parse failed for: ${url}`, error);
     }
