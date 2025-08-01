@@ -21,6 +21,7 @@ export default function CriticalCSS() {
 
         .hero-section {
           min-height: 100vh;
+          height: 100vh; /* Fixed height to prevent layout shift */
           display: flex;
           align-items: center;
           justify-content: center;
