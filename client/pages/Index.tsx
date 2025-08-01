@@ -92,13 +92,20 @@ export default function Index() {
     }
   };
 
-  const fetchProductGallery = async () => {
+  const fetchProductGallery = async (retryCount = 0) => {
     try {
       const data = await silentFetchJson<ProductGallery>(
         "/api/product-gallery",
+        {},
+        15000 // 15 second timeout
       );
       if (data) {
         setProductGallery(data);
+      } else if (retryCount < 2) {
+        // Retry up to 2 times with exponential backoff
+        setTimeout(() => {
+          fetchProductGallery(retryCount + 1);
+        }, Math.pow(2, retryCount) * 1000);
       }
     } catch (error) {
       // silentFetch handles errors silently
