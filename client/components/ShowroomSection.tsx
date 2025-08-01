@@ -33,7 +33,7 @@ export default function ShowroomSection() {
       const response = await silentFetch(getApiUrl("api/showroom"));
       console.log("Showroom Response status:", response.status);
 
-      if (response.ok) {
+      if (response && response.ok) {
         const data = await response.json();
         console.log("Showroom data:", data);
         setSectionData(data);
