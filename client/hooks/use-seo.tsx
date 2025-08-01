@@ -34,10 +34,8 @@ export function useSEO() {
         updatePageSEO(DEFAULT_SEO_DATA);
       }
     } finally {
-      // Only set loading to false if we're not retrying
-      if (retryCount >= 2) {
-        setLoading(false);
-      }
+      // Set loading to false after all retries or successful fetch
+      setLoading(false);
     }
   };
 
