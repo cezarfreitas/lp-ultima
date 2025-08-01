@@ -58,26 +58,48 @@ export default function OptimizedImage({
         // Extract base filename from any format URL
         let baseName = "";
         if (baseSrc.includes("/uploads/thumb/")) {
-          baseName = baseSrc.replace("/uploads/thumb/", "").replace("-thumb.webp", "");
+          baseName = baseSrc
+            .replace("/uploads/thumb/", "")
+            .replace("-thumb.webp", "");
         } else if (baseSrc.includes("/uploads/small/")) {
-          baseName = baseSrc.replace("/uploads/small/", "").replace("-small.webp", "");
+          baseName = baseSrc
+            .replace("/uploads/small/", "")
+            .replace("-small.webp", "");
         } else if (baseSrc.includes("/uploads/medium/")) {
-          baseName = baseSrc.replace("/uploads/medium/", "").replace("-medium.webp", "");
+          baseName = baseSrc
+            .replace("/uploads/medium/", "")
+            .replace("-medium.webp", "");
         } else if (baseSrc.includes("/uploads/large/")) {
-          baseName = baseSrc.replace("/uploads/large/", "").replace("-large.webp", "");
+          baseName = baseSrc
+            .replace("/uploads/large/", "")
+            .replace("-large.webp", "");
         } else {
           // Old format - convert to base name
-          baseName = baseSrc.replace("/uploads/", "").replace(/\.(jpg|jpeg|png|webp)$/i, '');
+          baseName = baseSrc
+            .replace("/uploads/", "")
+            .replace(/\.(jpg|jpeg|png|webp)$/i, "");
         }
 
         // Generate responsive srcSet with our formats
         const formats = [
-          { size: "small", width: 400, url: `/uploads/small/${baseName}-small.webp` },
-          { size: "medium", width: 800, url: `/uploads/medium/${baseName}-medium.webp` },
-          { size: "large", width: 1200, url: `/uploads/large/${baseName}-large.webp` }
+          {
+            size: "small",
+            width: 400,
+            url: `/uploads/small/${baseName}-small.webp`,
+          },
+          {
+            size: "medium",
+            width: 800,
+            url: `/uploads/medium/${baseName}-medium.webp`,
+          },
+          {
+            size: "large",
+            width: 1200,
+            url: `/uploads/large/${baseName}-large.webp`,
+          },
         ];
 
-        return formats.map(f => `${f.url} ${f.width}w`).join(", ");
+        return formats.map((f) => `${f.url} ${f.width}w`).join(", ");
       } catch (error) {
         console.warn("Failed to generate srcSet for:", baseSrc);
         return undefined;
