@@ -32,10 +32,14 @@ export default function Index() {
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
-    // Fetch data immediately on mount for better performance
-    fetchHeroData();
-    fetchFormContent();
-    fetchProductGallery();
+    // Fetch critical data in parallel for better performance
+    Promise.all([
+      fetchHeroData(),
+      fetchFormContent(),
+    ]).then(() => {
+      // Load non-critical data after critical data
+      fetchProductGallery();
+    });
   }, []);
 
   // Function to optimize image URLs (only for Unsplash)
