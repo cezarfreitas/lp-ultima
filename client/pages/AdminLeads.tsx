@@ -202,7 +202,9 @@ export default function AdminLeads() {
 
         {/* Leads Chart */}
         <div className="mb-8">
-          <LeadsChart />
+          <Suspense fallback={<div className="h-96 bg-gray-100 animate-pulse rounded-lg" />}>
+            <LeadsChart />
+          </Suspense>
         </div>
 
         {/* Filters */}
