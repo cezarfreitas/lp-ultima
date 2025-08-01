@@ -15,6 +15,7 @@ import OptimizedImage from "../components/OptimizedImage";
 import APIStatus from "../components/APIStatus";
 import HeroPlaceholder from "../components/HeroPlaceholder";
 import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration";
+import "../lib/cacheManager"; // Make cache functions globally available
 
 // Import components directly for better performance
 import TestimonialsSection from "../components/TestimonialsSection";
