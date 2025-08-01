@@ -47,7 +47,7 @@ export async function silentFetch(
 export async function silentFetchJson<T>(
   url: string,
   options: RequestInit = {},
-  timeout = 10000, // Increased timeout for production
+  timeout = 15000, // Further increased timeout for production
 ): Promise<T | null> {
   const response = await silentFetch(url, options, timeout);
 
