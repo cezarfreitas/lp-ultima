@@ -140,7 +140,8 @@ export default function OptimizedImage({
       let format = "small"; // default for gallery items
       if (targetWidth) {
         // More aggressive size optimization
-        if (targetWidth <= 80) format = "thumbnail";  // For very small elements
+        if (targetWidth <= 80)
+          format = "thumbnail"; // For very small elements
         else if (targetWidth <= 200) format = "small";
         else if (targetWidth <= 600) format = "medium";
         else format = "large";
