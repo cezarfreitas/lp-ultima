@@ -55,7 +55,8 @@ export default function AdminFooter() {
 
   const fetchFooter = async () => {
     try {
-      const response = await fetch("/api/admin/footer");
+      const { robustFetch } = await import("../lib/robustFetch");
+      const response = await robustFetch("/api/admin/footer");
       if (response.ok) {
         const data = await response.json();
         setSection(data);
