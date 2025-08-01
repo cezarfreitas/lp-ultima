@@ -137,6 +137,16 @@ export default function ShowroomSection() {
             },
           ],
         });
+      } else if (!response) {
+        console.log("Showroom fetch failed, using fallback data");
+        // Use same fallback data when fetch fails
+        setSectionData({
+          id: 1,
+          title: "Nosso [destaque]Showroom[/destaque]",
+          subtitle:
+            "Explore experiências visuais que capturam a essência da marca Ecko em diferentes contextos e estilos.",
+          items: []
+        });
       } else {
         console.error("Error fetching showroom:", response.statusText);
       }
