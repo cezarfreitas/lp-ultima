@@ -31,8 +31,7 @@ export default function Index() {
     null,
   );
 
-  // Use API health monitoring
-  const { isHealthy, isChecking, forceCheck } = useApiHealth();
+  // Removed API health monitoring for performance
 
   // Loading screen removed - page loads immediately
 
