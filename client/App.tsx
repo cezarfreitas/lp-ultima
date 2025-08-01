@@ -36,6 +36,7 @@ import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
 import TestUpload from "./pages/TestUpload";
 import FixGallery from "./pages/FixGallery";
+import ProcessImages from "./pages/ProcessImages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
