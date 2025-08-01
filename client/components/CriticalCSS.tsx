@@ -126,19 +126,43 @@ export default function CriticalCSS() {
         * {
           box-sizing: border-box;
         }
-        
+
         img {
           max-width: 100%;
           height: auto;
+          display: block;
         }
-        
-        /* Reduce layout shifts */
-        .aspect-square {
-          aspect-ratio: 1;
+
+        /* Reduce layout shifts - Add more common classes */
+        .aspect-square { aspect-ratio: 1; }
+        .aspect-video { aspect-ratio: 16/9; }
+        .min-h-screen { min-height: 100vh; }
+        .min-h-96 { min-height: 24rem; }
+        .grid { display: grid; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+        .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .gap-12 { gap: 3rem; }
+        .bg-gray-50 { background-color: rgb(249 250 251); }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .font-bold { font-weight: 700; }
+        .mb-4 { margin-bottom: 1rem; }
+        .leading-tight { line-height: 1.25; }
+        .leading-relaxed { line-height: 1.625; }
+
+        /* Form section specific */
+        #form {
+          min-height: 600px;
+          background-color: rgb(249 250 251);
         }
-        
-        .aspect-video {
-          aspect-ratio: 16/9;
+
+        /* Responsive grid for lg screens */
+        @media (min-width: 1024px) {
+          .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .lg\\:gap-16 { gap: 4rem; }
         }
       `,
       }}
