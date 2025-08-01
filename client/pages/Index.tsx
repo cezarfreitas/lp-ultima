@@ -12,6 +12,7 @@ import CriticalCSS from "../components/CriticalCSS";
 import LazySection from "../components/LazySection";
 import OptimizedImage from "../components/OptimizedImage";
 import APIStatus from "../components/APIStatus";
+import APIHealthIndicator from "../components/APIHealthIndicator";
 
 // Lazy load non-critical components
 const TestimonialsSection = lazy(
