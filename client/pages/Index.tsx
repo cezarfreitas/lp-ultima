@@ -147,6 +147,9 @@ export default function Index() {
         {/* Critical CSS */}
         <CriticalCSS />
 
+        {/* Service Worker for caching */}
+        <ServiceWorkerRegistration />
+
         {/* SEO Head Management */}
         <SEOHead />
 
