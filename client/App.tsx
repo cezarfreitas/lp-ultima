@@ -66,6 +66,7 @@ const App = () => (
           <Route path="/admin/footer" element={<AdminFooter />} />
           <Route path="/admin/seo" element={<AdminSEO />} />
           <Route path="/admin/pixels" element={<AdminPixels />} />
+          <Route path="/admin/cache" element={<AdminCache />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/init-db" element={<InitDB />} />
           <Route path="/migrate" element={<Migrate />} />
