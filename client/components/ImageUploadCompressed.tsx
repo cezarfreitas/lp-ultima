@@ -162,7 +162,9 @@ export default function ImageUploadCompressed({
               alt="Preview"
               className="max-w-full max-h-full object-contain"
               onError={(e) => {
-                e.currentTarget.style.display = "none";
+                console.log("Image failed to load:", currentUrl);
+                // Don't hide the image, let it show broken image icon
+                // This helps debug issues
               }}
             />
           </div>
