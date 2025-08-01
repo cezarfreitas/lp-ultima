@@ -258,11 +258,8 @@ export default function OptimizedImage({
           height={height}
           loading="eager"
           decoding="async"
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className="w-full h-full object-cover"
           onLoad={() => {
-            console.log("Image loaded successfully:", optimizedSrc);
             setIsLoaded(true);
           }}
           onError={(e) => {
