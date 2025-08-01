@@ -16,6 +16,7 @@ import {
 import { getDebugImageUrls } from "./routes/debug";
 import { migrateUrls } from "./routes/migrate-urls";
 import { fixGalleryUrls } from "./routes/fix-gallery";
+import { processExistingImages } from "./routes/process-existing-images";
 import { migrateLogo, migrateDesign, migrateLeads } from "./routes/migrate";
 import { migrateNewTables } from "./routes/migrate-new-tables";
 import { migrateProductGallery } from "./routes/migrate-product-gallery";
