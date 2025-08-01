@@ -131,16 +131,8 @@ export default function Index() {
     }
   };
 
-  // Use hero data with minimal fallback for immediate display
-  const data = heroData || {
-    logo_text: "Ecko",
-    logo_image: "",
-    impact_title: "Carregando...",
-    impact_subtitle: "",
-    description: "Por favor aguarde enquanto carregamos o conteúdo.",
-    button_text: "Aguarde",
-    background_image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
-  };
+  // Only use real hero data - no fallback content
+  const data = heroData;
 
   return (
     <APIStatus showNotice={true}>
