@@ -151,7 +151,9 @@ export default function Index() {
           <div
             className="hero-bg"
             style={{
-              backgroundImage: `url('${getOptimizedImageUrl(data.background_image, 1600, 70)}')`,
+              backgroundImage: data?.background_image
+                ? `url('${getOptimizedImageUrl(data.background_image, 1600, 70)}')`
+                : 'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(17,24,39,0.6) 100%)',
             }}
           >
             {/* Dark Overlay with brand colors */}
