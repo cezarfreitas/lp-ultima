@@ -316,7 +316,8 @@ export default function Index() {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         width={300}
                         height={300}
-                        priority={index < 4}
+                        priority={index < 2} // Only first 2 images priority
+                        loading={index < 4 ? "eager" : "lazy"}
                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px"
                       />
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
