@@ -83,6 +83,7 @@ const App = () => (
           <Route path="/test-upload" element={<TestUpload />} />
           <Route path="/fix-gallery" element={<FixGallery />} />
           <Route path="/process-images" element={<ProcessImages />} />
+          <Route path="/fix-hero" element={<FixHero />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
