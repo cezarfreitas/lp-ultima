@@ -23,8 +23,13 @@ export default function AdminCache() {
     );
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("admin_authenticated");
+    setIsAuthenticated(false);
+  };
+
   return (
-    <AdminLayout title="Gerenciamento de Cache">
+    <AdminLayout title="Gerenciamento de Cache" onLogout={handleLogout}>
       <div className="space-y-6">
         {/* Main Cache Control */}
         <CacheControl />
