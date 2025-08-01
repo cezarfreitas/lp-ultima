@@ -331,9 +331,10 @@ export default function Index() {
         <section
           id="form"
           className="py-12 md:py-16 lg:py-20 xl:py-24 bg-gray-50"
+          style={{ minHeight: '600px' }} // Prevent layout shift
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center" style={{ minHeight: '500px' }}>
               {/* Left Column - Benefits/Reasons */}
               <div className="space-y-8">
                 <div>
