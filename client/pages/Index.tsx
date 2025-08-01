@@ -37,27 +37,11 @@ export default function Index() {
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
-    console.log('useEffect triggered:', { isHealthy, isChecking });
-
-    // Simplified: always try to fetch after a short delay
-    const timer = setTimeout(() => {
-      console.log('Triggering data fetch...');
-      fetchHeroData();
-      fetchFormContent();
-      fetchProductGallery();
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []); // Only run once on mount
-
-  // Also try when API health becomes available
-  useEffect(() => {
-    if (isHealthy === true && !heroData && !formContent) {
-      console.log('API became healthy, retry fetching missing data');
-      fetchHeroData();
-      fetchFormContent();
-    }
-  }, [isHealthy]);
+    // Fetch data immediately on mount for better performance
+    fetchHeroData();
+    fetchFormContent();
+    fetchProductGallery();
+  }, []);
 
   // Function to optimize image URLs (only for Unsplash)
   const getOptimizedImageUrl = (url: string, width = 1920, quality = 75) => {
