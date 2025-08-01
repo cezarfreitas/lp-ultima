@@ -1,6 +1,9 @@
+import { protectedFetch } from './circuitBreaker';
+
 /**
  * Performs a fetch request with timeout and silent error handling
  * Returns null if the request fails for any reason
+ * Now includes circuit breaker protection
  */
 export async function silentFetch(
   url: string,
