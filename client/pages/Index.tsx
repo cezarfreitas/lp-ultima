@@ -97,6 +97,7 @@ export default function Index() {
   };
 
   const fetchHeroData = async (retryCount = 0) => {
+    console.log('fetchHeroData called, retry:', retryCount);
     try {
       const data = await silentFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
@@ -104,6 +105,7 @@ export default function Index() {
         20000,
       );
       if (data) {
+        console.log('Hero data received:', data);
         setHeroData(data);
       } else if (retryCount < 2) {
         // Retry up to 2 times with exponential backoff
@@ -118,6 +120,7 @@ export default function Index() {
   };
 
   const fetchFormContent = async (retryCount = 0) => {
+    console.log('fetchFormContent called, retry:', retryCount);
     try {
       const data = await silentFetchJson<FormContent>(
         getApiUrl("api/form-content"),
@@ -125,6 +128,7 @@ export default function Index() {
         20000,
       );
       if (data) {
+        console.log('Form content received:', data);
         setFormContent(data);
       } else if (retryCount < 2) {
         // Retry up to 2 times with exponential backoff
