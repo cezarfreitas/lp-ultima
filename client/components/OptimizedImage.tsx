@@ -217,6 +217,8 @@ export default function OptimizedImage({
   const optimizedSrc = getOptimizedSrc(src, width);
   const fallbackSrc = src; // Original URL as fallback
 
+  console.log("OptimizedImage debug:", { src, optimizedSrc, width });
+
   return (
     <div className={`relative overflow-hidden ${className}`} ref={imgRef}>
       {/* Main Image with fallback */}
