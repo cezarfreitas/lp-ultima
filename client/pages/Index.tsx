@@ -101,7 +101,7 @@ export default function Index() {
   const fetchProductGallery = async (retryCount = 0) => {
     try {
       const data = await silentFetchJson<ProductGallery>(
-        "/api/product-gallery",
+        getApiUrl("api/product-gallery"),
         {},
         15000 // 15 second timeout
       );
