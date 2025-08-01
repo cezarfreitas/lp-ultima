@@ -18,13 +18,13 @@ interface UploadedImage {
 interface MultiImageUploadProps {
   onImagesUploaded: (imageData: UploadedImage[]) => void;
   maxFiles?: number;
-  preferredFormat?: 'thumbnail' | 'small' | 'medium' | 'large';
+  preferredFormat?: "thumbnail" | "small" | "medium" | "large";
 }
 
 export default function MultiImageUpload({
   onImagesUploaded,
   maxFiles = 10,
-  preferredFormat = 'medium',
+  preferredFormat = "medium",
 }: MultiImageUploadProps) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -105,15 +105,16 @@ export default function MultiImageUpload({
               medium: data.url,
               large: data.url,
             },
-            totalOptimizedSize: data.compressedSize || data.sizes?.total_optimized?.bytes || 0,
-            savingsPercent: parseFloat(data.compressionRatio?.replace('%', '') || '0'),
+            totalOptimizedSize:
+              data.compressedSize || data.sizes?.total_optimized?.bytes || 0,
+            savingsPercent: parseFloat(
+              data.compressionRatio?.replace("%", "") || "0",
+            ),
             progress: 100,
           };
 
           setImages((prev) =>
-            prev.map((img) =>
-              img.id === imageData.id ? updatedImage : img,
-            ),
+            prev.map((img) => (img.id === imageData.id ? updatedImage : img)),
           );
           uploadedImages.push(updatedImage);
         } else {
@@ -190,7 +191,8 @@ export default function MultiImageUpload({
           </button>
 
           <div className="text-sm text-gray-500">
-            PNG, JPG até 10MB cada • Máximo {maxFiles} imagens • 4 formatos automáticos
+            PNG, JPG até 10MB cada • Máximo {maxFiles} imagens • 4 formatos
+            automáticos
           </div>
         </div>
       </div>
