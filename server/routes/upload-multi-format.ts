@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadsDir)) {
 
 // Create subdirectories for different sizes
 const sizeDirectories = ["thumbnail", "small", "medium", "large"];
-sizeDirectories.forEach(dir => {
+sizeDirectories.forEach((dir) => {
   const dirPath = path.join(uploadsDir, dir);
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
@@ -61,28 +61,28 @@ const generateFilename = (originalName: string): string => {
 // Process and save image in multiple formats
 const processImageSizes = async (
   buffer: Buffer,
-  filename: string
+  filename: string,
 ): Promise<{ [key: string]: string }> => {
   const urls: { [key: string]: string } = {};
-  
+
   for (const [sizeName, config] of Object.entries(sizeConfigs)) {
     const outputFilename = `${filename}-${sizeName}.webp`;
     const outputPath = path.join(uploadsDir, sizeName, outputFilename);
-    
+
     await sharp(buffer)
       .resize(config.width, config.height, {
-        fit: 'inside',
-        withoutEnlargement: true
+        fit: "inside",
+        withoutEnlargement: true,
       })
-      .webp({ 
+      .webp({
         quality: config.quality,
-        effort: 6 // Higher compression effort
+        effort: 6, // Higher compression effort
       })
       .toFile(outputPath);
-    
+
     urls[sizeName] = `/uploads/${sizeName}/${outputFilename}`;
   }
-  
+
   return urls;
 };
 
@@ -107,17 +107,24 @@ export const uploadMultiFormat: RequestHandler = (req, res) => {
     try {
       // Generate base filename
       const filename = generateFilename(req.file.originalname);
-      
+
       // Process image in multiple sizes
       const urls = await processImageSizes(req.file.buffer, filename);
-      
+
       // Get original file info
       const originalSize = req.file.buffer.length;
-      
+
       // Calculate compression stats for the medium size (default display)
-      const mediumPath = path.join(uploadsDir, "medium", `${filename}-medium.webp`);
+      const mediumPath = path.join(
+        uploadsDir,
+        "medium",
+        `${filename}-medium.webp`,
+      );
       const compressedSize = fs.statSync(mediumPath).size;
-      const compressionRatio = ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
+      const compressionRatio = (
+        ((originalSize - compressedSize) / originalSize) *
+        100
+      ).toFixed(1);
 
       res.json({
         message: "Upload realizado com sucesso",
@@ -127,7 +134,7 @@ export const uploadMultiFormat: RequestHandler = (req, res) => {
         originalSize: originalSize,
         compressedSize: compressedSize,
         compressionRatio: `${compressionRatio}%`,
-        formats: Object.keys(urls)
+        formats: Object.keys(urls),
       });
     } catch (error) {
       console.error("Image processing error:", error);
@@ -141,20 +148,24 @@ export const uploadMultiFormat: RequestHandler = (req, res) => {
 // Get available formats for an image
 export const getImageFormats: RequestHandler = (req, res) => {
   const { filename } = req.params;
-  
+
   if (!filename) {
     return res.status(400).json({ error: "Nome do arquivo é obrigatório" });
   }
 
-  const baseName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+  const baseName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, "");
   const formats: { [key: string]: string } = {};
-  
+
   for (const sizeName of Object.keys(sizeConfigs)) {
-    const imagePath = path.join(uploadsDir, sizeName, `${baseName}-${sizeName}.webp`);
+    const imagePath = path.join(
+      uploadsDir,
+      sizeName,
+      `${baseName}-${sizeName}.webp`,
+    );
     if (fs.existsSync(imagePath)) {
       formats[sizeName] = `/uploads/${sizeName}/${baseName}-${sizeName}.webp`;
     }
   }
-  
+
   res.json({ formats });
 };
