@@ -228,7 +228,7 @@ export default function OptimizedImage({
           alt={alt}
           width={width}
           height={height}
-          loading={priority ? "eager" : "lazy"}
+          loading="eager"
           decoding="async"
           className={`w-full h-full object-cover transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
