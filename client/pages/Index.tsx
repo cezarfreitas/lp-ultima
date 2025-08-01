@@ -76,7 +76,7 @@ export default function Index() {
 
   const fetchHeroData = async () => {
     try {
-      const data = await silentFetchJson<HeroSectionData>("/api/hero", {}, 15000);
+      const data = await silentFetchJson<HeroSectionData>(getApiUrl("api/hero"), {}, 15000);
       if (data) {
         setHeroData(data);
       }
