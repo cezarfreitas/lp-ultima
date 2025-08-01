@@ -264,6 +264,8 @@ export default function OptimizedImage({
           onLoad={() => {
             setIsLoaded(true);
           }}
+          // Add cache control for better performance
+          crossOrigin="anonymous"
           onError={(e) => {
             // Fallback to original image if optimized version fails
             if (e.currentTarget.src !== fallbackSrc) {
