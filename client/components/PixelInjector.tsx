@@ -29,20 +29,24 @@ export default function PixelInjector() {
 
   const fetchEnabledPixels = async (retryCount = 0) => {
     try {
+      // Pixels are not critical, so check API health first
+      if (retryCount === 0) {
+        const isHealthy = await checkApiHealth();
+        if (!isHealthy) {
+          console.log('API unhealthy, skipping pixels fetch');
+          return;
+        }
+      }
+
       const data = await silentFetchJson<PixelData[]>(
         getApiUrl("api/pixels/enabled"),
         {},
-        15000 // 15 second timeout
+        10000 // 10 second timeout for pixels
       );
       setPixels(data || []);
     } catch (error) {
-      // If first attempt fails, retry once after delay
-      if (retryCount < 1) {
-        setTimeout(() => {
-          fetchEnabledPixels(retryCount + 1);
-        }, 3000);
-      }
       // Silently fail for pixels - they're not critical for functionality
+      console.log('Pixels fetch failed, continuing without tracking');
     }
   };
 
