@@ -541,11 +541,7 @@ export default function Index() {
           </LazySection>
         </Suspense>
 
-        {/* Debug Info - Temporary */}
-        <div className="fixed top-4 right-4 z-50 bg-black text-white p-2 text-xs rounded">
-          <div>Hero: {heroData ? 'OK' : 'NULL'}</div>
-          <div>Form: {formContent ? 'OK' : 'NULL'}</div>
-        </div>
+
       </div>
     </APIStatus>
   );
