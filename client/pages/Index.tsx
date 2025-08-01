@@ -174,10 +174,13 @@ export default function Index() {
             <div className="mb-12 flex flex-col items-center">
               {data?.logo_image ? (
                 <div className="mb-6">
-                  <img
+                  <OptimizedImage
                     src={data?.logo_image}
                     alt="Logo"
+                    width={112} // Max h-28 = 112px
                     className="h-20 md:h-24 lg:h-28 w-auto object-contain"
+                    loading="eager"
+                    priority
                   />
                 </div>
               ) : (
