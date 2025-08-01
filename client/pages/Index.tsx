@@ -35,6 +35,9 @@ export default function Index() {
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
+    // Preload critical data immediately
+    preloadCriticalData();
+
     // Fetch critical data in parallel for better performance
     Promise.all([fetchHeroData(), fetchFormContent()]).then(() => {
       // Load non-critical data after critical data
