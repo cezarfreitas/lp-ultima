@@ -573,6 +573,13 @@ export default function Index() {
             <Footer />
           </LazySection>
         </Suspense>
+
+        {/* API Health Indicator - Positioned discretely */}
+        {!isHealthy && (
+          <div className="fixed bottom-4 right-4 z-50 bg-white shadow-lg rounded-lg p-3 border border-gray-200">
+            <APIHealthIndicator showDetails={true} />
+          </div>
+        )}
       </div>
     </APIStatus>
   );
