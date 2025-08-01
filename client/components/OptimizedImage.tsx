@@ -206,22 +206,43 @@ export default function OptimizedImage({
     );
   }
 
-  // Simplified for debugging - show image directly
+  const optimizedSrc = getOptimizedSrc(src, width);
+  const fallbackSrc = src; // Original URL as fallback
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-      onError={(e) => {
-        console.error("Image failed to load:", src);
-        setError(true);
-      }}
-      onLoad={() => {
-        console.log("Image loaded successfully:", src);
-        setIsLoaded(true);
-      }}
-    />
+    <div className={`relative overflow-hidden ${className}`} ref={imgRef}>
+      {/* Main Image with fallback */}
+      {isInView && (
+        <img
+          src={optimizedSrc}
+          srcSet={generateSrcSet(src, width)}
+          sizes={sizes}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={() => setIsLoaded(true)}
+          onError={(e) => {
+            // Fallback to original image if optimized version fails
+            if (e.currentTarget.src !== fallbackSrc) {
+              console.log("Optimized image failed, falling back to original:", optimizedSrc);
+              e.currentTarget.src = fallbackSrc;
+            } else {
+              console.error("Both optimized and fallback images failed:", src);
+              setError(true);
+            }
+          }}
+        />
+      )}
+
+      {/* Loading placeholder */}
+      {!isInView && !priority && (
+        <div className="w-full h-full bg-gray-200 animate-pulse" />
+      )}
+    </div>
   );
 }
