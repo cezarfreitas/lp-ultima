@@ -84,8 +84,8 @@ export default function Index() {
       const data = await cachedFetch<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
-        'hero',
-        600000 // 10 minutes cache for hero
+        "hero",
+        600000, // 10 minutes cache for hero
       );
       if (data) {
         setHeroData(data);
@@ -100,8 +100,8 @@ export default function Index() {
       const data = await cachedFetch<FormContent>(
         getApiUrl("api/form-content"),
         {},
-        'form-content',
-        600000 // 10 minutes cache for form
+        "form-content",
+        600000, // 10 minutes cache for form
       );
       if (data) {
         setFormContent(data);
@@ -118,8 +118,8 @@ export default function Index() {
       const data = await cachedFetch<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
-        'product-gallery',
-        300000 // 5 minutes cache for gallery
+        "product-gallery",
+        300000, // 5 minutes cache for gallery
       );
 
       if (data) {
