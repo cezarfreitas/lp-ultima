@@ -37,6 +37,7 @@ import TestTestimonials from "./pages/TestTestimonials";
 import TestUpload from "./pages/TestUpload";
 import FixGallery from "./pages/FixGallery";
 import ProcessImages from "./pages/ProcessImages";
+import FixHero from "./pages/FixHero";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
