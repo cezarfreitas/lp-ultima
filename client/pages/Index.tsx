@@ -4,7 +4,7 @@ import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
 import { silentFetchJson } from "../lib/silentFetch";
 import { getApiUrl } from "../lib/apiUrl";
-import { checkApiHealth, getApiHealthStatus } from "../lib/apiHealth";
+import { useApiHealth } from "../hooks/use-api-health";
 import LeadCaptureForm from "../components/LeadCaptureForm";
 import SEOHead from "../components/SEOHead";
 import PixelInjector from "../components/PixelInjector";
