@@ -102,8 +102,6 @@ export default function Index() {
       }
     } catch (error) {
       // silentFetch handles errors silently
-    } finally {
-      setLoading(false);
     }
   };
 
