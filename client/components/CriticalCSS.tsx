@@ -160,6 +160,16 @@ export default function CriticalCSS() {
           background-color: rgb(249 250 251);
         }
 
+        /* Hero placeholder to prevent layout shift */
+        .hero-placeholder {
+          height: 100vh;
+          background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(17,24,39,0.6) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
         /* Responsive grid for lg screens */
         @media (min-width: 1024px) {
           .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
