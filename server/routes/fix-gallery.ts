@@ -4,11 +4,14 @@ import { pool } from "../database/config";
 // Fix gallery URLs with existing multi-format images
 export const fixGalleryUrls: RequestHandler = async (req, res) => {
   try {
-    // Available images in medium format
+    // Available working images (using old format temporarily)
     const availableImages = [
-      "/uploads/medium/CÃ³pia de @mauvistto_ECKO UNLTD--12-1754006127096-834392953-medium.webp",
-      "/uploads/medium/CÃ³pia de @mauvistto_ECKO UNLTD--12-1754006160724-30289477-medium.webp", 
-      "/uploads/medium/CÃ³pia de @mauvistto_ECKO UNLTD--12-1754006180791-535179300-medium.webp"
+      "/uploads/file-1753965760377-749116186.png",
+      "/uploads/file-1753965764727-496696993.png",
+      "/uploads/file-1753965806646-564295651.png",
+      "/uploads/file-1753965811939-349385636.png",
+      "/uploads/file-1753965907323-773306901.png",
+      "/uploads/file-1753967601283-437363940.png"
     ];
 
     // Get all products
