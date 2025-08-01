@@ -84,6 +84,12 @@ export default function AdminLayout({ children, onLogout }: AdminLayoutProps) {
       description: "Gerenciar conteúdo do rodapé",
     },
     {
+      name: "Cache",
+      href: "/admin/cache",
+      icon: "🗄️",
+      description: "Gerenciar cache e performance",
+    },
+    {
       name: "Configurações",
       href: "/admin/settings",
       icon: "⚙️",
