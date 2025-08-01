@@ -156,16 +156,7 @@ export default function Index() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <div className="text-center">
-          <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-gray-200">Carregando...</p>
-        </div>
-      </div>
-    );
-  }
+  // Removed loading screen - page loads immediately with fallback data
 
   // Default fallback data if database is not available
   const data = heroData || {
