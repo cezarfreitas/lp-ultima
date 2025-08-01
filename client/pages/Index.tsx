@@ -77,10 +77,11 @@ export default function Index() {
 
   const fetchHeroData = async () => {
     try {
-      const data = await silentFetchJson<HeroSectionData>(
+      const data = await cachedFetch<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
-        1200, // Faster timeout for hero
+        'hero',
+        600000 // 10 minutes cache for hero
       );
       if (data) {
         setHeroData(data);
@@ -92,10 +93,11 @@ export default function Index() {
 
   const fetchFormContent = async () => {
     try {
-      const data = await silentFetchJson<FormContent>(
+      const data = await cachedFetch<FormContent>(
         getApiUrl("api/form-content"),
         {},
-        1200, // Faster timeout for form
+        'form-content',
+        600000 // 10 minutes cache for form
       );
       if (data) {
         setFormContent(data);
@@ -109,10 +111,11 @@ export default function Index() {
     try {
       // Circuit breaker and silentFetch will handle API health
 
-      const data = await silentFetchJson<ProductGallery>(
+      const data = await cachedFetch<ProductGallery>(
         getApiUrl("api/product-gallery"),
         {},
-        3000, // Fast timeout for better performance
+        'product-gallery',
+        300000 // 5 minutes cache for gallery
       );
 
       if (data) {
