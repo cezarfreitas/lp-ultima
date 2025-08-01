@@ -18,7 +18,7 @@ export function useSEO() {
 
   const fetchSEOData = async (retryCount = 0) => {
     try {
-      const data = await silentFetchJson<SEOData>("/api/seo", {}, 15000);
+      const data = await silentFetchJson<SEOData>(getApiUrl("api/seo"), {}, 15000);
 
       if (data) {
         setSeoData(data);
