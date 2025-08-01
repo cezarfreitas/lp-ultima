@@ -580,6 +580,13 @@ export default function Index() {
           </LazySection>
         </Suspense>
 
+        {/* Debug Info - Temporary */}
+        <div className="fixed top-4 right-4 z-50 bg-black text-white p-2 text-xs rounded">
+          <div>Hero: {heroData ? 'OK' : 'NULL'}</div>
+          <div>Form: {formContent ? 'OK' : 'NULL'}</div>
+          <div>API: {isHealthy ? 'Healthy' : isHealthy === false ? 'Unhealthy' : 'Checking'}</div>
+        </div>
+
         {/* API Health Indicator - Positioned discretely */}
         {!isHealthy && (
           <div className="fixed bottom-4 right-4 z-50 bg-white shadow-lg rounded-lg p-3 border border-gray-200">
