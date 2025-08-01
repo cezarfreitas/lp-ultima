@@ -3,7 +3,10 @@ interface HeroPlaceholderProps {
   children?: React.ReactNode;
 }
 
-export default function HeroPlaceholder({ hasData, children }: HeroPlaceholderProps) {
+export default function HeroPlaceholder({
+  hasData,
+  children,
+}: HeroPlaceholderProps) {
   return (
     <section className="hero-section">
       {hasData ? (
