@@ -225,7 +225,6 @@ export default function OptimizedImage({
       {isInView && (
         <img
           src={optimizedSrc}
-
           sizes={sizes}
           alt={alt}
           width={width}
