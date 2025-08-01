@@ -117,13 +117,8 @@ export default function Index() {
       if (data) {
         setProductGallery(data);
       } else if (retryCount < 1) {
-        // Reduced retries - only retry once
-        setTimeout(
-          () => {
-            fetchProductGallery(retryCount + 1);
-          },
-          5000, // 5 second delay
-        );
+        // Immediate retry without timeout
+        fetchProductGallery(retryCount + 1);
       }
     } catch (error) {
       // silentFetch handles errors silently
