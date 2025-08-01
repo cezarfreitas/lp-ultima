@@ -36,8 +36,11 @@ export default function Index() {
   // Loading screen removed - page loads immediately
 
   useEffect(() => {
+    console.log('useEffect triggered:', { isHealthy, isChecking });
+
     // Wait for initial API health check
     if (isHealthy === null || isChecking) {
+      console.log('Waiting for API health check...');
       return; // Still checking API health
     }
 
@@ -45,6 +48,7 @@ export default function Index() {
     const timer = setTimeout(() => {
       if (isHealthy) {
         // API is healthy, fetch all data
+        console.log('API healthy, fetching all data');
         fetchHeroData();
         fetchFormContent();
         fetchProductGallery();
