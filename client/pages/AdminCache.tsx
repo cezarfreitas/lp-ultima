@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdminLayout from "../components/AdminLayout";
 import CacheControl from "../components/CacheControl";
 
 export default function AdminCache() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showDeveloperMode, setShowDeveloperMode] = useState(false);
+
+  useEffect(() => {
+    // Check if already authenticated
+    const authenticated = localStorage.getItem("admin_authenticated") === "true";
+    setIsAuthenticated(authenticated);
+  }, []);
 
   if (!isAuthenticated) {
     return (
