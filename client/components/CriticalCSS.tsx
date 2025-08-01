@@ -162,12 +162,14 @@ export default function CriticalCSS() {
 
         /* Hero placeholder to prevent layout shift */
         .hero-placeholder {
+          width: 100%;
           height: 100vh;
           background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(17,24,39,0.6) 100%);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
+          position: relative;
         }
 
         /* Responsive grid for lg screens */
