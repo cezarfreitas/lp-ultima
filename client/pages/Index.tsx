@@ -28,7 +28,7 @@ export default function Index() {
   const [productGallery, setProductGallery] = useState<ProductGallery | null>(
     null,
   );
-  const [loading, setLoading] = useState(false); // No loading screen
+  // Loading screen removed - page loads immediately
 
   useEffect(() => {
     // Add delay to avoid immediate fetch errors on initial load
