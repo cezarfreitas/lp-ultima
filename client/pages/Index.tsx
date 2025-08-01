@@ -77,49 +77,33 @@ export default function Index() {
     });
   };
 
-  const fetchHeroData = async (retryCount = 0) => {
-    console.log('fetchHeroData called, retry:', retryCount);
+  const fetchHeroData = async () => {
     try {
       const data = await simpleFetchJson<HeroSectionData>(
         getApiUrl("api/hero"),
         {},
-        20000,
+        5000,
       );
       if (data) {
-        console.log('Hero data received:', data);
         setHeroData(data);
-      } else if (retryCount < 2) {
-        // Retry up to 2 times with exponential backoff
-        setTimeout(() => fetchHeroData(retryCount + 1), (retryCount + 1) * 2000);
       }
     } catch (error) {
-      // silentFetch handles errors silently
-      if (retryCount < 2) {
-        setTimeout(() => fetchHeroData(retryCount + 1), (retryCount + 1) * 2000);
-      }
+      console.warn('Hero fetch failed');
     }
   };
 
-  const fetchFormContent = async (retryCount = 0) => {
-    console.log('fetchFormContent called, retry:', retryCount);
+  const fetchFormContent = async () => {
     try {
       const data = await simpleFetchJson<FormContent>(
         getApiUrl("api/form-content"),
         {},
-        20000,
+        5000,
       );
       if (data) {
-        console.log('Form content received:', data);
         setFormContent(data);
-      } else if (retryCount < 2) {
-        // Retry up to 2 times with exponential backoff
-        setTimeout(() => fetchFormContent(retryCount + 1), (retryCount + 1) * 2000);
       }
     } catch (error) {
-      // silentFetch handles errors silently
-      if (retryCount < 2) {
-        setTimeout(() => fetchFormContent(retryCount + 1), (retryCount + 1) * 2000);
-      }
+      console.warn('Form content fetch failed');
     }
   };
 
