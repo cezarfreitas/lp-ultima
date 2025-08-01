@@ -494,49 +494,29 @@ export default function Index() {
         </section>
 
         {/* Showroom Section */}
-        <Suspense
-          fallback={<div className="min-h-96 bg-gray-100 animate-pulse" />}
-        >
-          <LazySection>
-            <ShowroomSection />
-          </LazySection>
-        </Suspense>
+        <LazySection>
+          <ShowroomSection />
+        </LazySection>
 
         {/* Testimonials Section */}
-        <Suspense
-          fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}
-        >
-          <LazySection>
-            <TestimonialsSection />
-          </LazySection>
-        </Suspense>
+        <LazySection>
+          <TestimonialsSection />
+        </LazySection>
 
         {/* FAQ Section */}
-        <Suspense
-          fallback={<div className="min-h-96 bg-white animate-pulse" />}
-        >
-          <LazySection>
-            <FAQSection />
-          </LazySection>
-        </Suspense>
+        <LazySection>
+          <FAQSection />
+        </LazySection>
 
         {/* About Section */}
-        <Suspense
-          fallback={<div className="min-h-96 bg-gray-50 animate-pulse" />}
-        >
-          <LazySection>
-            <AboutSection />
-          </LazySection>
-        </Suspense>
+        <LazySection>
+          <AboutSection />
+        </LazySection>
 
         {/* Footer */}
-        <Suspense
-          fallback={<div className="min-h-48 bg-gray-900 animate-pulse" />}
-        >
-          <LazySection>
-            <Footer />
-          </LazySection>
-        </Suspense>
+        <LazySection>
+          <Footer />
+        </LazySection>
 
 
       </div>
