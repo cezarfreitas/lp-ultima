@@ -16,6 +16,7 @@ export default function AdminCache() {
     return (
       <AdminLayout
         title="Cache - Admin"
+        onLogout={() => {}}
         onAuthSuccess={() => setIsAuthenticated(true)}
       >
         <div>Autenticando...</div>
