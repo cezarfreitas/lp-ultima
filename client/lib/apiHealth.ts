@@ -1,6 +1,6 @@
 import { getApiUrl } from "./apiUrl";
 
-let apiHealthStatus: 'unknown' | 'healthy' | 'unhealthy' = 'unknown';
+let apiHealthStatus: "unknown" | "healthy" | "unhealthy" = "unknown";
 let lastHealthCheck = 0;
 const HEALTH_CHECK_INTERVAL = 30000; // 30 seconds
 
@@ -9,37 +9,40 @@ const HEALTH_CHECK_INTERVAL = 30000; // 30 seconds
  */
 export async function checkApiHealth(): Promise<boolean> {
   const now = Date.now();
-  
+
   // Use cached result if recent
-  if (now - lastHealthCheck < HEALTH_CHECK_INTERVAL && apiHealthStatus !== 'unknown') {
-    return apiHealthStatus === 'healthy';
+  if (
+    now - lastHealthCheck < HEALTH_CHECK_INTERVAL &&
+    apiHealthStatus !== "unknown"
+  ) {
+    return apiHealthStatus === "healthy";
   }
-  
+
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000); // Quick health check
-    
-    const response = await fetch(getApiUrl('api/ping'), {
-      method: 'GET',
+
+    const response = await fetch(getApiUrl("api/ping"), {
+      method: "GET",
       signal: controller.signal,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (response.ok) {
-      apiHealthStatus = 'healthy';
+      apiHealthStatus = "healthy";
       lastHealthCheck = now;
       return true;
     } else {
-      apiHealthStatus = 'unhealthy';
+      apiHealthStatus = "unhealthy";
       lastHealthCheck = now;
       return false;
     }
   } catch (error) {
-    apiHealthStatus = 'unhealthy';
+    apiHealthStatus = "unhealthy";
     lastHealthCheck = now;
     return false;
   }
@@ -48,7 +51,7 @@ export async function checkApiHealth(): Promise<boolean> {
 /**
  * Get current API health status without making a new request
  */
-export function getApiHealthStatus(): 'unknown' | 'healthy' | 'unhealthy' {
+export function getApiHealthStatus(): "unknown" | "healthy" | "unhealthy" {
   return apiHealthStatus;
 }
 
@@ -56,6 +59,6 @@ export function getApiHealthStatus(): 'unknown' | 'healthy' | 'unhealthy' {
  * Reset API health status (useful for retry scenarios)
  */
 export function resetApiHealth(): void {
-  apiHealthStatus = 'unknown';
+  apiHealthStatus = "unknown";
   lastHealthCheck = 0;
 }

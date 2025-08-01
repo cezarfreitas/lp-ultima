@@ -25,16 +25,17 @@ export async function silentFetch(
   } catch (error) {
     // More detailed error handling
     const isDev = process.env.NODE_ENV === "development";
-    const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+    const isLocalhost =
+      typeof window !== "undefined" && window.location.hostname === "localhost";
 
     if (isDev || isLocalhost) {
       console.warn("Fetch failed for:", url, error);
     }
 
     // In production, if it's a network error, wait a bit before returning null
-    if (!isDev && !isLocalhost && error.name === 'AbortError') {
+    if (!isDev && !isLocalhost && error.name === "AbortError") {
       // Wait a small amount for potential network recovery
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
 
     return null;

@@ -42,7 +42,7 @@ export default function Index() {
         fetchProductGallery();
       } else {
         // API is not responding, continue with default data
-        console.log('API not available, using default data');
+        console.log("API not available, using default data");
 
         // Try again later
         setTimeout(() => {
@@ -125,8 +125,8 @@ export default function Index() {
       // Check API health before attempting fetch
       if (retryCount === 0) {
         const isHealthy = await checkApiHealth();
-        if (!isHealthy && getApiHealthStatus() === 'unhealthy') {
-          console.log('API unhealthy, skipping product gallery fetch');
+        if (!isHealthy && getApiHealthStatus() === "unhealthy") {
+          console.log("API unhealthy, skipping product gallery fetch");
           return;
         }
       }
@@ -152,8 +152,6 @@ export default function Index() {
       // silentFetch handles errors silently
     }
   };
-
-
 
   // Default fallback data if database is not available
   const data = heroData || {

@@ -33,7 +33,7 @@ export default function PixelInjector() {
       if (retryCount === 0) {
         const isHealthy = await checkApiHealth();
         if (!isHealthy) {
-          console.log('API unhealthy, skipping pixels fetch');
+          console.log("API unhealthy, skipping pixels fetch");
           return;
         }
       }
@@ -41,12 +41,12 @@ export default function PixelInjector() {
       const data = await silentFetchJson<PixelData[]>(
         getApiUrl("api/pixels/enabled"),
         {},
-        10000 // 10 second timeout for pixels
+        10000, // 10 second timeout for pixels
       );
       setPixels(data || []);
     } catch (error) {
       // Silently fail for pixels - they're not critical for functionality
-      console.log('Pixels fetch failed, continuing without tracking');
+      console.log("Pixels fetch failed, continuing without tracking");
     }
   };
 

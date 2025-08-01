@@ -23,14 +23,15 @@ export default function FixHero() {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Fix Hero URLs</h1>
-      
+
       <div className="mb-4 p-4 bg-yellow-50 rounded">
         <p className="text-yellow-800">
-          Isso irá corrigir URLs quebradas do hero que apontam para formatos multi-size
-          que não existem, substituindo por URLs de imagens originais disponíveis.
+          Isso irá corrigir URLs quebradas do hero que apontam para formatos
+          multi-size que não existem, substituindo por URLs de imagens originais
+          disponíveis.
         </p>
       </div>
-      
+
       <button
         onClick={handleFix}
         disabled={loading}
