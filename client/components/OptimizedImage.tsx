@@ -139,9 +139,10 @@ export default function OptimizedImage({
       // Choose format based on target width - prefer small for gallery
       let format = "small"; // default for gallery items
       if (targetWidth) {
-        if (targetWidth <= 150) format = "thumbnail";
-        else if (targetWidth <= 400) format = "small";
-        else if (targetWidth <= 800) format = "medium";
+        // More aggressive size optimization
+        if (targetWidth <= 80) format = "thumbnail";  // For very small elements
+        else if (targetWidth <= 200) format = "small";
+        else if (targetWidth <= 600) format = "medium";
         else format = "large";
       }
 
