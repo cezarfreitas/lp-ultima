@@ -145,8 +145,27 @@ export default function OptimizedImage({
         else format = "large";
       }
 
-      // For now, return original until multi-format is processed
-      // TODO: Check if multi-format exists and fallback
+      // Try to convert old format filename to new format
+      // If it's already a multi-format URL that doesn't exist, extract original name
+      if (baseSrc.includes("/uploads/medium/") || baseSrc.includes("/uploads/small/") || baseSrc.includes("/uploads/large/") || baseSrc.includes("/uploads/thumbnail/")) {
+        // Extract base name from multi-format URL and try to find original
+        const parts = baseSrc.split('/');
+        const filename = parts[parts.length - 1];
+        const baseName = filename.replace(/-medium\.webp$|-small\.webp$|-large\.webp$|-thumbnail\.webp$/, '');
+
+        // Try common original formats
+        const possibleOriginals = [
+          `/uploads/${baseName}.jpg`,
+          `/uploads/${baseName}.jpeg`,
+          `/uploads/${baseName}.png`,
+          `/uploads/${baseName}.webp`
+        ];
+
+        // Return first original format as fallback
+        return possibleOriginals[0];
+      }
+
+      // For regular files, return as is
       return baseSrc;
     }
 
@@ -225,6 +244,7 @@ export default function OptimizedImage({
       {isInView && (
         <img
           src={optimizedSrc}
+
           sizes={sizes}
           alt={alt}
           width={width}
