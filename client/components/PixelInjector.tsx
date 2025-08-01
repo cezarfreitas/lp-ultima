@@ -18,17 +18,31 @@ export default function PixelInjector() {
   const [pixels, setPixels] = useState<PixelData[]>([]);
 
   useEffect(() => {
-    // Add a small delay to avoid immediate fetch errors on initial load
+    // Add a larger delay to avoid immediate fetch errors on initial load
     const timer = setTimeout(() => {
       fetchEnabledPixels();
-    }, 200);
+    }, 2000); // Larger delay for pixels as they're not critical for initial render
 
     return () => clearTimeout(timer);
   }, []);
 
-  const fetchEnabledPixels = async () => {
-    const data = await silentFetchJson<PixelData[]>("/api/pixels/enabled");
-    setPixels(data || []);
+  const fetchEnabledPixels = async (retryCount = 0) => {
+    try {
+      const data = await silentFetchJson<PixelData[]>(
+        getApiUrl("api/pixels/enabled"),
+        {},
+        15000 // 15 second timeout
+      );
+      setPixels(data || []);
+    } catch (error) {
+      // If first attempt fails, retry once after delay
+      if (retryCount < 1) {
+        setTimeout(() => {
+          fetchEnabledPixels(retryCount + 1);
+        }, 3000);
+      }
+      // Silently fail for pixels - they're not critical for functionality
+    }
   };
 
   useEffect(() => {
