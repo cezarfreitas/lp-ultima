@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { HeroSectionData } from "@shared/hero";
 import { FormContent } from "@shared/form-content";
 import { ProductGallery } from "@shared/product-gallery";
