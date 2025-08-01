@@ -47,12 +47,7 @@ export default function ImageUploadCompressed({
       const formData = new FormData();
       formData.append("file", file);
 
-<<<<<<< HEAD
       const response = await fetch("/api/upload-multi", {
-=======
-      // Use simple upload endpoint to avoid body stream conflicts
-      const response = await fetch("/api/upload", {
->>>>>>> 0ac7e190463366ef15efe1e7bc34bef9e03b01ff
         method: "POST",
         body: formData,
       });
