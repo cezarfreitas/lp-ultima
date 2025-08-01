@@ -233,7 +233,10 @@ export default function OptimizedImage({
           className={`w-full h-full object-cover transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
-          onLoad={() => setIsLoaded(true)}
+          onLoad={() => {
+            console.log("Image loaded successfully:", optimizedSrc);
+            setIsLoaded(true);
+          }}
           onError={(e) => {
             // Fallback to original image if optimized version fails
             if (e.currentTarget.src !== fallbackSrc) {
