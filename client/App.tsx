@@ -34,6 +34,7 @@ import MigratePixels from "./pages/MigratePixels";
 import AdminPixels from "./pages/AdminPixels";
 import SetupComplete from "./pages/SetupComplete";
 import TestTestimonials from "./pages/TestTestimonials";
+import TestUpload from "./pages/TestUpload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -76,6 +77,7 @@ const App = () => (
           <Route path="/migrate-pixels" element={<MigratePixels />} />
           <Route path="/setup-complete" element={<SetupComplete />} />
           <Route path="/test-testimonials" element={<TestTestimonials />} />
+          <Route path="/test-upload" element={<TestUpload />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -3,7 +3,10 @@ import { ProductGallery, ProductItem } from "@shared/product-gallery";
 import AdminAuth from "../components/AdminAuth";
 import AdminLayout from "../components/AdminLayout";
 import ImageUploadCompressed from "../components/ImageUploadCompressed";
-import MultiImageUpload from "../components/MultiImageUpload";
+import MultiImageUploadHybrid from "../components/MultiImageUploadHybrid";
+import UploadSettings, {
+  UploadSettings as UploadSettingsType,
+} from "../components/UploadSettings";
 
 type Tab = "textos" | "fotos";
 
@@ -27,6 +30,11 @@ export default function AdminProductGallery() {
   const [editingProduct, setEditingProduct] = useState<ProductItem | null>(
     null,
   );
+  const [uploadSettings, setUploadSettings] = useState<UploadSettingsType>({
+    useMultiFormat: false,
+    preferredFormat: "medium",
+    autoMigration: false,
+  });
 
   useEffect(() => {
     const authenticated =
@@ -55,18 +63,33 @@ export default function AdminProductGallery() {
     try {
       const response = await fetch("/api/product-gallery");
       if (response.ok) {
-        const data = await response.json();
-        setGallery(data);
-        setFormData({
-          title: data.title || "",
-          subtitle: data.subtitle || "",
-          cta_text: data.cta_text || "",
-          cta_description: data.cta_description || "",
-        });
+        try {
+          const data = await response.json();
+          setGallery(data);
+          setFormData({
+            title: data.title || "",
+            subtitle: data.subtitle || "",
+            cta_text: data.cta_text || "",
+            cta_description: data.cta_description || "",
+          });
+        } catch (parseError) {
+          console.error("Error parsing gallery response:", parseError);
+          setMessage({
+            type: "error",
+            text: "Erro ao processar dados da galeria",
+          });
+        }
+      } else {
+        console.error(
+          "Failed to fetch gallery:",
+          response.status,
+          response.statusText,
+        );
+        setMessage({ type: "error", text: "Erro ao carregar galeria" });
       }
     } catch (error) {
       console.error("Error fetching gallery:", error);
-      setMessage({ type: "error", text: "Erro ao carregar galeria" });
+      setMessage({ type: "error", text: "Erro ao conectar com o servidor" });
     } finally {
       setLoading(false);
     }
@@ -93,17 +116,40 @@ export default function AdminProductGallery() {
       });
 
       if (response.ok) {
-        const updatedData = await response.json();
-        setGallery((prev) => (prev ? { ...prev, ...updatedData } : null));
-        setMessage({
-          type: "success",
-          text: "Configurações salvas com sucesso!",
-        });
+        try {
+          const updatedData = await response.json();
+          setGallery((prev) => (prev ? { ...prev, ...updatedData } : null));
+          setMessage({
+            type: "success",
+            text: "Configurações salvas com sucesso!",
+          });
+        } catch (parseError) {
+          console.error("Error parsing save response:", parseError);
+          setMessage({
+            type: "success",
+            text: "Configurações salvas com sucesso!",
+          });
+        }
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao salvar configurações";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao salvar configurações",
+          text: errorMessage,
         });
       }
     } catch (error) {
@@ -140,10 +186,25 @@ export default function AdminProductGallery() {
           text: "Produto adicionado com sucesso!",
         });
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao adicionar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao adicionar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
@@ -220,10 +281,25 @@ export default function AdminProductGallery() {
           text: "Produto atualizado com sucesso!",
         });
       } else {
-        const errorData = await response.json();
+        let errorMessage = "Erro ao atualizar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao atualizar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
@@ -247,10 +323,27 @@ export default function AdminProductGallery() {
         await fetchGallery();
         setMessage({ type: "success", text: "Produto deletado com sucesso!" });
       } else {
-        const errorData = await response.json();
+        // Check if response has content before trying to parse JSON
+        let errorMessage = "Erro ao deletar produto";
+
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            // If not JSON, get text content
+            const errorText = await response.text();
+            errorMessage = errorText || `Erro HTTP ${response.status}`;
+          }
+        } catch (parseError) {
+          console.warn("Could not parse error response:", parseError);
+          errorMessage = `Erro HTTP ${response.status}`;
+        }
+
         setMessage({
           type: "error",
-          text: errorData.error || "Erro ao deletar produto",
+          text: errorMessage,
         });
       }
     } catch (error) {
@@ -259,7 +352,13 @@ export default function AdminProductGallery() {
     }
   };
 
-  const handleImageUpload = (url: string, isEdit = false) => {
+  const handleImageUpload = (urlOrFormats: string | any, isEdit = false) => {
+    // Handle both old string format and new formats object
+    const url =
+      typeof urlOrFormats === "string"
+        ? urlOrFormats
+        : urlOrFormats?.medium || urlOrFormats?.large || "";
+
     if (isEdit && editingProduct) {
       setEditingProduct({ ...editingProduct, image_url: url });
     } else {
@@ -317,7 +416,7 @@ export default function AdminProductGallery() {
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              📸 Fotos ({gallery?.products?.length || 0})
+              ���� Fotos ({gallery?.products?.length || 0})
             </button>
           </nav>
         </div>
@@ -448,6 +547,9 @@ export default function AdminProductGallery() {
 
         {activeTab === "fotos" && (
           <div className="space-y-6">
+            {/* Upload Settings */}
+            <UploadSettings onSettingsChange={setUploadSettings} />
+
             {/* Upload Múltiplo */}
             <div className="bg-white shadow rounded-lg p-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
@@ -457,9 +559,11 @@ export default function AdminProductGallery() {
                 Adicione várias imagens de uma vez com compressão automática
               </p>
 
-              <MultiImageUpload
+              <MultiImageUploadHybrid
                 onImagesUploaded={handleAddMultipleProducts}
                 maxFiles={12}
+                useMultiFormat={uploadSettings.useMultiFormat}
+                preferredFormat={uploadSettings.preferredFormat}
               />
             </div>
 

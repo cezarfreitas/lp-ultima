@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import compression from "compression";
+import helmet from "helmet";
 import { handleDemo } from "./routes/demo";
 import {
   getHeroSection,
@@ -9,8 +11,12 @@ import {
 } from "./routes/hero";
 import { initializeDB } from "./routes/db-init";
 import { uploadFile } from "./routes/upload";
+<<<<<<< HEAD
 import { uploadMultiFormat, getImageFormats } from "./routes/upload-multi-format";
 import { getDebugImageUrls } from "./routes/debug";
+=======
+import { uploadMultiFormat } from "./routes/upload-multi-format";
+>>>>>>> 0ac7e190463366ef15efe1e7bc34bef9e03b01ff
 import { migrateLogo, migrateDesign, migrateLeads } from "./routes/migrate";
 import { migrateNewTables } from "./routes/migrate-new-tables";
 import { migrateProductGallery } from "./routes/migrate-product-gallery";
@@ -101,6 +107,7 @@ import {
   togglePixel,
 } from "./routes/pixels";
 import { migratePixels } from "./routes/migrate-pixels";
+import { migrateMultiFormat } from "./routes/migrate-multi-format";
 import { sendMetaConversion } from "./routes/meta-conversion";
 import { initializeDatabase } from "./database/config";
 import { paths } from "../shared/config.js";
@@ -112,13 +119,82 @@ export function createServer() {
   // Initialize database on server start
   initializeDatabase().catch(console.error);
 
-  // Middleware
-  app.use(cors());
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  // Performance middleware
+  app.use(
+    helmet({
+      contentSecurityPolicy: false, // Disable CSP to avoid conflicts with Vite
+      crossOriginEmbedderPolicy: false,
+    }),
+  );
 
-  // Serve uploaded files statically
-  app.use("/uploads", express.static(paths.uploadsDir()));
+  // Response time tracking
+  app.use((req, res, next) => {
+    const start = Date.now();
+    res.on("finish", () => {
+      const duration = Date.now() - start;
+      if (duration > 500) {
+        console.warn(
+          `Slow response: ${req.method} ${req.path} took ${duration}ms`,
+        );
+      }
+    });
+    next();
+  });
+
+  app.use(
+    compression({
+      level: 6, // Balanced compression level
+      threshold: 1024, // Only compress responses larger than 1KB
+      filter: (req, res) => {
+        // Don't compress if client doesn't support it
+        if (req.headers["x-no-compression"]) {
+          return false;
+        }
+        // Use compression filter function
+        return compression.filter(req, res);
+      },
+    }),
+  );
+
+  // CORS and body parsing middleware
+  app.use(cors());
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+  // Add performance headers to API responses
+  app.use("/api", (req, res, next) => {
+    // Enable caching for GET requests
+    if (req.method === "GET") {
+      res.setHeader("Cache-Control", "public, max-age=300"); // 5 minutes cache
+    } else {
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    }
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Vary", "Accept-Encoding");
+    next();
+  });
+
+  // Serve uploaded files statically with caching
+  app.use(
+    "/uploads",
+    express.static(paths.uploadsDir(), {
+      maxAge: "7d", // Cache for 7 days
+      etag: true,
+      lastModified: true,
+      setHeaders: (res, path) => {
+        // Add cache control headers
+        res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+        // Add compression hint
+        if (
+          path.endsWith(".js") ||
+          path.endsWith(".css") ||
+          path.endsWith(".html")
+        ) {
+          res.setHeader("Vary", "Accept-Encoding");
+        }
+      },
+    }),
+  );
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
@@ -141,11 +217,15 @@ export function createServer() {
 
   // Upload routes
   app.post("/api/upload", uploadFile);
+<<<<<<< HEAD
   app.post("/api/upload-multi", uploadMultiFormat);
   app.get("/api/image-formats/:filename", getImageFormats);
 
   // Debug route
   app.get("/api/debug/image-urls", getDebugImageUrls);
+=======
+  app.post("/api/upload/multi-format", uploadMultiFormat);
+>>>>>>> 0ac7e190463366ef15efe1e7bc34bef9e03b01ff
 
   // Hero section routes
   app.get("/api/hero", getHeroSection);
@@ -251,6 +331,7 @@ export function createServer() {
   app.post("/api/migrate-about", migrateAbout);
   app.post("/api/migrate-seo", migrateSEO);
   app.post("/api/migrate-pixels", migratePixels);
+  app.post("/api/migrate-multi-format", migrateMultiFormat);
 
   return app;
 }
